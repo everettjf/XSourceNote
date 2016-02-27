@@ -1,17 +1,17 @@
 //
-//  XBookmarkPreferencesWindowController.m
-//  XBookmark
+//  XSourceNotePreferencesWindowController.m
+//  XSourceNote
 //
 //  Created by everettjf on 10/30/15.
 //  Copyright © 2015 everettjf. All rights reserved.
 //
 
-#import "XBookmarkPreferencesWindowController.h"
+#import "XSourceNotePreferencesWindowController.h"
 #import "Shortcut.h"
-#import "XBookmarkDefaults.h"
-#import "XBookmarkUtil.h"
+#import "XSourceNoteDefaults.h"
+#import "XSourceNoteUtil.h"
 
-@interface XBookmarkPreferencesWindowController ()<NSWindowDelegate>
+@interface XSourceNotePreferencesWindowController ()<NSWindowDelegate>
 @property (weak) IBOutlet MASShortcutView *toggleShortcutView;
 @property (weak) IBOutlet MASShortcutView *nextShortcutView;
 @property (weak) IBOutlet MASShortcutView *prevShortcutView;
@@ -19,20 +19,20 @@
 
 @end
 
-@implementation XBookmarkPreferencesWindowController
+@implementation XSourceNotePreferencesWindowController
 
 -(instancetype)init{
-    return [self initWithWindowNibName:@"XBookmarkPreferencesWindowController"];
+    return [self initWithWindowNibName:@"XSourceNotePreferencesWindowController"];
 }
 
 - (void)windowDidLoad {
     [super windowDidLoad];
     
-    [[XBookmarkDefaults sharedDefaults] enableAllMenuShortcuts:NO];
+    [[XSourceNoteDefaults sharedDefaults] enableAllMenuShortcuts:NO];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:self.window];
     
-    XBookmarkDefaults *config = [XBookmarkDefaults sharedDefaults];
+    XSourceNoteDefaults *config = [XSourceNoteDefaults sharedDefaults];
     
     self.toggleShortcutView.shortcutValue = config.currentShortcutToggle;
     self.toggleShortcutView.shortcutValueChange = ^(MASShortcutView *sender){
@@ -60,7 +60,7 @@
 }
 
 -(void)windowWillClose:(NSNotification *)notification{
-    [[XBookmarkDefaults sharedDefaults] enableAllMenuShortcuts:YES];
+    [[XSourceNoteDefaults sharedDefaults] enableAllMenuShortcuts:YES];
 }
 
 

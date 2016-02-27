@@ -1,15 +1,15 @@
 //
-//  XBookmarkModel.m
-//  XBookmark
+//  XSourceNoteModel.m
+//  XSourceNote
 //
 //  Created by everettjf on 10/2/15.
 //  Copyright © 2015 everettjf. All rights reserved.
 //
 
-#import "XBookmarkModel.h"
-#import "XBookmarkUtil.h"
+#import "XSourceNoteModel.h"
+#import "XSourceNoteUtil.h"
 
-@implementation XBookmarkEntity
+@implementation XSourceNoteEntity
 
 -(instancetype)initWithSourcePath:(NSString *)sourcePath withLineNumber:(NSUInteger)lineNumber{
     self = [super init];
@@ -39,7 +39,7 @@
 
 @end
 
-@interface XBookmarkModel ()
+@interface XSourceNoteModel ()
 
 @property (nonatomic,strong) NSMutableArray *bookmarks;
 
@@ -48,13 +48,13 @@
 
 @end
 
-@implementation XBookmarkModel
+@implementation XSourceNoteModel
 
-+(XBookmarkModel *)sharedModel{
-    static XBookmarkModel *inst;
++(XSourceNoteModel *)sharedModel{
+    static XSourceNoteModel *inst;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        inst = [[XBookmarkModel alloc]init];
+        inst = [[XSourceNoteModel alloc]init];
     });
     return inst;
 }
@@ -68,23 +68,23 @@
     }
     return self;
 }
-static inline NSString* xbookmark_HashLine(NSString*sourcePath,NSUInteger lineNumber){
+static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger lineNumber){
     return [NSString stringWithFormat:@"%lu-%lu",lineNumber,[sourcePath hash]];
 }
 
--(void)insertObject:(XBookmarkEntity *)object inBookmarksAtIndex:(NSUInteger)index{
+-(void)insertObject:(XSourceNoteEntity *)object inBookmarksAtIndex:(NSUInteger)index{
     [_bookmarks insertObject:object atIndex:index];
-    [_markset addObject:xbookmark_HashLine(object.sourcePath, object.lineNumber)];
+    [_markset addObject:XSourceNote_HashLine(object.sourcePath, object.lineNumber)];
 }
 -(void)removeObjectFromBookmarksAtIndex:(NSUInteger)index{
-    XBookmarkEntity *object = [_bookmarks objectAtIndex:index];
+    XSourceNoteEntity *object = [_bookmarks objectAtIndex:index];
     if(nil == object)
         return;
     [_bookmarks removeObjectAtIndex:index];
-    [_markset removeObject:xbookmark_HashLine(object.sourcePath, object.lineNumber)];
+    [_markset removeObject:XSourceNote_HashLine(object.sourcePath, object.lineNumber)];
 }
 
--(void)addBookmark:(XBookmarkEntity *)bookmark{
+-(void)addBookmark:(XSourceNoteEntity *)bookmark{
     [self insertObject:bookmark inBookmarksAtIndex:self.bookmarks.count];
 }
 
@@ -96,7 +96,7 @@ static inline NSString* xbookmark_HashLine(NSString*sourcePath,NSUInteger lineNu
 }
 
 -(void)removeBookmark:(NSString *)sourcePath lineNumber:(NSUInteger)lineNumber{
-    [_bookmarks enumerateObjectsUsingBlock:^(XBookmarkEntity *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_bookmarks enumerateObjectsUsingBlock:^(XSourceNoteEntity *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if([sourcePath isEqualToString:obj.sourcePath] && lineNumber == obj.lineNumber){
             [self removeObjectFromBookmarksAtIndex:idx];
             *stop = YES;
@@ -105,10 +105,10 @@ static inline NSString* xbookmark_HashLine(NSString*sourcePath,NSUInteger lineNu
 }
 
 -(BOOL)hasBookmark:(NSString *)sourcePath lineNumber:(NSUInteger)lineNumber{
-    return [_markset containsObject:xbookmark_HashLine(sourcePath, lineNumber)];
+    return [_markset containsObject:XSourceNote_HashLine(sourcePath, lineNumber)];
 }
 
--(BOOL)toggleBookmark:(XBookmarkEntity *)bookmark{
+-(BOOL)toggleBookmark:(XSourceNoteEntity *)bookmark{
     if([self hasBookmark:bookmark.sourcePath lineNumber:bookmark.lineNumber]){
         [self removeBookmark:bookmark.sourcePath lineNumber:bookmark.lineNumber];
         return YES;
@@ -140,15 +140,15 @@ static inline NSString* xbookmark_HashLine(NSString*sourcePath,NSUInteger lineNu
 }
 -(void)refreshHashset{
     [_markset removeAllObjects];
-    [self.bookmarks enumerateObjectsUsingBlock:^(XBookmarkEntity* _Nonnull object, NSUInteger idx, BOOL * _Nonnull stop) {
-        [_markset addObject:xbookmark_HashLine(object.sourcePath, object.lineNumber)];
+    [self.bookmarks enumerateObjectsUsingBlock:^(XSourceNoteEntity* _Nonnull object, NSUInteger idx, BOOL * _Nonnull stop) {
+        [_markset addObject:XSourceNote_HashLine(object.sourcePath, object.lineNumber)];
     }];
 }
 
 
 -(NSString*)currentWorkspaceSettingFilePath{
     static NSString *cachedWorkspaceFilePath = nil;
-    NSString *workspaceFilePath = [XBookmarkUtil currentWorkspaceFilePath];
+    NSString *workspaceFilePath = [XSourceNoteUtil currentWorkspaceFilePath];
     if(workspaceFilePath == nil){
         workspaceFilePath = cachedWorkspaceFilePath;
     }else{
@@ -158,12 +158,12 @@ static inline NSString* xbookmark_HashLine(NSString*sourcePath,NSUInteger lineNu
     if(workspaceFilePath == nil)
         return nil;
     
-    NSString *settingFileName = [NSString stringWithFormat:@"%@-%lu.xbookmark",
+    NSString *settingFileName = [NSString stringWithFormat:@"%@-%lu.XSourceNote",
                                  [workspaceFilePath lastPathComponent],
                                  [workspaceFilePath hash]
                                  ];
     
-    return [[XBookmarkUtil settingDirectory] stringByAppendingPathComponent:settingFileName];
+    return [[XSourceNoteUtil settingDirectory] stringByAppendingPathComponent:settingFileName];
 }
 
 -(void)loadOnceBookmarks{

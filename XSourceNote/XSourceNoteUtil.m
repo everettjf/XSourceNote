@@ -1,33 +1,33 @@
 //
 //  XcodeUtil.m
-//  XBookmark
+//  XSourceNote
 //
 //  Created by everettjf on 9/29/15.
 //  Copyright © 2015 everettjf. All rights reserved.
 //
 
-#import "XBookmarkUtil.h"
+#import "XSourceNoteUtil.h"
 #import <objc/runtime.h>
 
-@implementation XBookmarkGlobal
+@implementation XSourceNoteGlobal
 
-+(XBookmarkGlobal *)shared{
-    static XBookmarkGlobal *inst;
++(XSourceNoteGlobal *)shared{
+    static XSourceNoteGlobal *inst;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        inst = [[XBookmarkGlobal alloc]init];
+        inst = [[XSourceNoteGlobal alloc]init];
     });
     return inst;
 }
 
 @end
 
-@implementation XBookmarkUtil
+@implementation XSourceNoteUtil
 
 
 + (IDEWorkspaceTabController*)tabController
 {
-    NSWindowController* currentWindowController = [XBookmarkUtil currentIDEWorkspaceWindowController];
+    NSWindowController* currentWindowController = [XSourceNoteUtil currentIDEWorkspaceWindowController];
     if ([currentWindowController
             isKindOfClass:NSClassFromString(@"IDEWorkspaceWindowController")]) {
         IDEWorkspaceWindowController* workspaceController = (IDEWorkspaceWindowController*)currentWindowController;
@@ -39,7 +39,7 @@
 
 + (id)currentEditor
 {
-    NSWindowController* currentWindowController = [XBookmarkUtil currentIDEWorkspaceWindowController];
+    NSWindowController* currentWindowController = [XSourceNoteUtil currentIDEWorkspaceWindowController];
     if ([currentWindowController
             isKindOfClass:NSClassFromString(@"IDEWorkspaceWindowController")]) {
         IDEWorkspaceWindowController* workspaceController = (IDEWorkspaceWindowController*)currentWindowController;
@@ -51,12 +51,12 @@
 }
 
 + (IDEWorkspace*)currentIDEWorkspace {
-    return (IDEWorkspace*) [[XBookmarkUtil currentIDEWorkspaceWindowController] valueForKey:@"_workspace"];
+    return (IDEWorkspace*) [[XSourceNoteUtil currentIDEWorkspaceWindowController] valueForKey:@"_workspace"];
 }
 
 + (IDEWorkspaceDocument*)currentWorkspaceDocument
 {
-    NSWindowController* currentWindowController = [XBookmarkUtil currentIDEWorkspaceWindowController];
+    NSWindowController* currentWindowController = [XSourceNoteUtil currentIDEWorkspaceWindowController];
     id document = [currentWindowController document];
     if (currentWindowController &&
         [document isKindOfClass:NSClassFromString(@"IDEWorkspaceDocument")]) {
@@ -86,7 +86,7 @@
 }
 
 +(NSString *)currentWorkspaceFilePath{
-    IDEWorkspaceDocument *document = [XBookmarkUtil currentWorkspaceDocument];
+    IDEWorkspaceDocument *document = [XSourceNoteUtil currentWorkspaceDocument];
     if(nil == document)
         return nil;
     DVTFilePath *workspacefilePath = document.workspace.representingFilePath;
@@ -125,17 +125,17 @@
 
 
 + (IDEWorkspaceWindowController*)currentIDEWorkspaceWindowController {
-    if([XBookmarkGlobal shared].mainWorkspaceWindowController == nil){
-        [XBookmarkGlobal shared].mainWorkspaceWindowController = (IDEWorkspaceWindowController *)[[NSApp mainWindow]windowController];
+    if([XSourceNoteGlobal shared].mainWorkspaceWindowController == nil){
+        [XSourceNoteGlobal shared].mainWorkspaceWindowController = (IDEWorkspaceWindowController *)[[NSApp mainWindow]windowController];
     }
-    return [XBookmarkGlobal shared].mainWorkspaceWindowController;
+    return [XSourceNoteGlobal shared].mainWorkspaceWindowController;
 }
 
 + (void)jumpToFileURL:(NSURL *)fileURL {
     DVTDocumentLocation *documentLocation = [[DVTDocumentLocation alloc] initWithDocumentURL:fileURL timestamp:nil];
-    IDEEditorOpenSpecifier *openSpecifier = [IDEEditorOpenSpecifier structureEditorOpenSpecifierForDocumentLocation:documentLocation inWorkspace:[XBookmarkUtil currentIDEWorkspace]
+    IDEEditorOpenSpecifier *openSpecifier = [IDEEditorOpenSpecifier structureEditorOpenSpecifierForDocumentLocation:documentLocation inWorkspace:[XSourceNoteUtil currentIDEWorkspace]
     error:nil];
-    [[XBookmarkUtil currentIDEWorkspaceWindowController].editorArea.lastActiveEditorContext openEditorOpenSpecifier:openSpecifier];
+    [[XSourceNoteUtil currentIDEWorkspaceWindowController].editorArea.lastActiveEditorContext openEditorOpenSpecifier:openSpecifier];
 }
 
 + (NSUInteger)locationRangeForTextView:(DVTSourceTextView*)textView forLine:(NSUInteger)lineNumber {
@@ -145,16 +145,16 @@
 }
 
 +(BOOL)openSourceFile:(NSString *)sourceFilePath highlightLineNumber:(NSUInteger)lineNumber{
-    NSString *currentPath = [XBookmarkUtil currentSourceCodeDocument].fileURL.path;
+    NSString *currentPath = [XSourceNoteUtil currentSourceCodeDocument].fileURL.path;
     if(![sourceFilePath isEqualToString:currentPath]){
         [self jumpToFileURL:[NSURL fileURLWithPath:sourceFilePath]];
     }
 
-    IDESourceCodeEditor *editor = [XBookmarkUtil currentEditor];
+    IDESourceCodeEditor *editor = [XSourceNoteUtil currentEditor];
     if (editor) {
         DVTSourceTextView* textView = editor.textView;
         
-        NSUInteger lineLocation = [XBookmarkUtil locationRangeForTextView:textView forLine:lineNumber-1];
+        NSUInteger lineLocation = [XSourceNoteUtil locationRangeForTextView:textView forLine:lineNumber-1];
         NSRange locationRange = NSMakeRange(lineLocation, 0);
         		
         [textView setSelectedRange:locationRange];
@@ -167,7 +167,7 @@
 + (NSString*)settingDirectory
 {
     NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    NSString* settingDirectory = [(NSString*)[paths firstObject] stringByAppendingPathComponent:@"XBookmark"];
+    NSString* settingDirectory = [(NSString*)[paths firstObject] stringByAppendingPathComponent:@"XSourceNote"];
     
     NSFileManager *fileManger = [NSFileManager defaultManager];
     if (![fileManger fileExistsAtPath:settingDirectory]) {

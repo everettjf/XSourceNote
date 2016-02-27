@@ -1,27 +1,27 @@
 //
-//  DVTTextSidebarView+XBookmark.m
-//  XBookmark
+//  DVTTextSidebarView+XSourceNote.m
+//  XSourceNote
 //
 //  Created by everettjf on 10/31/15.
 //  Copyright © 2015 everettjf. All rights reserved.
 //
 
-#import "DVTTextSidebarView+XBookmark.h"
+#import "DVTTextSidebarView+XSourceNote.h"
 #import "JRSwizzle.h"
 #import "IDEKit.h"
-#import "XBookmarkModel.h"
+#import "XSourceNoteModel.h"
 
-@implementation DVTTextSidebarView (XBookmark)
+@implementation DVTTextSidebarView (XSourceNote)
 
 +(void)load{
     NSError *error = nil;
     [DVTTextSidebarView jr_swizzleMethod:@selector(_drawLineNumbersInSidebarRect:foldedIndexes:count:linesToInvert:linesToReplace:getParaRectBlock:)
-                              withMethod:@selector(xbookmark_drawLineNumbersInSidebarRect:foldedIndexes:count:linesToInvert:linesToReplace:getParaRectBlock:)
+                              withMethod:@selector(XSourceNote_drawLineNumbersInSidebarRect:foldedIndexes:count:linesToInvert:linesToReplace:getParaRectBlock:)
                                    error:& error];
     
 }
 
-- (void)xbookmark_drawLineNumbersInSidebarRect:(CGRect)rect
+- (void)XSourceNote_drawLineNumbersInSidebarRect:(CGRect)rect
                                  foldedIndexes:(NSUInteger *)indexes
                                          count:(NSUInteger)indexCount
                                  linesToInvert:(id)invert
@@ -31,12 +31,12 @@
     
     for(NSUInteger idx = 0; idx < indexCount; ++idx){
         NSUInteger line = indexes[idx];
-        if([[XBookmarkModel sharedModel]hasBookmark:fileName lineNumber:line]){
-            [self xbookmark_drawBookmarkAtLine:line];
+        if([[XSourceNoteModel sharedModel]hasBookmark:fileName lineNumber:line]){
+            [self XSourceNote_drawBookmarkAtLine:line];
         }
     }
     
-    [self xbookmark_drawLineNumbersInSidebarRect:rect foldedIndexes:indexes count:indexCount linesToInvert:invert linesToReplace:replace getParaRectBlock:rectBlock];
+    [self XSourceNote_drawLineNumbersInSidebarRect:rect foldedIndexes:indexes count:indexCount linesToInvert:invert linesToReplace:replace getParaRectBlock:rectBlock];
 }
 
 static inline NSPoint NSPointRelativeTo(NSPoint point,NSPoint origin){
@@ -46,7 +46,7 @@ static inline NSPoint NSPointRelativeToXY(CGFloat x, CGFloat y,NSPoint origin){
     return NSPointRelativeTo(NSMakePoint(x, y),origin);
 }
 
--(void)xbookmark_drawBookmarkAtLine:(NSUInteger)lineNumber{
+-(void)XSourceNote_drawBookmarkAtLine:(NSUInteger)lineNumber{
     CGRect paragRect,lineRect;
     [self getParagraphRect:&paragRect firstLineRect:&lineRect forLineNumber:lineNumber];
     

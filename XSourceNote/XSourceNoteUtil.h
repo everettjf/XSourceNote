@@ -1,6 +1,6 @@
 //
 //  XcodeUtil.h
-//  XBookmark
+//  XSourceNote
 //
 //  Created by everettjf on 9/29/15.
 //  Copyright © 2015 everettjf. All rights reserved.
@@ -13,13 +13,13 @@
 #import "IDESourceEditor.h"
 
 // Helper globals
-@interface XBookmarkGlobal : NSObject
-+(XBookmarkGlobal*)shared;
+@interface XSourceNoteGlobal : NSObject
++(XSourceNoteGlobal*)shared;
 @property (nonatomic,weak) IDEWorkspaceWindowController *mainWorkspaceWindowController;
 @end
 
 
-@interface XBookmarkUtil : NSObject
+@interface XSourceNoteUtil : NSObject
 + (IDEWorkspaceDocument*)currentWorkspaceDocument;
 + (IDEWorkspaceTabController*)tabController;
 + (IDESourceCodeEditor*)currentEditor;

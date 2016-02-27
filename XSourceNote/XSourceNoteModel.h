@@ -1,6 +1,6 @@
 //
-//  XBookmarkModel.h
-//  XBookmark
+//  XSourceNoteModel.h
+//  XSourceNote
 //
 //  Created by everettjf on 10/2/15.
 //  Copyright © 2015 everettjf. All rights reserved.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface XBookmarkEntity : NSObject<NSCoding>
+@interface XSourceNoteEntity : NSObject<NSCoding>
 @property (nonatomic,strong) NSString *sourcePath;
 @property (nonatomic,assign) NSUInteger lineNumber;
 @property (nonatomic,strong) NSString *comment;
@@ -18,18 +18,18 @@
 @end
 
 
-@interface XBookmarkModel : NSObject
+@interface XSourceNoteModel : NSObject
 
-+(XBookmarkModel *)sharedModel;
++(XSourceNoteModel *)sharedModel;
 
 @property (nonatomic,strong,readonly) NSMutableArray *bookmarks;
 
--(void)addBookmark:(XBookmarkEntity*)bookmark;
+-(void)addBookmark:(XSourceNoteEntity*)bookmark;
 -(void)removeBookmark:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;
 -(BOOL)hasBookmark:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;
 -(void)clearBookmarks;
 
--(BOOL)toggleBookmark:(XBookmarkEntity*)bookmark;
+-(BOOL)toggleBookmark:(XSourceNoteEntity*)bookmark;
 
 -(void)saveBookmarks;
 -(void)loadBookmarks;
