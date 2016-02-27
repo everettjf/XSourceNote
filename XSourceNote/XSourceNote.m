@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong, readwrite) NSBundle *bundle;
 @property (nonatomic, strong) XSourceNoteWindowController *windowController;
-@property (nonatomic, assign) NSUInteger currentBookmarkIndex;
+@property (nonatomic, assign) NSUInteger currentNoteIndex;
 @end
 
 @implementation XSourceNote
@@ -32,8 +32,8 @@
         // reference to plugin's bundle, for resource access
         self.bundle = plugin;
         
-        // default to the first bookmark (if have bookmarks)
-        self.currentBookmarkIndex = 0;
+        // default to the first note (if have notes)
+        self.currentNoteIndex = 0;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didApplicationFinishLaunchingNotification:)
@@ -58,7 +58,7 @@
         
         {
             MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutToggle;
-            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Toggle Bookmark" action:@selector(toggleBookmark)
+            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Toggle Note" action:@selector(toggleNote)
                                                              keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
             [actionMenuItem setKeyEquivalentModifierMask:shortcut.modifierFlags];
             [actionMenuItem setTarget:self];
@@ -68,7 +68,7 @@
         }
         {
             MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutNext;
-            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Next Bookmark" action:@selector(nextBookmark)
+            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Next Note" action:@selector(nextNote)
                                                              keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
             [actionMenuItem setKeyEquivalentModifierMask:shortcut.modifierFlags];
             [actionMenuItem setTarget:self];
@@ -78,7 +78,7 @@
         }
         {
             MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutPrev;
-            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Previous Bookmark" action:@selector(previousBookmark)
+            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Previous Note" action:@selector(previousNote)
                                                              keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
             [actionMenuItem setKeyEquivalentModifierMask:shortcut.modifierFlags];
             [actionMenuItem setTarget:self];
@@ -88,7 +88,7 @@
         }
         {
             MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutShow;
-            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Show Bookmarks" action:@selector(showBookmarks)
+            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Show Notes" action:@selector(showNotes)
                                                              keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
             [actionMenuItem setKeyEquivalentModifierMask:shortcut.modifierFlags];
             [actionMenuItem setKeyEquivalentModifierMask:NSShiftKeyMask];
@@ -104,9 +104,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)toggleBookmark
+- (void)toggleNote
 {
-    [[XSourceNoteModel sharedModel]loadOnceBookmarks];
+    [[XSourceNoteModel sharedModel]loadOnceNotes];
     
     IDESourceCodeEditor* editor = [XSourceNoteUtil currentEditor];
     if ([editor isKindOfClass:[IDEEditorEmpty class]]) {
@@ -122,56 +122,56 @@
     // length of "file://" is 7
     NSString *sourcePath = [[editor.sourceCodeDocument.fileURL absoluteString] substringFromIndex:7];
     
-    XSourceNoteEntity *bookmark = [[XSourceNoteEntity alloc]initWithSourcePath:sourcePath withLineNumber:lineNumber];
-    [[XSourceNoteModel sharedModel]toggleBookmark:bookmark];
+    XSourceNoteEntity *note = [[XSourceNoteEntity alloc]initWithSourcePath:sourcePath withLineNumber:lineNumber];
+    [[XSourceNoteModel sharedModel]toggleNote:note];
     
-    [[XSourceNoteModel sharedModel]saveBookmarks];
+    [[XSourceNoteModel sharedModel]saveNotes];
     
-    // point to the new added bookmark
-    self.currentBookmarkIndex = [XSourceNoteModel sharedModel].notes.count - 1;
+    // point to the new added note
+    self.currentNoteIndex = [XSourceNoteModel sharedModel].notes.count - 1;
     
     [[editor valueForKey:@"_sidebarView"]setNeedsDisplay:YES];
 }
 
-- (void)nextBookmark{
-    [[XSourceNoteModel sharedModel]loadOnceBookmarks];
+- (void)nextNote{
+    [[XSourceNoteModel sharedModel]loadOnceNotes];
     
     XSourceNoteModel *model = [XSourceNoteModel sharedModel];
     if(model.notes.count == 0)
         return;
-    NSUInteger nextIndex = self.currentBookmarkIndex + 1;
+    NSUInteger nextIndex = self.currentNoteIndex + 1;
     if(nextIndex >= model.notes.count){
         // 如果超了就回到第一个
         nextIndex = 0;
     }
     
-    XSourceNoteEntity *bookmark = [model.notes objectAtIndex:nextIndex];
-    [XSourceNoteUtil openSourceFile:bookmark.sourcePath highlightLineNumber:bookmark.lineNumber];
-    self.currentBookmarkIndex = nextIndex;
+    XSourceNoteEntity *note = [model.notes objectAtIndex:nextIndex];
+    [XSourceNoteUtil openSourceFile:note.sourcePath highlightLineNumber:note.lineNumber];
+    self.currentNoteIndex = nextIndex;
 }
-- (void)previousBookmark{
-    [[XSourceNoteModel sharedModel]loadOnceBookmarks];
+- (void)previousNote{
+    [[XSourceNoteModel sharedModel]loadOnceNotes];
     
     XSourceNoteModel *model = [XSourceNoteModel sharedModel];
     if(model.notes.count == 0)
         return;
     NSUInteger previousIndex;
-    if(self.currentBookmarkIndex == 0){
+    if(self.currentNoteIndex == 0){
         // 如果已经是第一个，则到最后一个
         previousIndex = model.notes.count - 1;
     }else{
-        previousIndex = self.currentBookmarkIndex - 1;
+        previousIndex = self.currentNoteIndex - 1;
     }
     if(previousIndex >= model.notes.count){
         previousIndex = model.notes.count - 1;
     }
     
-    XSourceNoteEntity *bookmark = [model.notes objectAtIndex:previousIndex];
-    [XSourceNoteUtil openSourceFile:bookmark.sourcePath highlightLineNumber:bookmark.lineNumber];
-    self.currentBookmarkIndex = previousIndex;
+    XSourceNoteEntity *note = [model.notes objectAtIndex:previousIndex];
+    [XSourceNoteUtil openSourceFile:note.sourcePath highlightLineNumber:note.lineNumber];
+    self.currentNoteIndex = previousIndex;
 }
-- (void)showBookmarks{
-    [[XSourceNoteModel sharedModel]loadOnceBookmarks];
+- (void)showNotes{
+    [[XSourceNoteModel sharedModel]loadOnceNotes];
     
     if(self.windowController.window.isVisible){
         [self.windowController.window close];
@@ -185,7 +185,7 @@
         
         self.windowController.window.title = [[XSourceNoteUtil currentWorkspaceDocument].displayName stringByDeletingLastPathComponent];
         [self.windowController.window makeKeyAndOrderFront:nil];
-        [self.windowController refreshBookmarks];
+        [self.windowController refreshNotes];
     }
 }
 

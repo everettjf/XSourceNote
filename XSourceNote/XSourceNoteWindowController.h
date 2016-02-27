@@ -15,6 +15,6 @@
 
 @interface XSourceNoteWindowController : NSWindowController
 
--(void)refreshBookmarks;
+-(void)refreshNotes;
 
 @end

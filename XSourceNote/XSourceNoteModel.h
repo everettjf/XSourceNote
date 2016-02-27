@@ -24,17 +24,17 @@
 
 @property (nonatomic,strong,readonly) NSMutableArray *notes;
 
--(void)addBookmark:(XSourceNoteEntity*)bookmark;
--(void)removeBookmark:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;
--(BOOL)hasBookmark:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;
--(void)clearBookmarks;
+-(void)addNote:(XSourceNoteEntity*)note;
+-(void)removeNote:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;
+-(BOOL)hasNote:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;
+-(void)clearNotes;
 
--(BOOL)toggleBookmark:(XSourceNoteEntity*)bookmark;
+-(BOOL)toggleNote:(XSourceNoteEntity*)note;
 
--(void)saveBookmarks;
--(void)loadBookmarks;
+-(void)saveNotes;
+-(void)loadNotes;
 
--(void)loadOnceBookmarks;
+-(void)loadOnceNotes;
 
 
 @end

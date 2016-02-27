@@ -15,8 +15,8 @@
 @end
 
 @interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource>
-@property (weak) IBOutlet NSTableView *bookmarksTableView;
-@property (nonatomic,strong) NSArray *bookmarks;
+@property (weak) IBOutlet NSTableView *notesTableView;
+@property (nonatomic,strong) NSArray *notes;
 @property (nonatomic,strong) XSourceNotePreferencesWindowController *preferencesWindowController;
 
 @end
@@ -28,9 +28,9 @@
     
     self.window.level = NSFloatingWindowLevel;
     self.window.hidesOnDeactivate = YES;
-    self.bookmarksTableView.action = @selector(onTableViewClick:);
+    self.notesTableView.action = @selector(onTableViewClick:);
     
-    [self refreshBookmarks];
+    [self refreshNotes];
     
     [[XSourceNoteModel sharedModel] addObserver:self forKeyPath:@"notes" options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -41,57 +41,57 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     if([keyPath isEqualToString:@"notes"]){
-        [self refreshBookmarks];
+        [self refreshNotes];
     }
 }
 
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
     XSourceNoteTableCellView *cellView = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
-    if([tableColumn.identifier isEqualToString:@"BookmarkColumn"]){
-        XSourceNoteEntity *bookmark = [self.bookmarks objectAtIndex:row];
-        cellView.titleField.stringValue = [NSString stringWithFormat:@"%@:%lu",[bookmark.sourcePath lastPathComponent],bookmark.lineNumber];
-        cellView.subtitleField.stringValue = bookmark.sourcePath;
+    if([tableColumn.identifier isEqualToString:@"NoteColumn"]){
+        XSourceNoteEntity *note = [self.notes objectAtIndex:row];
+        cellView.titleField.stringValue = [NSString stringWithFormat:@"%@:%lu",[note.sourcePath lastPathComponent],note.lineNumber];
+        cellView.subtitleField.stringValue = note.sourcePath;
     }
     return cellView;
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{
-    return self.bookmarks.count;
+    return self.notes.count;
 }
 
 
--(void)refreshBookmarks{
-    self.bookmarks = [XSourceNoteModel sharedModel].notes;
-    [self.bookmarksTableView reloadData];
+-(void)refreshNotes{
+    self.notes = [XSourceNoteModel sharedModel].notes;
+    [self.notesTableView reloadData];
 }
 
--(XSourceNoteEntity*)selectedBookmark{
-    NSInteger selectedRow = self.bookmarksTableView.selectedRow;
-    if(selectedRow < 0 || selectedRow >= self.bookmarks.count){
+-(XSourceNoteEntity*)selectedNote{
+    NSInteger selectedRow = self.notesTableView.selectedRow;
+    if(selectedRow < 0 || selectedRow >= self.notes.count){
         return nil;
     }
     
-    XSourceNoteEntity *bookmark = [self.bookmarks objectAtIndex:selectedRow];
-    return bookmark;
+    XSourceNoteEntity *note = [self.notes objectAtIndex:selectedRow];
+    return note;
 }
 
 -(void)tableViewSelectionDidChange:(NSNotification *)notification{
 //    NSLog(@"selection did change");
 }
-- (IBAction)removeBookmarkClicked:(id)sender {
-    XSourceNoteEntity *bookmark = [self selectedBookmark];
-    if(nil == bookmark)
+- (IBAction)removeNoteClicked:(id)sender {
+    XSourceNoteEntity *note = [self selectedNote];
+    if(nil == note)
         return;
-    [[XSourceNoteModel sharedModel]removeBookmark:bookmark.sourcePath lineNumber:bookmark.lineNumber];
-    [[XSourceNoteModel sharedModel]saveBookmarks];
+    [[XSourceNoteModel sharedModel]removeNote:note.sourcePath lineNumber:note.lineNumber];
+    [[XSourceNoteModel sharedModel]saveNotes];
 }
-- (IBAction)clearBookmarkClicked:(id)sender {
+- (IBAction)clearNoteClicked:(id)sender {
     BOOL shouldClear = NO;
-    if(_bookmarks.count > 1){
+    if(_notes.count > 1){
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"OK"];
         [alert addButtonWithTitle:@"Cancel"];
-        [alert setMessageText:@"Clear all bookmarks ?"];
+        [alert setMessageText:@"Clear all notes ?"];
         [alert setAlertStyle:NSWarningAlertStyle];
         if ([alert runModal] == NSAlertFirstButtonReturn) {
             shouldClear = YES;
@@ -101,8 +101,8 @@
     }
     
     if(shouldClear){
-        [[XSourceNoteModel sharedModel]clearBookmarks];
-        [[XSourceNoteModel sharedModel]saveBookmarks];
+        [[XSourceNoteModel sharedModel]clearNotes];
+        [[XSourceNoteModel sharedModel]saveNotes];
     }
 }
 - (IBAction)helpClicked:(id)sender {
@@ -129,16 +129,16 @@
 
 -(void)onTableViewClick:(id)sender{
 //    NSLog(@"row click");
-    NSInteger row = self.bookmarksTableView.clickedRow;
-    if(row < 0 || row >= self.bookmarks.count)
+    NSInteger row = self.notesTableView.clickedRow;
+    if(row < 0 || row >= self.notes.count)
         return;
     
-    XSourceNoteEntity *bookmark = [self selectedBookmark];
-    if(nil == bookmark)
+    XSourceNoteEntity *note = [self selectedNote];
+    if(nil == note)
         return;
     
-    // locate bookmark
-    [XSourceNoteUtil openSourceFile:bookmark.sourcePath highlightLineNumber:bookmark.lineNumber];
+    // locate note
+    [XSourceNoteUtil openSourceFile:note.sourcePath highlightLineNumber:note.lineNumber];
 }
 - (IBAction)showPreferencesClicked:(id)sender {
     self.preferencesWindowController = [[XSourceNotePreferencesWindowController alloc]init];

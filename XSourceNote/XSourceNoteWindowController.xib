@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="XSourceNoteWindowController">
             <connections>
-                <outlet property="bookmarksTableView" destination="wDo-JK-DHS" id="Uud-Vm-jlh"/>
+                <outlet property="notesTableView" destination="wDo-JK-DHS" id="Uud-Vm-jlh"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -35,7 +34,7 @@
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="BookmarkColumn" width="398" minWidth="40" maxWidth="1000" id="eR8-rt-ZIO">
+                                        <tableColumn identifier="NoteColumn" width="398" minWidth="40" maxWidth="1000" id="eR8-rt-ZIO">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -128,7 +127,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="removeBookmarkClicked:" target="-2" id="mni-1s-lhI"/>
+                            <action selector="removeNoteClicked:" target="-2" id="mni-1s-lhI"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="neg-vI-q3e">
@@ -142,7 +141,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="clearBookmarkClicked:" target="-2" id="rql-9q-aDF"/>
+                            <action selector="clearNoteClicked:" target="-2" id="rql-9q-aDF"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="S4j-PF-bXo">

@@ -31,8 +31,8 @@
     
     for(NSUInteger idx = 0; idx < indexCount; ++idx){
         NSUInteger line = indexes[idx];
-        if([[XSourceNoteModel sharedModel]hasBookmark:fileName lineNumber:line]){
-            [self XSourceNote_drawBookmarkAtLine:line];
+        if([[XSourceNoteModel sharedModel]hasNote:fileName lineNumber:line]){
+            [self XSourceNote_drawNoteAtLine:line];
         }
     }
     
@@ -46,7 +46,7 @@ static inline NSPoint NSPointRelativeToXY(CGFloat x, CGFloat y,NSPoint origin){
     return NSPointRelativeTo(NSMakePoint(x, y),origin);
 }
 
--(void)XSourceNote_drawBookmarkAtLine:(NSUInteger)lineNumber{
+-(void)XSourceNote_drawNoteAtLine:(NSUInteger)lineNumber{
     CGRect paragRect,lineRect;
     [self getParagraphRect:&paragRect firstLineRect:&lineRect forLineNumber:lineNumber];
     

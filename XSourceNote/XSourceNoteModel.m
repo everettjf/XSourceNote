@@ -84,18 +84,18 @@ static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger line
     [_markset removeObject:XSourceNote_HashLine(object.sourcePath, object.lineNumber)];
 }
 
--(void)addBookmark:(XSourceNoteEntity *)bookmark{
-    [self insertObject:bookmark inNotesAtIndex:self.notes.count];
+-(void)addNote:(XSourceNoteEntity *)note{
+    [self insertObject:note inNotesAtIndex:self.notes.count];
 }
 
--(void)clearBookmarks{
+-(void)clearNotes{
     while(_notes.count > 0){
         [self removeObjectFromNotesAtIndex:_notes.count - 1];
     }
     [_markset removeAllObjects];
 }
 
--(void)removeBookmark:(NSString *)sourcePath lineNumber:(NSUInteger)lineNumber{
+-(void)removeNote:(NSString *)sourcePath lineNumber:(NSUInteger)lineNumber{
     [_notes enumerateObjectsUsingBlock:^(XSourceNoteEntity *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if([sourcePath isEqualToString:obj.sourcePath] && lineNumber == obj.lineNumber){
             [self removeObjectFromNotesAtIndex:idx];
@@ -104,20 +104,20 @@ static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger line
     }];
 }
 
--(BOOL)hasBookmark:(NSString *)sourcePath lineNumber:(NSUInteger)lineNumber{
+-(BOOL)hasNote:(NSString *)sourcePath lineNumber:(NSUInteger)lineNumber{
     return [_markset containsObject:XSourceNote_HashLine(sourcePath, lineNumber)];
 }
 
--(BOOL)toggleBookmark:(XSourceNoteEntity *)bookmark{
-    if([self hasBookmark:bookmark.sourcePath lineNumber:bookmark.lineNumber]){
-        [self removeBookmark:bookmark.sourcePath lineNumber:bookmark.lineNumber];
+-(BOOL)toggleNote:(XSourceNoteEntity *)note{
+    if([self hasNote:note.sourcePath lineNumber:note.lineNumber]){
+        [self removeNote:note.sourcePath lineNumber:note.lineNumber];
         return YES;
     }
-    [self addBookmark:bookmark];
+    [self addNote:note];
     return NO;
 }
 
--(void)saveBookmarks{
+-(void)saveNotes{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *workspace = [self currentWorkspaceSettingFilePath];
         if(workspace == nil)
@@ -130,7 +130,7 @@ static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger line
         }
     });
 }
--(void)loadBookmarks{
+-(void)loadNotes{
     NSArray *data = [NSKeyedUnarchiver unarchiveObjectWithFile:[self currentWorkspaceSettingFilePath]];
     if(nil == data)
         return;
@@ -166,10 +166,10 @@ static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger line
     return [[XSourceNoteUtil settingDirectory] stringByAppendingPathComponent:settingFileName];
 }
 
--(void)loadOnceBookmarks{
+-(void)loadOnceNotes{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self loadBookmarks];
+        [self loadNotes];
     });
 }
 
