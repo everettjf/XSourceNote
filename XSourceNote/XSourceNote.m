@@ -128,7 +128,7 @@
     [[XSourceNoteModel sharedModel]saveBookmarks];
     
     // point to the new added bookmark
-    self.currentBookmarkIndex = [XSourceNoteModel sharedModel].bookmarks.count - 1;
+    self.currentBookmarkIndex = [XSourceNoteModel sharedModel].notes.count - 1;
     
     [[editor valueForKey:@"_sidebarView"]setNeedsDisplay:YES];
 }
@@ -137,15 +137,15 @@
     [[XSourceNoteModel sharedModel]loadOnceBookmarks];
     
     XSourceNoteModel *model = [XSourceNoteModel sharedModel];
-    if(model.bookmarks.count == 0)
+    if(model.notes.count == 0)
         return;
     NSUInteger nextIndex = self.currentBookmarkIndex + 1;
-    if(nextIndex >= model.bookmarks.count){
+    if(nextIndex >= model.notes.count){
         // 如果超了就回到第一个
         nextIndex = 0;
     }
     
-    XSourceNoteEntity *bookmark = [model.bookmarks objectAtIndex:nextIndex];
+    XSourceNoteEntity *bookmark = [model.notes objectAtIndex:nextIndex];
     [XSourceNoteUtil openSourceFile:bookmark.sourcePath highlightLineNumber:bookmark.lineNumber];
     self.currentBookmarkIndex = nextIndex;
 }
@@ -153,20 +153,20 @@
     [[XSourceNoteModel sharedModel]loadOnceBookmarks];
     
     XSourceNoteModel *model = [XSourceNoteModel sharedModel];
-    if(model.bookmarks.count == 0)
+    if(model.notes.count == 0)
         return;
     NSUInteger previousIndex;
     if(self.currentBookmarkIndex == 0){
         // 如果已经是第一个，则到最后一个
-        previousIndex = model.bookmarks.count - 1;
+        previousIndex = model.notes.count - 1;
     }else{
         previousIndex = self.currentBookmarkIndex - 1;
     }
-    if(previousIndex >= model.bookmarks.count){
-        previousIndex = model.bookmarks.count - 1;
+    if(previousIndex >= model.notes.count){
+        previousIndex = model.notes.count - 1;
     }
     
-    XSourceNoteEntity *bookmark = [model.bookmarks objectAtIndex:previousIndex];
+    XSourceNoteEntity *bookmark = [model.notes objectAtIndex:previousIndex];
     [XSourceNoteUtil openSourceFile:bookmark.sourcePath highlightLineNumber:bookmark.lineNumber];
     self.currentBookmarkIndex = previousIndex;
 }

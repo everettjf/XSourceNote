@@ -41,7 +41,7 @@
 
 @interface XSourceNoteModel ()
 
-@property (nonatomic,strong) NSMutableArray *bookmarks;
+@property (nonatomic,strong) NSMutableArray *notes;
 
 // for fast check
 @property (nonatomic,strong) NSMutableSet<NSString*> *markset;
@@ -63,7 +63,7 @@
 {
     self = [super init];
     if (self) {
-        self.bookmarks = [[NSMutableArray alloc]init];
+        self.notes = [[NSMutableArray alloc]init];
         self.markset = [[NSMutableSet alloc]init];
     }
     return self;
@@ -72,33 +72,33 @@ static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger line
     return [NSString stringWithFormat:@"%lu-%lu",lineNumber,[sourcePath hash]];
 }
 
--(void)insertObject:(XSourceNoteEntity *)object inBookmarksAtIndex:(NSUInteger)index{
-    [_bookmarks insertObject:object atIndex:index];
+-(void)insertObject:(XSourceNoteEntity *)object inNotesAtIndex:(NSUInteger)index{
+    [_notes insertObject:object atIndex:index];
     [_markset addObject:XSourceNote_HashLine(object.sourcePath, object.lineNumber)];
 }
--(void)removeObjectFromBookmarksAtIndex:(NSUInteger)index{
-    XSourceNoteEntity *object = [_bookmarks objectAtIndex:index];
+-(void)removeObjectFromNotesAtIndex:(NSUInteger)index{
+    XSourceNoteEntity *object = [_notes objectAtIndex:index];
     if(nil == object)
         return;
-    [_bookmarks removeObjectAtIndex:index];
+    [_notes removeObjectAtIndex:index];
     [_markset removeObject:XSourceNote_HashLine(object.sourcePath, object.lineNumber)];
 }
 
 -(void)addBookmark:(XSourceNoteEntity *)bookmark{
-    [self insertObject:bookmark inBookmarksAtIndex:self.bookmarks.count];
+    [self insertObject:bookmark inNotesAtIndex:self.notes.count];
 }
 
 -(void)clearBookmarks{
-    while(_bookmarks.count > 0){
-        [self removeObjectFromBookmarksAtIndex:_bookmarks.count - 1];
+    while(_notes.count > 0){
+        [self removeObjectFromNotesAtIndex:_notes.count - 1];
     }
     [_markset removeAllObjects];
 }
 
 -(void)removeBookmark:(NSString *)sourcePath lineNumber:(NSUInteger)lineNumber{
-    [_bookmarks enumerateObjectsUsingBlock:^(XSourceNoteEntity *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_notes enumerateObjectsUsingBlock:^(XSourceNoteEntity *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if([sourcePath isEqualToString:obj.sourcePath] && lineNumber == obj.lineNumber){
-            [self removeObjectFromBookmarksAtIndex:idx];
+            [self removeObjectFromNotesAtIndex:idx];
             *stop = YES;
         }
     }];
@@ -123,10 +123,10 @@ static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger line
         if(workspace == nil)
             return;
         
-        if(self.bookmarks.count == 0){
+        if(self.notes.count == 0){
             [[NSFileManager defaultManager] removeItemAtPath:workspace error:nil];
         }else{
-            [NSKeyedArchiver archiveRootObject:self.bookmarks toFile:workspace];
+            [NSKeyedArchiver archiveRootObject:self.notes toFile:workspace];
         }
     });
 }
@@ -135,12 +135,12 @@ static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger line
     if(nil == data)
         return;
     
-    self.bookmarks = [data mutableCopy];
+    self.notes = [data mutableCopy];
     [self refreshHashset];
 }
 -(void)refreshHashset{
     [_markset removeAllObjects];
-    [self.bookmarks enumerateObjectsUsingBlock:^(XSourceNoteEntity* _Nonnull object, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.notes enumerateObjectsUsingBlock:^(XSourceNoteEntity* _Nonnull object, NSUInteger idx, BOOL * _Nonnull stop) {
         [_markset addObject:XSourceNote_HashLine(object.sourcePath, object.lineNumber)];
     }];
 }

@@ -17,16 +17,16 @@ static NSString * const kXSourceNoteDefaultsShortcutShow = @"XSourceNoteDefaults
 @implementation XSourceNoteDefaults
 
 +(MASShortcut *)defaultShortcutToggle{
-    return [MASShortcut shortcutWithKeyCode:kVK_F3 modifierFlags:0];
+    return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:0];
 }
 +(MASShortcut *)defaultShortcutNext{
-    return [MASShortcut shortcutWithKeyCode:kVK_F3 modifierFlags:NSCommandKeyMask];
+    return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSCommandKeyMask];
 }
 +(MASShortcut *)defaultShortcutPrev{
-    return [MASShortcut shortcutWithKeyCode:kVK_F3 modifierFlags:NSShiftKeyMask | NSControlKeyMask];
+    return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSShiftKeyMask | NSControlKeyMask];
 }
 +(MASShortcut *)defaultShortcutShow{
-    return [MASShortcut shortcutWithKeyCode:kVK_F3 modifierFlags:NSShiftKeyMask];
+    return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSShiftKeyMask];
 }
 
 +(XSourceNoteDefaults *)sharedDefaults{

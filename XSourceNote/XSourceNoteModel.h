@@ -22,7 +22,7 @@
 
 +(XSourceNoteModel *)sharedModel;
 
-@property (nonatomic,strong,readonly) NSMutableArray *bookmarks;
+@property (nonatomic,strong,readonly) NSMutableArray *notes;
 
 -(void)addBookmark:(XSourceNoteEntity*)bookmark;
 -(void)removeBookmark:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;

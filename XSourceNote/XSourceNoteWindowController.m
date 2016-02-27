@@ -32,15 +32,15 @@
     
     [self refreshBookmarks];
     
-    [[XSourceNoteModel sharedModel] addObserver:self forKeyPath:@"bookmarks" options:NSKeyValueObservingOptionNew context:nil];
+    [[XSourceNoteModel sharedModel] addObserver:self forKeyPath:@"notes" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)dealloc{
-    [[XSourceNoteModel sharedModel] removeObserver:self forKeyPath:@"bookmarks"];
+    [[XSourceNoteModel sharedModel] removeObserver:self forKeyPath:@"notes"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    if([keyPath isEqualToString:@"bookmarks"]){
+    if([keyPath isEqualToString:@"notes"]){
         [self refreshBookmarks];
     }
 }
@@ -61,7 +61,7 @@
 
 
 -(void)refreshBookmarks{
-    self.bookmarks = [XSourceNoteModel sharedModel].bookmarks;
+    self.bookmarks = [XSourceNoteModel sharedModel].notes;
     [self.bookmarksTableView reloadData];
 }
 
