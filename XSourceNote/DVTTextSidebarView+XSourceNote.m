@@ -45,29 +45,20 @@ static inline NSPoint NSPointRelativeTo(NSPoint point,NSPoint origin){
 static inline NSPoint NSPointRelativeToXY(CGFloat x, CGFloat y,NSPoint origin){
     return NSPointRelativeTo(NSMakePoint(x, y),origin);
 }
+static inline NSRect NSRectRelativeTo(NSRect rect,NSPoint origin){
+    return NSMakeRect(origin.x + rect.origin.x, origin.y + rect.origin.y,rect.size.width,rect.size.height);
+}
 
 -(void)XSourceNote_drawNoteAtLine:(NSUInteger)lineNumber{
     CGRect paragRect,lineRect;
     [self getParagraphRect:&paragRect firstLineRect:&lineRect forLineNumber:lineNumber];
     
     //// Color Declarations
-    NSColor* color = [NSColor colorWithCalibratedRed: 0.948 green: 0.664 blue: 0.107 alpha: 1];
-    
-    //// Star Drawing
-    NSBezierPath* starPath = NSBezierPath.bezierPath;
-    [starPath moveToPoint: NSPointRelativeToXY(8.5, 0,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(11.02, 5.03,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(16.58, 5.87,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(12.58, 9.82,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(13.5, 15.38,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(8.5, 12.79,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(3.5, 15.38,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(4.42, 9.82,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(0.42, 5.87,lineRect.origin)];
-    [starPath lineToPoint: NSPointRelativeToXY(5.98, 5.03,lineRect.origin)];
-    [starPath closePath];
+    NSColor* color = [NSColor colorWithCalibratedRed: 0.389 green: 0.994 blue: 0.356 alpha: 1];
+    //// Rectangle Drawing
+    NSBezierPath* rectanglePath = [NSBezierPath bezierPathWithRect: NSRectRelativeTo(NSMakeRect(0, 0, 4, lineRect.size.height), lineRect.origin)];
     [color setFill];
-    [starPath fill];
+    [rectanglePath fill];
 }
 
 @end

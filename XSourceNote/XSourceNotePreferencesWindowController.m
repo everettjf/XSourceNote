@@ -40,18 +40,6 @@
         [config synchronize];
     };
     
-    self.nextShortcutView.shortcutValue = config.currentShortcutNext;
-    self.nextShortcutView.shortcutValueChange = ^(MASShortcutView *sender){
-        config.currentShortcutNext = sender.shortcutValue;
-        [config synchronize];
-    };
-    
-    self.prevShortcutView.shortcutValue = config.currentShortcutPrev;
-    self.prevShortcutView.shortcutValueChange = ^(MASShortcutView *sender){
-        config.currentShortcutPrev = sender.shortcutValue;
-        [config synchronize];
-    };
-    
     self.showShortcutView.shortcutValue = config.currentShortcutShow;
     self.showShortcutView.shortcutValueChange = ^(MASShortcutView *sender){
         config.currentShortcutShow = sender.shortcutValue;

@@ -17,13 +17,7 @@ static NSString * const kXSourceNoteDefaultsShortcutShow = @"XSourceNoteDefaults
 @implementation XSourceNoteDefaults
 
 +(MASShortcut *)defaultShortcutToggle{
-    return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:0];
-}
-+(MASShortcut *)defaultShortcutNext{
     return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSCommandKeyMask];
-}
-+(MASShortcut *)defaultShortcutPrev{
-    return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSShiftKeyMask | NSControlKeyMask];
 }
 +(MASShortcut *)defaultShortcutShow{
     return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSShiftKeyMask];
@@ -50,8 +44,6 @@ static NSString * const kXSourceNoteDefaultsShortcutShow = @"XSourceNoteDefaults
     self = [super init];
     if (self) {
         self.currentShortcutToggle = [XSourceNoteDefaults defaultShortcutToggle];
-        self.currentShortcutNext = [XSourceNoteDefaults defaultShortcutNext];
-        self.currentShortcutPrev = [XSourceNoteDefaults defaultShortcutPrev];
         self.currentShortcutShow = [XSourceNoteDefaults defaultShortcutShow];
     }
     return self;
@@ -65,16 +57,12 @@ static NSString * const kXSourceNoteDefaultsShortcutShow = @"XSourceNoteDefaults
     self = [super init];
     if(self){
         self.currentShortcutToggle = [aDecoder decodeObjectForKey:kXSourceNoteDefaultsShortcutToggle];
-        self.currentShortcutNext = [aDecoder decodeObjectForKey:kXSourceNoteDefaultsShortcutNext];
-        self.currentShortcutPrev = [aDecoder decodeObjectForKey:kXSourceNoteDefaultsShortcutPrev];
         self.currentShortcutShow = [aDecoder decodeObjectForKey:kXSourceNoteDefaultsShortcutShow];
     }
     return self;
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.currentShortcutToggle forKey:kXSourceNoteDefaultsShortcutToggle];
-    [aCoder encodeObject:self.currentShortcutNext forKey:kXSourceNoteDefaultsShortcutNext];
-    [aCoder encodeObject:self.currentShortcutPrev forKey:kXSourceNoteDefaultsShortcutPrev];
     [aCoder encodeObject:self.currentShortcutShow forKey:kXSourceNoteDefaultsShortcutShow];
 }
 
@@ -83,19 +71,11 @@ static NSString * const kXSourceNoteDefaultsShortcutShow = @"XSourceNoteDefaults
         self.toggleMenuItem.keyEquivalent = self.currentShortcutToggle.keyCodeStringForKeyEquivalent;
         self.toggleMenuItem.keyEquivalentModifierMask = self.currentShortcutToggle.modifierFlags;
         
-        self.nextMenuItem.keyEquivalent = self.currentShortcutNext.keyCodeStringForKeyEquivalent;
-        self.nextMenuItem.keyEquivalentModifierMask = self.currentShortcutNext.modifierFlags;
-        
-        self.prevMenuItem.keyEquivalent = self.currentShortcutPrev.keyCodeStringForKeyEquivalent;
-        self.prevMenuItem.keyEquivalentModifierMask = self.currentShortcutPrev.modifierFlags;
-        
         self.showMenuItem.keyEquivalent = self.currentShortcutShow.keyCodeStringForKeyEquivalent;
         self.showMenuItem.keyEquivalentModifierMask = self.currentShortcutShow.modifierFlags;
     }else{
         NSArray *menus = @[
                            self.toggleMenuItem,
-                           self.nextMenuItem,
-                           self.prevMenuItem,
                            self.showMenuItem
                            ];
         for (NSMenuItem *menu in menus){

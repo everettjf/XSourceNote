@@ -1,2 +1,13 @@
 # XSourceNote
-Writing note when you are reading a source code, and generating a markdown or html article for you. ( An Xcode Plugin)
+- It is an Xcode plugin.
+- It is used for writing notes when reading a source code in Xcode.
+- It can generating a markdown article.
+
+# Todo
+
+- [X] Get the current line
+- [ ] Get the range of selected lines
+- [X] Note icon in the sidebar
+- [ ] CoreData model design , and saving
+- [ ] Testing
+- [ ] 0.1 Version

@@ -67,26 +67,6 @@
             [XSourceNoteDefaults sharedDefaults].toggleMenuItem = actionMenuItem;
         }
         {
-            MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutNext;
-            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Next Note" action:@selector(nextNote)
-                                                             keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
-            [actionMenuItem setKeyEquivalentModifierMask:shortcut.modifierFlags];
-            [actionMenuItem setTarget:self];
-            [[mainMenu submenu] addItem:actionMenuItem];
-            
-            [XSourceNoteDefaults sharedDefaults].nextMenuItem = actionMenuItem;
-        }
-        {
-            MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutPrev;
-            NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Previous Note" action:@selector(previousNote)
-                                                             keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
-            [actionMenuItem setKeyEquivalentModifierMask:shortcut.modifierFlags];
-            [actionMenuItem setTarget:self];
-            [[mainMenu submenu] addItem:actionMenuItem];
-            
-            [XSourceNoteDefaults sharedDefaults].prevMenuItem = actionMenuItem;
-        }
-        {
             MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutShow;
             NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Show Notes" action:@selector(showNotes)
                                                              keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
