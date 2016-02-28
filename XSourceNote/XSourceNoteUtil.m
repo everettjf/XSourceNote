@@ -175,6 +175,16 @@
     }
     return settingDirectory;
 }
++ (NSString *)notesDirectory{
+    NSString *settingDir = [XSourceNoteUtil settingDirectory];
+    NSString *notesDir = [settingDir stringByAppendingPathComponent:@"Notes"];
+    
+    NSFileManager *fileManger = [NSFileManager defaultManager];
+    if (![fileManger fileExistsAtPath:notesDir]) {
+        [fileManger createDirectoryAtPath:notesDir withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return notesDir;
+}
 
 
 @end

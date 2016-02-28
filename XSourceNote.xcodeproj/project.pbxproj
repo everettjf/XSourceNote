@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D1269DF91C83584200C6F728 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D1269DF81C83584200C6F728 /* README.md */; };
+		D1269DFE1C8369CE00C6F728 /* Note+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D1269DFB1C8369CE00C6F728 /* Note+CoreDataProperties.m */; };
+		D1269DFF1C8369CE00C6F728 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D1269DFD1C8369CE00C6F728 /* Note.m */; };
 		D1AA5D881C820788005DC6A7 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D871C820788005DC6A7 /* JRSwizzle.m */; };
 		D1AA5D9E1C820799005DC6A7 /* MASDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D8B1C820799005DC6A7 /* MASDictionaryTransformer.m */; };
 		D1AA5D9F1C820799005DC6A7 /* MASHotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D8D1C820799005DC6A7 /* MASHotKey.m */; };
@@ -69,6 +71,10 @@
 
 /* Begin PBXFileReference section */
 		D1269DF81C83584200C6F728 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D1269DFA1C8369CE00C6F728 /* Note+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Note+CoreDataProperties.h"; path = "Storage/Note+CoreDataProperties.h"; sourceTree = "<group>"; };
+		D1269DFB1C8369CE00C6F728 /* Note+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Note+CoreDataProperties.m"; path = "Storage/Note+CoreDataProperties.m"; sourceTree = "<group>"; };
+		D1269DFC1C8369CE00C6F728 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = Storage/Note.h; sourceTree = "<group>"; };
+		D1269DFD1C8369CE00C6F728 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Note.m; path = Storage/Note.m; sourceTree = "<group>"; };
 		D1AA5D861C820788005DC6A7 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		D1AA5D871C820788005DC6A7 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		D1AA5D8A1C820799005DC6A7 /* MASDictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASDictionaryTransformer.h; sourceTree = "<group>"; };
@@ -258,6 +264,10 @@
 		D1AA5DAE1C8208C9005DC6A7 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				D1269DFA1C8369CE00C6F728 /* Note+CoreDataProperties.h */,
+				D1269DFB1C8369CE00C6F728 /* Note+CoreDataProperties.m */,
+				D1269DFC1C8369CE00C6F728 /* Note.h */,
+				D1269DFD1C8369CE00C6F728 /* Note.m */,
 				D1AA5DAF1C8208F8005DC6A7 /* XSourceNote.xcdatamodeld */,
 			);
 			name = Storage;
@@ -485,6 +495,7 @@
 				D1AA5EF61C8220B8005DC6A7 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				D1AA5EE71C8220B8005DC6A7 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				D1AA5DA01C820799005DC6A7 /* MASLocalization.m in Sources */,
+				D1269DFE1C8369CE00C6F728 /* Note+CoreDataProperties.m in Sources */,
 				D1AA5EF81C8220B8005DC6A7 /* NSString+MagicalDataImport.m in Sources */,
 				D1AA5EED1C8220B8005DC6A7 /* NSManagedObjectContext+MagicalChainSave.m in Sources */,
 				D1AA5EF71C8220B8005DC6A7 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
@@ -505,6 +516,7 @@
 				D1AA5EEE1C8220B8005DC6A7 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				D1AA5DA51C820799005DC6A7 /* MASShortcutView+Bindings.m in Sources */,
 				D1AF1FC51C664BD100CECB8B /* XSourceNote.m in Sources */,
+				D1269DFF1C8369CE00C6F728 /* Note.m in Sources */,
 				D1AA5D881C820788005DC6A7 /* JRSwizzle.m in Sources */,
 				D1AA5EF31C8220B8005DC6A7 /* NSNumber+MagicalDataImport.m in Sources */,
 				D1AA5EDF1C8220B8005DC6A7 /* MagicalRecord+Actions.m in Sources */,

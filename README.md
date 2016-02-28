@@ -9,5 +9,6 @@
 - [ ] Get the range of selected lines
 - [X] Note icon in the sidebar
 - [ ] CoreData model design , and saving
+- [ ] Relative file path (root as nearest .git directory)
 - [ ] Testing
 - [ ] 0.1 Version

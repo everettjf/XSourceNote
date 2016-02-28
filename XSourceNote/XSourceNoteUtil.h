@@ -34,5 +34,6 @@
 + (BOOL)openSourceFile:(NSString*)sourceFilePath highlightLineNumber:(NSUInteger)lineNumber;
 
 + (NSString*)settingDirectory;
++ (NSString*)notesDirectory;
 
 @end
