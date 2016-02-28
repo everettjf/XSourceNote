@@ -97,12 +97,18 @@
         return;
     
     NSRange range = [textView.selectedRanges[0] rangeValue];
-    NSUInteger lineNumber = [[[textView string]substringToIndex:range.location]componentsSeparatedByString:@"\n"].count;
+    NSUInteger startLineNumber = [[[textView string]substringToIndex:range.location]componentsSeparatedByString:@"\n"].count;
+    NSUInteger endLineNumber = startLineNumber;
+    if(range.length > 0){
+        endLineNumber = [[[textView string]substringToIndex:range.location + range.length]componentsSeparatedByString:@"\n"].count;
+    }
+    NSLog(@"range = (%@,%@) , startLine = %@, endLine = %@",
+          @(range.location), @(range.length), @(startLineNumber),@(endLineNumber));
     
     // length of "file://" is 7
     NSString *sourcePath = [[editor.sourceCodeDocument.fileURL absoluteString] substringFromIndex:7];
     
-    XSourceNoteEntity *note = [[XSourceNoteEntity alloc]initWithSourcePath:sourcePath withLineNumber:lineNumber];
+    XSourceNoteEntity *note = [[XSourceNoteEntity alloc]initWithSourcePath:sourcePath withLineNumber:startLineNumber];
     [[XSourceNoteModel sharedModel]toggleNote:note];
     
     [[XSourceNoteModel sharedModel]saveNotes];
