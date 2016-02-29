@@ -10,6 +10,9 @@
 		D1269DF91C83584200C6F728 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D1269DF81C83584200C6F728 /* README.md */; };
 		D1269DFE1C8369CE00C6F728 /* Note+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D1269DFB1C8369CE00C6F728 /* Note+CoreDataProperties.m */; };
 		D1269DFF1C8369CE00C6F728 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D1269DFD1C8369CE00C6F728 /* Note.m */; };
+		D1269E021C84ACBB00C6F728 /* XSourceNoteStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = D1269E011C84ACBB00C6F728 /* XSourceNoteStorage.m */; };
+		D1269E071C84B64900C6F728 /* Store+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D1269E041C84B64900C6F728 /* Store+CoreDataProperties.m */; };
+		D1269E081C84B64900C6F728 /* Store.m in Sources */ = {isa = PBXBuildFile; fileRef = D1269E061C84B64900C6F728 /* Store.m */; };
 		D1AA5D881C820788005DC6A7 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D871C820788005DC6A7 /* JRSwizzle.m */; };
 		D1AA5D9E1C820799005DC6A7 /* MASDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D8B1C820799005DC6A7 /* MASDictionaryTransformer.m */; };
 		D1AA5D9F1C820799005DC6A7 /* MASHotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D8D1C820799005DC6A7 /* MASHotKey.m */; };
@@ -75,6 +78,12 @@
 		D1269DFB1C8369CE00C6F728 /* Note+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Note+CoreDataProperties.m"; path = "Storage/Note+CoreDataProperties.m"; sourceTree = "<group>"; };
 		D1269DFC1C8369CE00C6F728 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = Storage/Note.h; sourceTree = "<group>"; };
 		D1269DFD1C8369CE00C6F728 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Note.m; path = Storage/Note.m; sourceTree = "<group>"; };
+		D1269E001C84ACBB00C6F728 /* XSourceNoteStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSourceNoteStorage.h; sourceTree = "<group>"; };
+		D1269E011C84ACBB00C6F728 /* XSourceNoteStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSourceNoteStorage.m; sourceTree = "<group>"; };
+		D1269E031C84B64900C6F728 /* Store+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Store+CoreDataProperties.h"; path = "Storage/Store+CoreDataProperties.h"; sourceTree = "<group>"; };
+		D1269E041C84B64900C6F728 /* Store+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Store+CoreDataProperties.m"; path = "Storage/Store+CoreDataProperties.m"; sourceTree = "<group>"; };
+		D1269E051C84B64900C6F728 /* Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Store.h; path = Storage/Store.h; sourceTree = "<group>"; };
+		D1269E061C84B64900C6F728 /* Store.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Store.m; path = Storage/Store.m; sourceTree = "<group>"; };
 		D1AA5D861C820788005DC6A7 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		D1AA5D871C820788005DC6A7 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		D1AA5D8A1C820799005DC6A7 /* MASDictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASDictionaryTransformer.h; sourceTree = "<group>"; };
@@ -264,11 +273,17 @@
 		D1AA5DAE1C8208C9005DC6A7 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				D1269E031C84B64900C6F728 /* Store+CoreDataProperties.h */,
+				D1269E041C84B64900C6F728 /* Store+CoreDataProperties.m */,
+				D1269E051C84B64900C6F728 /* Store.h */,
+				D1269E061C84B64900C6F728 /* Store.m */,
 				D1269DFA1C8369CE00C6F728 /* Note+CoreDataProperties.h */,
 				D1269DFB1C8369CE00C6F728 /* Note+CoreDataProperties.m */,
 				D1269DFC1C8369CE00C6F728 /* Note.h */,
 				D1269DFD1C8369CE00C6F728 /* Note.m */,
 				D1AA5DAF1C8208F8005DC6A7 /* XSourceNote.xcdatamodeld */,
+				D1269E001C84ACBB00C6F728 /* XSourceNoteStorage.h */,
+				D1269E011C84ACBB00C6F728 /* XSourceNoteStorage.m */,
 			);
 			name = Storage;
 			sourceTree = "<group>";
@@ -498,12 +513,14 @@
 				D1269DFE1C8369CE00C6F728 /* Note+CoreDataProperties.m in Sources */,
 				D1AA5EF81C8220B8005DC6A7 /* NSString+MagicalDataImport.m in Sources */,
 				D1AA5EED1C8220B8005DC6A7 /* NSManagedObjectContext+MagicalChainSave.m in Sources */,
+				D1269E071C84B64900C6F728 /* Store+CoreDataProperties.m in Sources */,
 				D1AA5EF71C8220B8005DC6A7 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				D1AA5EF21C8220B8005DC6A7 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				D1AA5DA11C820799005DC6A7 /* MASShortcut.m in Sources */,
 				D1AA5EE31C8220B8005DC6A7 /* MagicalRecord+Setup.m in Sources */,
 				D1269DF91C83584200C6F728 /* README.md in Sources */,
 				D1AA5DC51C8209D2005DC6A7 /* XSourceNoteUtil.m in Sources */,
+				D1269E081C84B64900C6F728 /* Store.m in Sources */,
 				D1AA5EDE1C8220B8005DC6A7 /* MagicalImportFunctions.m in Sources */,
 				D1AA5EEA1C8220B8005DC6A7 /* NSManagedObject+MagicalFinders.m in Sources */,
 				D1AA5DC61C8209D2005DC6A7 /* XSourceNoteWindowController.m in Sources */,
@@ -521,6 +538,7 @@
 				D1AA5EF31C8220B8005DC6A7 /* NSNumber+MagicalDataImport.m in Sources */,
 				D1AA5EDF1C8220B8005DC6A7 /* MagicalRecord+Actions.m in Sources */,
 				D1AA5EEF1C8220B8005DC6A7 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				D1269E021C84ACBB00C6F728 /* XSourceNoteStorage.m in Sources */,
 				D1AA5DA31C820799005DC6A7 /* MASShortcutMonitor.m in Sources */,
 				D1AA5DB11C8208F8005DC6A7 /* XSourceNote.xcdatamodeld in Sources */,
 				D1AA5EE21C8220B8005DC6A7 /* MagicalRecord+Options.m in Sources */,

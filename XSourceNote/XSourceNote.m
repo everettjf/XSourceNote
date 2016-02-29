@@ -11,6 +11,7 @@
 #import "XSourceNoteModel.h"
 #import "XSourceNoteWindowController.h"
 #import "XSourceNoteDefaults.h"
+#import "XSourceNoteStorage.h"
 
 @interface XSourceNote()
 
