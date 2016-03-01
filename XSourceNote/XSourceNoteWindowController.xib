@@ -64,10 +64,10 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="minSize" width="563" height="325"/>
-                                                        <size key="maxSize" width="563" height="10000000"/>
+                                                        <size key="maxSize" width="565" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="563" height="325"/>
-                                                        <size key="maxSize" width="563" height="10000000"/>
+                                                        <size key="maxSize" width="565" height="10000000"/>
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -176,10 +176,10 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="minSize" width="563" height="527"/>
-                                                        <size key="maxSize" width="563" height="10000000"/>
+                                                        <size key="maxSize" width="565" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="563" height="527"/>
-                                                        <size key="maxSize" width="563" height="10000000"/>
+                                                        <size key="maxSize" width="565" height="10000000"/>
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -220,7 +220,7 @@
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX4-n7-wVT">
                                             <rect key="frame" x="5" y="5" width="565" height="550"/>
                                             <clipView key="contentView" id="FBQ-EV-Vna">
-                                                <rect key="frame" x="1" y="23" width="563" height="526"/>
+                                                <rect key="frame" x="1" y="0.0" width="563" height="549"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="WLB-Zm-flL" viewBased="YES" indentationPerLevel="16" outlineTableColumn="pe3-6L-k6d" id="P2c-SK-mjy">
@@ -303,7 +303,7 @@
                                                 <rect key="frame" x="1" y="119" width="223" height="15"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="V4Q-vY-K9K">
+                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="V4Q-vY-K9K">
                                                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
@@ -337,10 +337,10 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="minSize" width="563" height="522"/>
-                                                        <size key="maxSize" width="563" height="10000000"/>
+                                                        <size key="maxSize" width="565" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="563" height="522"/>
-                                                        <size key="maxSize" width="563" height="10000000"/>
+                                                        <size key="maxSize" width="565" height="10000000"/>
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

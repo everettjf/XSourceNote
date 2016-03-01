@@ -143,6 +143,17 @@
     self.projectNameTextField.stringValue = st.projectName;
     self.officialSiteTextField.stringValue = st.projectSite;
     self.descriptionTextView.string = st.projectDescription;
+    
+    self.projectNoteTextView.string = st.projectNote;
+    self.summarizeTextView.string = st.projectSummarize;
+}
+- (IBAction)saveProjectNote:(id)sender {
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
+    st.projectNote = self.projectNoteTextView.string;
+}
+- (IBAction)saveSummarize:(id)sender {
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
+    st.projectSummarize = self.summarizeTextView.string;
 }
 
 @end
