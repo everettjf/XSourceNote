@@ -49,6 +49,7 @@
         NSLog(@"xs:Database is not ready");
     }
     
+    [self refreshTabInformation];
     [self refreshNotes];
     
 }
@@ -127,9 +128,21 @@
     [self.preferencesWindowController.window makeKeyAndOrderFront:sender];
 }
 - (IBAction)saveInformationClicked:(id)sender {
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     
-    [[XSourceNoteModel sharedModel] saveValue:@"hello" forKey:@"key1"];
+    st.projectUniqueAddress = self.uniqueVersionAddressTextField.stringValue;
+    st.projectName = self.projectNameTextField.stringValue;
+    st.projectSite = self.officialSiteTextField.stringValue;
+    st.projectDescription = self.descriptionTextView.string;
+}
+
+- (void)refreshTabInformation{
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     
+    self.uniqueVersionAddressTextField.stringValue = st.projectUniqueAddress;
+    self.projectNameTextField.stringValue = st.projectName;
+    self.officialSiteTextField.stringValue = st.projectSite;
+    self.descriptionTextView.string = st.projectDescription;
 }
 
 @end

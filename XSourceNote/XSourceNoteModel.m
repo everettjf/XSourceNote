@@ -178,21 +178,5 @@ static inline NSString* XSourceNote_HashLine(NSString*sourcePath,NSUInteger line
 
 
 
-- (void)saveValue:(NSString *)value forKey:(NSString *)key{
-    Store *store = [Store MR_findFirstOrCreateByAttribute:@"key" withValue:key];
-    if(!store) return;
-
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-    } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
-        if(error) NSLog(@"Error = %@", error);
-    }];
-}
-
-- (NSString *)readValueForKey:(NSString *)key{
-    Store *store = [Store MR_findFirstByAttribute:@"key" withValue:key];
-    if(!store) return nil;
-    NSLog(@"xs:key = %@ ,value = %@", store.key ,store.value );
-    return store.value;
-}
 
 @end

@@ -8,8 +8,15 @@
 
 #import "XSourceNoteStorage.h"
 #import "XSourceNoteUtil.h"
+#import "Store.h"
+#import "Note.h"
 
 static NSString * const kStoreKeyProjectUniqueAddress = @"ProjectUniqueAddress";
+static NSString * const kStoreKeyProjectName = @"ProjectName";
+static NSString * const kStoreKeyProjectSite = @"ProjectSite";
+static NSString * const kStoreKeyProjectDescription = @"ProjectDescription";
+static NSString * const kStoreKeyProjectNote = @"ProjectNote";
+static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
 
 @interface XSourceNoteStorage ()
 {
@@ -72,10 +79,70 @@ static NSString * const kStoreKeyProjectUniqueAddress = @"ProjectUniqueAddress";
     [NSPersistentStoreCoordinator MR_setDefaultStoreCoordinator:coordinator];
     [NSManagedObjectContext MR_initializeDefaultContextWithCoordinator:coordinator];
     
-//    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:self.notePath];
-    
     _dbReady = YES;
     return YES;
+}
+
+- (void)_saveValue:(NSString *)value forKey:(NSString *)key{
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+        Store *store = [Store MR_findFirstOrCreateByAttribute:@"key" withValue:key inContext:localContext];
+        if(!store) return;
+        store.value = value;
+    }];
+}
+
+- (NSString *)_readValueForKey:(NSString *)key{
+    Store *store = [Store MR_findFirstByAttribute:@"key" withValue:key];
+    if(!store) return @"";
+    NSLog(@"xs:key = %@ ,value = %@", store.key ,store.value );
+    if(!store.value)
+        return @"";
+    return store.value;
+}
+
+- (void)setProjectUniqueAddress:(NSString *)projectUniqueAddress{
+    [self _saveValue:projectUniqueAddress forKey:kStoreKeyProjectUniqueAddress];
+}
+- (NSString *)projectUniqueAddress{
+    return [self _readValueForKey:kStoreKeyProjectUniqueAddress];
+}
+
+- (void)setProjectName:(NSString *)projectName{
+    [self _saveValue:projectName forKey:kStoreKeyProjectName];
+}
+- (NSString *)projectName{
+    return [self _readValueForKey:kStoreKeyProjectName];
+}
+
+- (void)setProjectSite:(NSString *)projectSite{
+    [self _saveValue:projectSite forKey:kStoreKeyProjectSite];
+}
+
+- (NSString *)projectSite{
+    return [self _readValueForKey:kStoreKeyProjectSite];
+}
+
+- (void)setProjectDescription:(NSString *)projectDescription{
+    [self _saveValue:projectDescription forKey:kStoreKeyProjectDescription];
+}
+
+- (NSString *)projectDescription{
+    return [self _readValueForKey:kStoreKeyProjectDescription];
+}
+
+- (void)setProjectNote:(NSString *)projectNote{
+    [self _saveValue:projectNote forKey:kStoreKeyProjectNote];
+}
+
+- (NSString *)projectNote{
+    return [self _readValueForKey:kStoreKeyProjectNote];
+}
+
+- (void)setProjectSummarize:(NSString *)projectSummarize{
+    [self _saveValue:projectSummarize forKey:kStoreKeyProjectSummarize];
+}
+- (NSString *)projectSummarize{
+    return [self _readValueForKey:kStoreKeyProjectSummarize];
 }
 
 @end

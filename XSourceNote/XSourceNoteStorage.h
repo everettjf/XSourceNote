@@ -10,12 +10,20 @@
 #import "MagicalRecord.h"
 
 @interface XSourceNoteStorage : NSObject
-@property (strong,nonatomic,readonly) NSURL *notePath;
+@property (strong,readonly) NSURL *notePath;
 
 + (XSourceNoteStorage*)sharedStorage;
 - (BOOL)ensureDB;
 
+@property (strong) NSString *projectUniqueAddress;
+@property (strong) NSString *projectName;
+@property (strong) NSString *projectSite;
+@property (strong) NSString *projectDescription;
+@property (strong) NSString *projectNote;
+@property (strong) NSString *projectSummarize;
 
-
+// add note
+// edit note
+// remove note
 
 @end
