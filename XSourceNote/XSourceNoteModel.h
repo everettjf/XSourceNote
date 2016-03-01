@@ -37,6 +37,10 @@
 -(void)loadOnceNotes;
 
 
+-(void)saveValue:(NSString*)value forKey:(NSString*)key;
+-(NSString*)readValueForKey:(NSString*)key;
+
+
 @end
 
 

@@ -46,13 +46,16 @@ static NSString * const kStoreKeyProjectUniqueAddress = @"ProjectUniqueAddress";
     if(workspaceFilePath == nil)
         return nil;
     
-    NSString *settingFileName = [NSString stringWithFormat:@"%@-%lu.xsnote",
-                                 [workspaceFilePath lastPathComponent],
-                                 [workspaceFilePath hash]
+    NSString *projectName = [workspaceFilePath lastPathComponent];
+    projectName = [projectName stringByDeletingPathExtension];
+    
+    NSString *settingFileName = [NSString stringWithFormat:@"%@_%lu.xsnote",
+                                 projectName,
+                                 [workspaceFilePath hash] % 1000
                                  ];
     
     NSString *noteUrlString =[[XSourceNoteUtil notesDirectory] stringByAppendingPathComponent:settingFileName];
-    _notePath = [NSURL URLWithString:noteUrlString];
+    _notePath = [NSURL fileURLWithPath:noteUrlString];
     NSLog(@"note path = %@", _notePath);
     return _notePath;
 }
@@ -62,7 +65,16 @@ static NSString * const kStoreKeyProjectUniqueAddress = @"ProjectUniqueAddress";
     
     if(!self.notePath)return NO;
     
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:self.notePath];
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSManagedObjectModel *model = [NSManagedObjectModel MR_newModelNamed:@"XSourceNote.momd" inBundle:currentBundle];
+    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+    [coordinator MR_addAutoMigratingSqliteStoreAtURL:self.notePath];
+    [NSPersistentStoreCoordinator MR_setDefaultStoreCoordinator:coordinator];
+    [NSManagedObjectContext MR_initializeDefaultContextWithCoordinator:coordinator];
+    
+//    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:self.notePath];
+    
+    _dbReady = YES;
     return YES;
 }
 

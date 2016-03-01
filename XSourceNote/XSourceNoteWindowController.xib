@@ -11,7 +11,7 @@
                 <outlet property="linesNoteTableView" destination="P2c-SK-mjy" id="qpK-Tr-n9U"/>
                 <outlet property="officialSiteTextField" destination="DsO-on-9xT" id="CQg-62-Vdl"/>
                 <outlet property="projectNameTextField" destination="aCr-uH-JUX" id="qRT-3k-KxA"/>
-                <outlet property="projectNoteTextView" destination="arB-mf-pLG" id="wWr-ec-8vh"/>
+                <outlet property="projectNoteTextView" destination="arB-mf-pLG" id="PEe-Os-QyE"/>
                 <outlet property="summarizeTextView" destination="5yf-eX-EdL" id="qvo-g2-rzl"/>
                 <outlet property="uniqueVersionAddressTextField" destination="G3E-96-dQB" id="ik1-Vr-Vs4"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>

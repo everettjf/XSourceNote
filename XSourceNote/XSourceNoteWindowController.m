@@ -10,6 +10,7 @@
 #import "XSourceNoteModel.h"
 #import "XSourceNoteUtil.h"
 #import "XSourceNotePreferencesWindowController.h"
+#import "XSourceNoteStorage.h"
 
 @implementation XSourceNoteTableCellView
 @end
@@ -34,7 +35,6 @@
 // Summarize
 @property (unsafe_unretained) IBOutlet NSTextView *summarizeTextView;
 
-
 @end
 
 @implementation XSourceNoteWindowController
@@ -44,6 +44,10 @@
     
     self.window.level = NSFloatingWindowLevel;
     self.window.hidesOnDeactivate = YES;
+    
+    if(![[XSourceNoteStorage sharedStorage] ensureDB]){
+        NSLog(@"xs:Database is not ready");
+    }
     
     [self refreshNotes];
     
@@ -123,6 +127,8 @@
     [self.preferencesWindowController.window makeKeyAndOrderFront:sender];
 }
 - (IBAction)saveInformationClicked:(id)sender {
+    
+    [[XSourceNoteModel sharedModel] saveValue:@"hello" forKey:@"key1"];
     
 }
 

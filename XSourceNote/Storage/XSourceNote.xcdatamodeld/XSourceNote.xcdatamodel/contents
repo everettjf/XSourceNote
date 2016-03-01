@@ -13,8 +13,8 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <entity name="Store" representedClassName="Store" syncable="YES">
-        <attribute name="key" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="value" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Note" positionX="-63" positionY="-18" width="128" height="195"/>
