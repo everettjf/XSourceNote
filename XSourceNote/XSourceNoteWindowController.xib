@@ -199,6 +199,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="saveProjectNote:" target="-2" id="Kw0-1N-r5m"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -360,6 +363,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="saveSummarize:" target="-2" id="iZJ-Sf-vvf"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
