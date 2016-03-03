@@ -13,10 +13,13 @@
 #import "XSourceNoteStorage.h"
 
 @implementation XSourceNoteTableCellView
+
+- (void)prepareForReuse{
+    
+}
 @end
 
 @interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource>
-@property (strong) NSArray *notes;
 
 @property (nonatomic,strong) XSourceNotePreferencesWindowController *preferencesWindowController;
 
@@ -29,11 +32,11 @@
 // Project Note
 @property (unsafe_unretained) IBOutlet NSTextView *projectNoteTextView;
 
-// Lines Note
-@property (weak) IBOutlet NSOutlineView *linesNoteTableView;
-
 // Summarize
 @property (unsafe_unretained) IBOutlet NSTextView *summarizeTextView;
+
+// Lines Note
+@property (weak) IBOutlet NSTableView *lineNoteTableView;
 
 @end
 
@@ -49,7 +52,7 @@
         NSLog(@"xs:Database is not ready");
     }
     
-    [self refreshTabInformation];
+    [self refreshTabFields];
     [self refreshNotes];
     
 }
@@ -59,23 +62,27 @@
 
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
     XSourceNoteTableCellView *cellView = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
-//    if([tableColumn.identifier isEqualToString:@"NoteColumn"]){
 //        XSourceNoteEntity *note = [self.notes objectAtIndex:row];
 //        cellView.titleField.stringValue = [NSString stringWithFormat:@"%@:%lu",[note.sourcePath lastPathComponent],note.lineNumber];
 //        cellView.subtitleField.stringValue = note.sourcePath;
-//    }
+    cellView.titleField.stringValue = @"FileName.m (10 - 20)";
+    cellView.contentField.string = @"Helloworld";
+    
+    cellView.contentField.editable = NO;
     return cellView;
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{
-    return self.notes.count;
+    return 3;
+//    return self.notes.count;
 }
 
 
 -(void)refreshNotes{
-    self.notes = [XSourceNoteModel sharedModel].notes;
-//    [self.notesTableView reloadData];
+//    self.notes = [XSourceNoteModel sharedModel].notes;
+    [self.lineNoteTableView reloadData];
 }
+
 
 //-(XSourceNoteEntity*)selectedNote{
 //    NSInteger selectedRow = self.notesTableView.selectedRow;
@@ -136,7 +143,7 @@
     st.projectDescription = self.descriptionTextView.string;
 }
 
-- (void)refreshTabInformation{
+- (void)refreshTabFields{
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     
     self.uniqueVersionAddressTextField.stringValue = st.projectUniqueAddress;
@@ -155,5 +162,7 @@
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     st.projectSummarize = self.summarizeTextView.string;
 }
+
+
 
 @end

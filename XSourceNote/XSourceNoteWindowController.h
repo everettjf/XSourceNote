@@ -10,7 +10,7 @@
 
 @interface XSourceNoteTableCellView : NSTableCellView
 @property (weak) IBOutlet NSTextField *titleField;
-@property (weak) IBOutlet NSTextField *subtitleField;
+@property (null_resettable) IBOutlet NSTextView *contentField;
 @end
 
 @interface XSourceNoteWindowController : NSWindowController
