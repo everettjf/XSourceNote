@@ -74,29 +74,33 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
 
     [[XSourceNoteStorage sharedStorage]addLineNote:index];
     
-    @synchronized(_markset) {
-        for(NSUInteger idx = index.begin; idx <= index.end; ++idx){
-            [_markset addObject:XSourceNote_HashLine(index.source, idx)];
+    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        @synchronized(_markset) {
+            for(NSUInteger idx = index.begin; idx <= index.end; ++idx){
+                [_markset addObject:XSourceNote_HashLine(index.source, idx)];
+            }
         }
-    }
-    
-    [self _notifyLineNotesChanged];
+        
+        [self _notifyLineNotesChanged];
+    });
 }
 
 - (void)removeLineNote:(XSourceNoteIndex *)index{
     [[XSourceNoteStorage sharedStorage]removeLineNote:index];
     
-    @synchronized(_markset) {
-        for(NSUInteger idx = index.begin; idx <= index.end; ++idx){
-            [_markset removeObject:XSourceNote_HashLine(index.source, idx)];
+    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        @synchronized(_markset) {
+            for(NSUInteger idx = index.begin; idx <= index.end; ++idx){
+                [_markset removeObject:XSourceNote_HashLine(index.source, idx)];
+            }
         }
-    }
-    
-    [self _notifyLineNotesChanged];
+        
+        [self _notifyLineNotesChanged];
+    });
 }
 
 - (void)fetchAllNotes:(XSourceNoteModelFetchAllNotesBlock)completion{
-    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSArray *notes = [[XSourceNoteStorage sharedStorage]fetchAllLineNotes];
         
         // rehash the map
@@ -117,7 +121,9 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
 }
 
 - (void)_notifyLineNotesChanged{
-    [[NSNotificationCenter defaultCenter]postNotificationName:XSourceNoteModelLineNotesChanged object:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter]postNotificationName:XSourceNoteModelLineNotesChanged object:nil];
+    });
 }
 
 - (void)ensureInit{

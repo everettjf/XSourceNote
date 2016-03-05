@@ -175,4 +175,11 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     [note MR_deleteEntity];
 }
 
+- (void)save{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    [[NSManagedObjectContext MR_contextForCurrentThread]MR_saveToPersistentStoreAndWait];
+#pragma clang diagnostic pop
+}
+
 @end

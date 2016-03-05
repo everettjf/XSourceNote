@@ -29,5 +29,6 @@
 - (Note*)fetchLineNote:(XSourceNoteIndex*)index;
 - (NSArray*)fetchAllLineNotes;
 - (void)removeLineNote:(XSourceNoteIndex*)index;
+- (void)save;
 
 @end

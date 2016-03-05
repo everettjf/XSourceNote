@@ -38,7 +38,7 @@
 
 @end
 
-@interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource>
+@interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource, NSTextViewDelegate>
 
 @property (nonatomic,strong) XSourceNotePreferencesWindowController *preferencesWindowController;
 
@@ -59,7 +59,7 @@
 
 @property (unsafe_unretained) IBOutlet NSTextView *currentNoteView;
 
-@property (strong) NSArray *lineNotes;
+@property (strong) NSMutableArray *lineNotes;
 @property (strong) Note *currentNote;
 
 @end
@@ -71,14 +71,22 @@
     
     self.window.level = NSFloatingWindowLevel;
     self.window.hidesOnDeactivate = YES;
-    self.lineNotes = @[];
+    self.lineNotes = [NSMutableArray new];
     
     self.lineNoteTableView.deleteKeyAction = @selector(onDeleteLineNote:);
+    self.currentNoteView.delegate = self;
     
     [self refreshTabFields];
     [self refreshNotes];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notificationLineNotesChange:) name:XSourceNoteModelLineNotesChanged object:nil];
+    
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC, 1 * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(timer, ^{
+        [self _saveCurrentNote];
+    });
+    dispatch_resume(timer);
 }
 
 - (void)dealloc{
@@ -103,7 +111,7 @@
 
 -(void)refreshNotes{
     [[XSourceNoteModel sharedModel]fetchAllNotes:^(NSArray *notes) {
-        self.lineNotes = notes;
+        self.lineNotes = [notes mutableCopy];
         [self.lineNoteTableView reloadData];
     }];
 }
@@ -114,6 +122,11 @@
         return;
     
     Note *note = [self _selectedNote];
+    if(_currentNote)
+        NSLog(@"current note : %@", _currentNote.content);
+    NSLog(@"select note : %@", note.content);
+    
+    [self _saveCurrentNote];
     
     // show note content
     [self _showNewNoteContent:note];
@@ -126,12 +139,6 @@
 }
 
 - (void)_showNewNoteContent:(Note*)note{
-    // save old note content
-    if(self.currentNote){
-        if([self.currentNote.uniqueID isEqualToString:note.uniqueID])
-            return;
-    }
-    
     // show new note content
     NSString *content = note.content;
     if(!content) content = @"";
@@ -220,6 +227,16 @@
     [[XSourceNoteModel sharedModel]removeLineNote:[note noteIndex]];
     
     [self refreshNotes];
+}
+
+- (void)_saveCurrentNote{
+    if(!_currentNote)return;
+    NSLog(@"Auto saving note");
+    
+    _currentNote.content = self.currentNoteView.string;
+    _currentNote.updatedAt = [NSDate date];
+    
+    [[XSourceNoteStorage sharedStorage]save];
 }
 
 
