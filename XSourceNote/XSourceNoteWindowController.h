@@ -8,9 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class Note;
 @interface XSourceNoteTableCellView : NSTableCellView
 @property (weak) IBOutlet NSTextField *titleField;
-@property (null_resettable) IBOutlet NSTextView *contentField;
+@property (weak) IBOutlet NSTextField *contentField;
+
+@property (strong,nonatomic) Note *lineNote;
+
 @end
 
 @interface XSourceNoteWindowController : NSWindowController

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "MagicalRecord.h"
+#import "XSourceNoteModel.h"
+#import "Note.h"
 
 @interface XSourceNoteStorage : NSObject
 @property (strong,readonly) NSURL *notePath;
@@ -22,8 +24,10 @@
 @property (strong) NSString *projectNote;
 @property (strong) NSString *projectSummarize;
 
-// add note
-// edit note
-// remove note
+// line note
+- (void)addLineNote:(XSourceNoteIndex*)index;
+- (Note*)fetchLineNote:(XSourceNoteIndex*)index;
+- (NSArray*)fetchAllLineNotes;
+- (void)removeLineNote:(XSourceNoteIndex*)index;
 
 @end

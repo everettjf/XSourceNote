@@ -8,38 +8,30 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const XSourceNoteModelLineNotesChanged;
 
-@interface XSourceNoteEntity : NSObject<NSCoding>
-@property (nonatomic,strong) NSString *sourcePath;
-@property (nonatomic,assign) NSUInteger lineNumber;
-@property (nonatomic,strong) NSString *comment;
+@interface XSourceNoteIndex : NSObject
+@property (strong) NSString *source;
+@property (assign) NSUInteger begin;
+@property (assign) NSUInteger end;
 
--(instancetype)initWithSourcePath:(NSString*)sourcePath withLineNumber:(NSUInteger)lineNumber;
++ (XSourceNoteIndex*)index:(NSString*)source begin:(NSUInteger)begin end:(NSUInteger)end;
+
+- (NSString*)uniqueID;
+
 @end
 
+typedef void (^XSourceNoteModelFetchAllNotesBlock)(NSArray *notes);
 
 @interface XSourceNoteModel : NSObject
 
 +(XSourceNoteModel *)sharedModel;
 
-@property (nonatomic,strong,readonly) NSMutableArray *notes;
-
--(void)addNote:(XSourceNoteEntity*)note;
--(void)removeNote:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;
--(BOOL)hasNote:(NSString*)sourcePath lineNumber:(NSUInteger)lineNumber;
--(void)clearNotes;
-
--(BOOL)toggleNote:(XSourceNoteEntity*)note;
-
--(void)saveNotes;
--(void)loadNotes;
-
--(void)loadOnceNotes;
-
-
--(void)saveValue:(NSString*)value forKey:(NSString*)key;
--(NSString*)readValueForKey:(NSString*)key;
-
+- (void)addLineNote:(XSourceNoteIndex*)index;
+- (void)removeLineNote:(XSourceNoteIndex*)index;
+- (BOOL)hasLineMark:(NSString*)source line:(NSUInteger)line;
+- (void)fetchAllNotes:(XSourceNoteModelFetchAllNotesBlock)completion;
+- (void)ensureInit;
 
 @end
 

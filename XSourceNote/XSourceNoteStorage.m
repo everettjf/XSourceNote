@@ -9,7 +9,6 @@
 #import "XSourceNoteStorage.h"
 #import "XSourceNoteUtil.h"
 #import "Store.h"
-#import "Note.h"
 
 static NSString * const kStoreKeyProjectUniqueAddress = @"ProjectUniqueAddress";
 static NSString * const kStoreKeyProjectName = @"ProjectName";
@@ -143,6 +142,37 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
 }
 - (NSString *)projectSummarize{
     return [self _readValueForKey:kStoreKeyProjectSummarize];
+}
+
+- (void)addLineNote:(XSourceNoteIndex *)index{
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+        Note *note = [Note MR_findFirstOrCreateByAttribute:@"uniqueID" withValue:index.uniqueID inContext:localContext];
+        if(!note) return;
+        
+        note.pathLocal = index.source;
+        note.lineNumberBegin = @(index.begin);
+        note.lineNumberEnd = @(index.end);
+        
+        if(!note.createdAt)
+            note.createdAt = [NSDate date];
+        note.updatedAt = [NSDate date];
+        
+    }];
+}
+
+- (Note *)fetchLineNote:(XSourceNoteIndex *)index{
+    Note *note = [Note MR_findFirstByAttribute:@"uniqueID" withValue:index.uniqueID];
+    return note;
+}
+
+- (NSArray *)fetchAllLineNotes{
+    NSArray *notes = [Note MR_findAllSortedBy:@"order:NO,createdAt" ascending:YES];
+    return notes;
+}
+- (void)removeLineNote:(XSourceNoteIndex *)index{
+    Note * note = [self fetchLineNote:index];
+    if(!note)return;
+    [note MR_deleteEntity];
 }
 
 @end

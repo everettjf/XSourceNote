@@ -11,12 +11,30 @@
 #import "XSourceNoteUtil.h"
 #import "XSourceNotePreferencesWindowController.h"
 #import "XSourceNoteStorage.h"
+#import "Note.h"
 
 @implementation XSourceNoteTableCellView
 
-- (void)prepareForReuse{
+- (void)setLineNote:(Note *)lineNote{
+    _lineNote = lineNote;
     
+    NSString *fileName = [_lineNote.pathLocal lastPathComponent];
+    NSString *title;
+    if([_lineNote.lineNumberBegin isEqualToNumber:_lineNote.lineNumberEnd]){
+        title = [NSString stringWithFormat:@"%@ [%@]", fileName, _lineNote.lineNumberBegin];
+    }else{
+        title = [NSString stringWithFormat:@"%@ [%@,%@]", fileName, _lineNote.lineNumberBegin,_lineNote.lineNumberEnd];
+    }
+    NSString *content = _lineNote.content;
+    if(!content) content = @"";
+    
+    _titleField.stringValue = title;
+    _contentField.stringValue = content;
+    
+    _contentField.maximumNumberOfLines = 2;
+    _contentField.editable = NO;
 }
+
 @end
 
 @interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource>
@@ -38,6 +56,10 @@
 // Lines Note
 @property (weak) IBOutlet NSTableView *lineNoteTableView;
 
+@property (unsafe_unretained) IBOutlet NSTextView *currentNoteView;
+
+@property (strong) NSArray *lineNotes;
+
 @end
 
 @implementation XSourceNoteWindowController
@@ -47,40 +69,53 @@
     
     self.window.level = NSFloatingWindowLevel;
     self.window.hidesOnDeactivate = YES;
-    
-    if(![[XSourceNoteStorage sharedStorage] ensureDB]){
-        NSLog(@"xs:Database is not ready");
-    }
+    self.lineNotes = @[];
     
     [self refreshTabFields];
     [self refreshNotes];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notificationLineNotesChange:) name:XSourceNoteModelLineNotesChanged object:nil];
 }
 
 - (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+-(void) notificationLineNotesChange:(NSNotification*)obj{
+    [self refreshNotes];
 }
 
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
     XSourceNoteTableCellView *cellView = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
-//        XSourceNoteEntity *note = [self.notes objectAtIndex:row];
-//        cellView.titleField.stringValue = [NSString stringWithFormat:@"%@:%lu",[note.sourcePath lastPathComponent],note.lineNumber];
-//        cellView.subtitleField.stringValue = note.sourcePath;
-    cellView.titleField.stringValue = @"FileName.m (10 - 20)";
-    cellView.contentField.string = @"Helloworld";
-    
-    cellView.contentField.editable = NO;
+    Note *lineNote = [self.lineNotes objectAtIndex:row];
+    cellView.lineNote = lineNote;
     return cellView;
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{
-    return 3;
-//    return self.notes.count;
+    return self.lineNotes.count;
 }
 
 
 -(void)refreshNotes{
-//    self.notes = [XSourceNoteModel sharedModel].notes;
-    [self.lineNoteTableView reloadData];
+    [[XSourceNoteModel sharedModel]fetchAllNotes:^(NSArray *notes) {
+        self.lineNotes = notes;
+        [self.lineNoteTableView reloadData];
+    }];
+}
+- (IBAction)onTableViewClicked:(id)sender {
+    NSLog(@"row click");
+    NSInteger row = self.lineNoteTableView.clickedRow;
+    if(row < 0 || row >= self.lineNotes.count)
+        return;
+    
+//    XSourceNoteEntity *note = [self selectedNote];
+//    if(nil == note)
+//        return;
+//    
+//    // locate note
+//    [XSourceNoteUtil openSourceFile:note.sourcePath highlightLineNumber:note.lineNumber];
+
 }
 
 
@@ -117,19 +152,6 @@
     }
 }
 
-//-(void)onTableViewClick:(id)sender{
-////    NSLog(@"row click");
-//    NSInteger row = self.notesTableView.clickedRow;
-//    if(row < 0 || row >= self.notes.count)
-//        return;
-//    
-//    XSourceNoteEntity *note = [self selectedNote];
-//    if(nil == note)
-//        return;
-//    
-//    // locate note
-//    [XSourceNoteUtil openSourceFile:note.sourcePath highlightLineNumber:note.lineNumber];
-//}
 - (IBAction)showPreferencesClicked:(id)sender {
     self.preferencesWindowController = [[XSourceNotePreferencesWindowController alloc]init];
     [self.preferencesWindowController.window makeKeyAndOrderFront:sender];

@@ -17,7 +17,6 @@
 
 @property (nonatomic, strong, readwrite) NSBundle *bundle;
 @property (nonatomic, strong) XSourceNoteWindowController *windowController;
-@property (nonatomic, assign) NSUInteger currentNoteIndex;
 @end
 
 @implementation XSourceNote
@@ -32,9 +31,6 @@
     if (self = [super init]) {
         // reference to plugin's bundle, for resource access
         self.bundle = plugin;
-        
-        // default to the first note (if have notes)
-        self.currentNoteIndex = 0;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didApplicationFinishLaunchingNotification:)
@@ -87,15 +83,14 @@
 
 - (void)toggleNote
 {
-    [[XSourceNoteModel sharedModel]loadOnceNotes];
+    [[XSourceNoteModel sharedModel]ensureInit];
     
     IDESourceCodeEditor* editor = [XSourceNoteUtil currentEditor];
-    if ([editor isKindOfClass:[IDEEditorEmpty class]]) {
-        return;
-    }
+    if(!editor)return;
+    if ([editor isKindOfClass:[IDEEditorEmpty class]]) return;
+    
     NSTextView* textView = editor.textView;
-    if (nil == textView)
-        return;
+    if (!textView)return;
     
     NSRange range = [textView.selectedRanges[0] rangeValue];
     NSUInteger startLineNumber = [[[textView string]substringToIndex:range.location]componentsSeparatedByString:@"\n"].count;
@@ -109,56 +104,14 @@
     // length of "file://" is 7
     NSString *sourcePath = [[editor.sourceCodeDocument.fileURL absoluteString] substringFromIndex:7];
     
-    XSourceNoteEntity *note = [[XSourceNoteEntity alloc]initWithSourcePath:sourcePath withLineNumber:startLineNumber];
-    [[XSourceNoteModel sharedModel]toggleNote:note];
+    [[XSourceNoteModel sharedModel]addLineNote:[XSourceNoteIndex index:sourcePath begin:startLineNumber end:endLineNumber]];
     
-    [[XSourceNoteModel sharedModel]saveNotes];
-    
-    // point to the new added note
-    self.currentNoteIndex = [XSourceNoteModel sharedModel].notes.count - 1;
-    
-    [[editor valueForKey:@"_sidebarView"]setNeedsDisplay:YES];
+    NSView *sidebar = [editor valueForKey:@"_sidebarView"];
+    if(sidebar)[sidebar setNeedsDisplay:YES];
 }
 
-- (void)nextNote{
-    [[XSourceNoteModel sharedModel]loadOnceNotes];
-    
-    XSourceNoteModel *model = [XSourceNoteModel sharedModel];
-    if(model.notes.count == 0)
-        return;
-    NSUInteger nextIndex = self.currentNoteIndex + 1;
-    if(nextIndex >= model.notes.count){
-        // 如果超了就回到第一个
-        nextIndex = 0;
-    }
-    
-    XSourceNoteEntity *note = [model.notes objectAtIndex:nextIndex];
-    [XSourceNoteUtil openSourceFile:note.sourcePath highlightLineNumber:note.lineNumber];
-    self.currentNoteIndex = nextIndex;
-}
-- (void)previousNote{
-    [[XSourceNoteModel sharedModel]loadOnceNotes];
-    
-    XSourceNoteModel *model = [XSourceNoteModel sharedModel];
-    if(model.notes.count == 0)
-        return;
-    NSUInteger previousIndex;
-    if(self.currentNoteIndex == 0){
-        // 如果已经是第一个，则到最后一个
-        previousIndex = model.notes.count - 1;
-    }else{
-        previousIndex = self.currentNoteIndex - 1;
-    }
-    if(previousIndex >= model.notes.count){
-        previousIndex = model.notes.count - 1;
-    }
-    
-    XSourceNoteEntity *note = [model.notes objectAtIndex:previousIndex];
-    [XSourceNoteUtil openSourceFile:note.sourcePath highlightLineNumber:note.lineNumber];
-    self.currentNoteIndex = previousIndex;
-}
 - (void)showNotes{
-    [[XSourceNoteModel sharedModel]loadOnceNotes];
+    [[XSourceNoteModel sharedModel]ensureInit];
     
     if(self.windowController.window.isVisible){
         [self.windowController.window close];

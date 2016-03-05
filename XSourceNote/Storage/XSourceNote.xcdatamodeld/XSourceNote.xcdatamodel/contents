@@ -10,6 +10,7 @@
         <attribute name="pathLocal" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pathRelative" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uniqueID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <entity name="Store" representedClassName="Store" syncable="YES">
@@ -17,7 +18,7 @@
         <attribute name="value" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="Note" positionX="-63" positionY="-18" width="128" height="210"/>
         <element name="Store" positionX="-45" positionY="72" width="128" height="75"/>
     </elements>
 </model>

@@ -2,7 +2,7 @@
 //  Note+CoreDataProperties.m
 //  XSourceNote
 //
-//  Created by everettjf on 16/3/1.
+//  Created by everettjf on 16/3/5.
 //  Copyright © 2016年 everettjf. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,15 +13,16 @@
 
 @implementation Note (CoreDataProperties)
 
+@dynamic content;
 @dynamic createdAt;
-@dynamic updatedAt;
+@dynamic extension;
+@dynamic lineNumberBegin;
+@dynamic lineNumberEnd;
+@dynamic order;
 @dynamic pathLocal;
 @dynamic pathRelative;
-@dynamic lineNumberEnd;
-@dynamic lineNumberBegin;
-@dynamic content;
-@dynamic extension;
-@dynamic order;
 @dynamic tag;
+@dynamic updatedAt;
+@dynamic uniqueID;
 
 @end

@@ -31,7 +31,7 @@
     
     for(NSUInteger idx = 0; idx < indexCount; ++idx){
         NSUInteger line = indexes[idx];
-        if([[XSourceNoteModel sharedModel]hasNote:fileName lineNumber:line]){
+        if([[XSourceNoteModel sharedModel]hasLineMark:fileName line:line]){
             [self XSourceNote_drawNoteAtLine:line];
         }
     }
