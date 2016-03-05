@@ -12,6 +12,7 @@
 #import "XSourceNotePreferencesWindowController.h"
 #import "XSourceNoteStorage.h"
 #import "Note.h"
+#import "XSourceNoteTableView.h"
 
 @implementation XSourceNoteTableCellView
 
@@ -54,11 +55,12 @@
 @property (unsafe_unretained) IBOutlet NSTextView *summarizeTextView;
 
 // Lines Note
-@property (weak) IBOutlet NSTableView *lineNoteTableView;
+@property (weak) IBOutlet XSourceNoteTableView *lineNoteTableView;
 
 @property (unsafe_unretained) IBOutlet NSTextView *currentNoteView;
 
 @property (strong) NSArray *lineNotes;
+@property (strong) Note *currentNote;
 
 @end
 
@@ -70,6 +72,8 @@
     self.window.level = NSFloatingWindowLevel;
     self.window.hidesOnDeactivate = YES;
     self.lineNotes = @[];
+    
+    self.lineNoteTableView.deleteKeyAction = @selector(onDeleteLineNote:);
     
     [self refreshTabFields];
     [self refreshNotes];
@@ -109,26 +113,39 @@
     if(row < 0 || row >= self.lineNotes.count)
         return;
     
-//    XSourceNoteEntity *note = [self selectedNote];
-//    if(nil == note)
-//        return;
-//    
-//    // locate note
-//    [XSourceNoteUtil openSourceFile:note.sourcePath highlightLineNumber:note.lineNumber];
-
+    Note *note = [self _selectedNote];
+    
+    // show note content
+    [self _showNewNoteContent:note];
+    
+    // set new current note
+    self.currentNote = note;
+    
+    // locate in editor
+    [XSourceNoteUtil openSourceFile:note.pathLocal highlightLineNumber:note.lineNumberBegin.unsignedIntegerValue];
 }
 
+- (void)_showNewNoteContent:(Note*)note{
+    // save old note content
+    if(self.currentNote){
+        if([self.currentNote.uniqueID isEqualToString:note.uniqueID])
+            return;
+    }
+    
+    // show new note content
+    NSString *content = note.content;
+    if(!content) content = @"";
+    
+    self.currentNoteView.string = content;
+}
 
-//-(XSourceNoteEntity*)selectedNote{
-//    NSInteger selectedRow = self.notesTableView.selectedRow;
-//    if(selectedRow < 0 || selectedRow >= self.notes.count){
-//        return nil;
-//    }
-//    
-//    XSourceNoteEntity *note = [self.notes objectAtIndex:selectedRow];
-//    return note;
-//}
-
+-(Note*)_selectedNote{
+    NSInteger selectedRow = self.lineNoteTableView.selectedRow;
+    if(selectedRow < 0 || selectedRow >= self.lineNotes.count){
+        return nil;
+    }
+    return [self.lineNotes objectAtIndex:selectedRow];
+}
 
 - (IBAction)helpClicked:(id)sender {
     NSString *githubURLString = @"http://github.com/everettjf/XSourceNote";
@@ -185,6 +202,25 @@
     st.projectSummarize = self.summarizeTextView.string;
 }
 
+- (void)onDeleteLineNote:(id)sender{
+    Note *note = [self _selectedNote];
+    if(!note)return;
+    
+    if(note.content){
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert addButtonWithTitle:@"Confirm"];
+        [alert addButtonWithTitle:@"Cancel"];
+        [alert setMessageText:@"Current note is not empty, please confirm to delete."];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        if ([alert runModal] != NSAlertFirstButtonReturn) {
+            return;
+        }
+    }
+    
+    [[XSourceNoteModel sharedModel]removeLineNote:[note noteIndex]];
+    
+    [self refreshNotes];
+}
 
 
 @end

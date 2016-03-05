@@ -145,7 +145,12 @@
 }
 
 +(BOOL)openSourceFile:(NSString *)sourceFilePath highlightLineNumber:(NSUInteger)lineNumber{
-    NSString *currentPath = [XSourceNoteUtil currentSourceCodeDocument].fileURL.path;
+    IDESourceCodeDocument *document = [XSourceNoteUtil currentSourceCodeDocument];
+    if(!document.fileURL)return NO;
+    
+    NSString *currentPath = document.fileURL.path;
+    if(!currentPath)return NO;
+    
     if(![sourceFilePath isEqualToString:currentPath]){
         [self jumpToFileURL:[NSURL fileURLWithPath:sourceFilePath]];
     }
