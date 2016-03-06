@@ -38,7 +38,7 @@
 @property (unsafe_unretained) IBOutlet NSTextView *currentNoteView;
 
 @property (strong) NSArray *lineNotes;
-@property (strong) NSString *currentNoteUniqueID;
+@property (copy) NSString *currentNoteUniqueID;
 
 @end
 
@@ -59,12 +59,12 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notificationLineNotesChange:) name:XSourceNoteModelLineNotesChanged object:nil];
     
-    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
-    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC, 1 * NSEC_PER_SEC);
-    dispatch_source_set_event_handler(timer, ^{
-        [self _saveCurrentNote];
-    });
-    dispatch_resume(timer);
+//    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+//    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC, 1 * NSEC_PER_SEC);
+//    dispatch_source_set_event_handler(timer, ^{
+//        [self _saveCurrentNote];
+//    });
+//    dispatch_resume(timer);
     
     self.currentNoteView.editable = NO;
 }
@@ -101,36 +101,17 @@
         return;
     
     Note *note = [self _selectedNote];
-    if(_currentNoteUniqueID && [_currentNoteUniqueID isEqualToString:note.uniqueID]){
-        [self _saveCurrentNote];
-        return;
-    }
     
-    [self _saveCurrentNote];
-    
-    // set new current note
-    self.currentNoteUniqueID = note.uniqueID;
-    
-    [self _refreshCurrentNoteContent];
+    [self _showNewNote:note];
     
     // locate in editor
     [XSourceNoteUtil openSourceFile:note.pathLocal highlightLineNumber:note.lineNumberBegin.unsignedIntegerValue];
     
-    self.window.title = [note title];
     self.currentNoteView.editable = YES;
     
     [self refreshNotes];
 }
 
-- (void)_refreshCurrentNoteContent{
-    // show new note content
-    if(!_currentNoteUniqueID)return;
-    
-    NSString *content = [[XSourceNoteStorage sharedStorage]readLineNote:_currentNoteUniqueID];
-    if(!content) content = @"";
-    
-    self.currentNoteView.string = content;
-}
 
 -(Note*)_selectedNote{
     NSInteger selectedRow = self.lineNoteTableView.selectedRow;
@@ -216,12 +197,31 @@
     
 }
 
-- (void)_saveCurrentNote{
-    if(!_currentNoteUniqueID)return;
-    NSLog(@"Saving note");
+
+- (void)_showNewNote:(Note*)note{
+    self.window.title = [note title];
     
-    [[XSourceNoteStorage sharedStorage]updateLineNote:_currentNoteUniqueID content:self.currentNoteView.string];
+//    // save current
+//    if(_currentNoteUniqueID){
+//        [[XSourceNoteStorage sharedStorage]updateLineNote:_currentNoteUniqueID content:self.currentNoteView.string];
+//    }
+    
+    // show new
+    NSString *content = [[XSourceNoteStorage sharedStorage]readLineNote:[note uniqueID]];
+    if(!content) content = @"";
+    
+    self.currentNoteView.string = content;
+    
+    // set new current note
+    self.currentNoteUniqueID = note.uniqueID;
 }
 
+- (IBAction)reloadClicked:(id)sender {
+    if(_currentNoteUniqueID){
+        [[XSourceNoteStorage sharedStorage]updateLineNote:_currentNoteUniqueID content:self.currentNoteView.string];
+    }
+    
+    [self refreshNotes];
+}
 
 @end

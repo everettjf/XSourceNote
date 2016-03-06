@@ -13,7 +13,7 @@
 @property (weak) IBOutlet NSTextField *titleField;
 @property (weak) IBOutlet NSTextField *contentField;
 
-@property (strong,nonatomic) Note *lineNote;
+@property (copy,nonatomic) Note *lineNote;
 
 @end
 

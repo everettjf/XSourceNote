@@ -8,13 +8,12 @@
 
 #import "XSourceNoteModel.h"
 #import "XSourceNoteUtil.h"
-#import "MagicalRecord.h"
 #import "XSourceNoteStorage.h"
 
 NSString * const XSourceNoteModelLineNotesChanged = @"XSourceNoteModelLineNotesChanged";
 
 static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
-    return [NSString stringWithFormat:@"%lu-%lu",line,[source hash]];
+    return [NSString stringWithFormat:@"%lu/%lu",line,[source hash]];
 }
 
 @implementation XSourceNoteIndex
@@ -28,7 +27,7 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
 }
 
 - (NSString *)uniqueID{
-    return [NSString stringWithFormat:@"%@-%@-%@",_source,@(_begin),@(_end)];
+    return [NSString stringWithFormat:@"%@/%@/%@",_source,@(_begin),@(_end)];
 }
 
 @end

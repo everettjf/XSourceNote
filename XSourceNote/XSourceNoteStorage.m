@@ -23,6 +23,8 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     BOOL _dbReady;
 }
 
+@property (strong) NSManagedObjectContext *managedObjectContext;
+
 @end
 
 @implementation XSourceNoteStorage
@@ -55,7 +57,7 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     NSString *projectName = [workspaceFilePath lastPathComponent];
     projectName = [projectName stringByDeletingPathExtension];
     
-    NSString *settingFileName = [NSString stringWithFormat:@"%@_%lu.xsnote",
+    NSString *settingFileName = [NSString stringWithFormat:@"%@_%lu.db",
                                  projectName,
                                  [workspaceFilePath hash] % 1000
                                  ];
@@ -72,28 +74,63 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     if(!self.notePath)return NO;
     
     NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
-    NSManagedObjectModel *model = [NSManagedObjectModel MR_newModelNamed:@"XSourceNote.momd" inBundle:currentBundle];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    [coordinator MR_addAutoMigratingSqliteStoreAtURL:self.notePath];
-    [NSPersistentStoreCoordinator MR_setDefaultStoreCoordinator:coordinator];
-    [NSManagedObjectContext MR_initializeDefaultContextWithCoordinator:coordinator];
+    
+    NSURL *modelURL = [currentBundle URLForResource:@"XSourceNote" withExtension:@"momd"];
+    NSManagedObjectModel *mom = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    NSAssert(mom != nil, @"Error initializing Managed Object Model");
+    
+    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [moc setPersistentStoreCoordinator:psc];
+    [self setManagedObjectContext:moc];
+    
+    NSURL *storeURL = self.notePath;
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSError *error = nil;
+        NSPersistentStoreCoordinator *psc = [[self managedObjectContext] persistentStoreCoordinator];
+        NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
+        NSAssert(store != nil, @"Error initializing PSC: %@\n%@", [error localizedDescription], [error userInfo]);
+    });
     
     _dbReady = YES;
     return YES;
 }
 
 - (void)_saveValue:(NSString *)value forKey:(NSString *)key{
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-        Store *store = [Store MR_findFirstOrCreateByAttribute:@"key" withValue:key inContext:localContext];
-        if(!store) return;
+    [self.managedObjectContext performBlockAndWait:^{
+        
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Store"];
+        request.fetchLimit = 1;
+        NSError *error = nil;
+        NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+        if(error)
+            return;
+        
+        Store *store;
+        if(results.count == 0){
+            store = [NSEntityDescription insertNewObjectForEntityForName:@"Store" inManagedObjectContext:self.managedObjectContext];
+            store.key = key;
+        }else{
+            store = results.firstObject;
+        }
         store.value = value;
+        
+        if(![self.managedObjectContext save:&error]){
+            NSLog(@"save value error :%@",error);
+        }
     }];
 }
 
 - (NSString *)_readValueForKey:(NSString *)key{
-    Store *store = [Store MR_findFirstByAttribute:@"key" withValue:key];
-    if(!store) return @"";
-    NSLog(@"xs:key = %@ ,value = %@", store.key ,store.value );
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Store"];
+    request.fetchLimit = 1;
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if(error)
+        return nil;
+    
+    Store *store = results.firstObject;
     if(!store.value)
         return @"";
     return store.value;
@@ -145,55 +182,119 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
 }
 
 - (void)addLineNote:(XSourceNoteIndex *)index{
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-        Note *note = [Note MR_findFirstOrCreateByAttribute:@"uniqueID" withValue:index.uniqueID inContext:localContext];
-        if(!note) return;
+    [self.managedObjectContext performBlockAndWait:^{
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
+        request.fetchLimit = 1;
+        request.predicate = [NSPredicate predicateWithFormat:@"uniqueID == %@", index.uniqueID];
+        
+        NSError *error;
+        NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+        if(error) return;
+        
+        Note *note;
+        if(results.count == 0){
+            // Create
+            note = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
+            note.uniqueID = index.uniqueID;
+            note.createdAt = [NSDate date];
+            note.order = @10000;
+        }else{
+            note = results.firstObject;
+        }
         
         note.pathLocal = index.source;
         note.lineNumberBegin = @(index.begin);
         note.lineNumberEnd = @(index.end);
-        
-        if(!note.createdAt)
-            note.createdAt = [NSDate date];
         note.updatedAt = [NSDate date];
         
+        if(![self.managedObjectContext save:&error]){
+            NSLog(@"save note failed :%@",error);
+        }
     }];
 }
 
-- (Note *)fetchLineNote:(XSourceNoteIndex *)index{
-    Note *note = [Note MR_findFirstByAttribute:@"uniqueID" withValue:index.uniqueID];
+- (Note *)_fetchLineNoteByUniqueID:(NSString *)uniqueID{
+    __block Note *note = nil;
+    [self.managedObjectContext performBlockAndWait:^{
+        note = [self _internalFetchLineNoteByUniqueID:uniqueID];
+    }];
     return note;
 }
 
+- (Note *)_internalFetchLineNoteByUniqueID:(NSString *)uniqueID{
+    Note *note = nil;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
+    request.predicate = [NSPredicate predicateWithFormat:@"uniqueID == %@", uniqueID];
+    
+    NSError *error;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if(error) return nil;
+    
+    if(results.count > 0){
+        note = results.firstObject;
+        NSLog(@"fetch %@ , got %@", uniqueID, note.uniqueID);
+    }
+    return note;
+}
+
+
+- (Note *)fetchLineNote:(XSourceNoteIndex *)index{
+    return [self _fetchLineNoteByUniqueID:index.uniqueID];
+}
+
 - (NSArray *)fetchAllLineNotes{
-    NSArray *notes = [Note MR_findAllSortedBy:@"order:NO,createdAt" ascending:YES];
-    return notes;
+    __block NSArray *results;
+    [self.managedObjectContext performBlockAndWait:^{
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
+        request.sortDescriptors = @[
+                                    [NSSortDescriptor sortDescriptorWithKey:@"order" ascending:NO],
+                                    [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES],
+                                    ];
+        NSError *error;
+        results = [self.managedObjectContext executeFetchRequest:request error:&error];
+        if(error){
+            NSLog(@"fetch all note error %@",error);
+        }
+    }];
+    
+    return results;
 }
 - (void)removeLineNote:(XSourceNoteIndex *)index{
-    Note * note = [self fetchLineNote:index];
-    if(!note)return;
-    [note MR_deleteEntity];
+    [self.managedObjectContext performBlockAndWait:^{
+        Note *note = [self _internalFetchLineNoteByUniqueID:index.uniqueID];
+        
+        [self.managedObjectContext deleteObject:note];
+        
+        NSError *error;
+        if(![self.managedObjectContext save:&error]){
+            NSLog(@"save note failed :%@",error);
+        }
+    }];
 }
 
 - (void)updateLineNote:(NSString *)uniqueID content:(NSString *)content{
-    Note *note = [Note MR_findFirstByAttribute:@"uniqueID" withValue:uniqueID];
-    if(!note)return;
     
-    note.content = content;
-    note.updatedAt = [NSDate date];
-    
-    NSLog(@"uniqueid = %@", uniqueID);
-    NSLog(@"> update > content = %@", content);
-    
+    [self.managedObjectContext performBlockAndWait:^{
+        Note *note = [self _internalFetchLineNoteByUniqueID:uniqueID];
+        if(!note)return;
+        
+        note.content = content;
+        note.updatedAt = [NSDate date];
+        
+        NSLog(@"> update (%@) > content = %@",uniqueID, content);
+        
+        NSError *error;
+        if(![self.managedObjectContext save:&error]){
+            NSLog(@"save note failed :%@",error);
+        }
+    }];
 }
 
 - (NSString*)readLineNote:(NSString *)uniqueID{
-    Note *note = [Note MR_findFirstByAttribute:@"uniqueID" withValue:uniqueID];
+    Note *note = [self _fetchLineNoteByUniqueID:uniqueID];
     if(!note)return nil;
     
-    NSLog(@"uniqueid = %@", uniqueID);
-    NSLog(@"> read > content = %@", note.content);
-    
+    NSLog(@"> read (%@) > content = %@",note.uniqueID, note.content);
     return note.content;
 }
 

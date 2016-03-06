@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MagicalRecord.h"
 #import "XSourceNoteModel.h"
 #import "Note.h"
 
