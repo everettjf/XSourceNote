@@ -175,11 +175,27 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     [note MR_deleteEntity];
 }
 
-- (void)save{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    [[NSManagedObjectContext MR_contextForCurrentThread]MR_saveToPersistentStoreAndWait];
-#pragma clang diagnostic pop
+- (void)updateLineNote:(NSString *)uniqueID content:(NSString *)content{
+    Note *note = [Note MR_findFirstByAttribute:@"uniqueID" withValue:uniqueID];
+    if(!note)return;
+    
+    note.content = content;
+    note.updatedAt = [NSDate date];
+    
+    NSLog(@"uniqueid = %@", uniqueID);
+    NSLog(@"> update > content = %@", content);
+    
 }
+
+- (NSString*)readLineNote:(NSString *)uniqueID{
+    Note *note = [Note MR_findFirstByAttribute:@"uniqueID" withValue:uniqueID];
+    if(!note)return nil;
+    
+    NSLog(@"uniqueid = %@", uniqueID);
+    NSLog(@"> read > content = %@", note.content);
+    
+    return note.content;
+}
+
 
 @end

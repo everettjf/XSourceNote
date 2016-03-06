@@ -17,4 +17,13 @@
                                end:self.lineNumberEnd.unsignedIntegerValue];
 }
 
+- (NSString *)title{
+    NSString *fileName = [self.pathLocal lastPathComponent];
+    
+    if([self.lineNumberBegin isEqualToNumber:self.lineNumberEnd]){
+        return [NSString stringWithFormat:@"%@ [%@]", fileName, self.lineNumberBegin];
+    }
+    return [NSString stringWithFormat:@"%@ [%@,%@]", fileName, self.lineNumberBegin,self.lineNumberEnd];
+}
+
 @end

@@ -29,6 +29,8 @@
 - (Note*)fetchLineNote:(XSourceNoteIndex*)index;
 - (NSArray*)fetchAllLineNotes;
 - (void)removeLineNote:(XSourceNoteIndex*)index;
-- (void)save;
+
+- (void)updateLineNote:(NSString *)uniqueID content:(NSString*)content;
+- (NSString*)readLineNote:(NSString *)uniqueID;
 
 @end

@@ -103,6 +103,12 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     dispatch_async(dispatch_get_main_queue(), ^{
         NSArray *notes = [[XSourceNoteStorage sharedStorage]fetchAllLineNotes];
         
+        [notes enumerateObjectsUsingBlock:^(Note *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@"Note %@:",@(idx));
+            NSLog(@" - %@",obj.uniqueID);
+            NSLog(@" - %@",obj.content);
+        }];
+        
         // rehash the map
         @synchronized(_markset) {
             for (Note *note in notes) {
