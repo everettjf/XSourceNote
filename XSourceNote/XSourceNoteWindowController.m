@@ -216,6 +216,9 @@
         [[XSourceNoteStorage sharedStorage]updateLineNote:self.currentNoteUniqueID content:content];
     }
 }
+- (IBAction)exportToMarkdown:(id)sender {
+    
+}
 
 
 @end

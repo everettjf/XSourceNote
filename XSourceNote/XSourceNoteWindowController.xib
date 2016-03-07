@@ -348,24 +348,24 @@
                             </tabViewItem>
                             <tabViewItem label="Summarize" identifier="" id="yDy-Qf-UPA">
                                 <view key="view" id="6Gs-ZD-gJS">
-                                    <rect key="frame" x="10" y="33" width="575" height="560"/>
+                                    <rect key="frame" x="10" y="33" width="725" height="560"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9g-Ne-33b">
-                                            <rect key="frame" x="5" y="31" width="565" height="524"/>
+                                            <rect key="frame" x="5" y="31" width="715" height="524"/>
                                             <clipView key="contentView" id="Uxd-jm-tT2">
-                                                <rect key="frame" x="1" y="1" width="563" height="522"/>
+                                                <rect key="frame" x="1" y="1" width="713" height="522"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="5yf-eX-EdL">
-                                                        <rect key="frame" x="0.0" y="0.0" width="563" height="522"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="713" height="522"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="563" height="522"/>
-                                                        <size key="maxSize" width="565" height="10000000"/>
+                                                        <size key="minSize" width="713" height="522"/>
+                                                        <size key="maxSize" width="713" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="563" height="522"/>
-                                                        <size key="maxSize" width="565" height="10000000"/>
+                                                        <size key="minSize" width="713" height="522"/>
+                                                        <size key="maxSize" width="713" height="10000000"/>
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -375,11 +375,11 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="rkC-7i-F2C">
-                                                <rect key="frame" x="548" y="1" width="16" height="522"/>
+                                                <rect key="frame" x="698" y="1" width="16" height="522"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
-                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MtZ-3c-e0L">
+                                        <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MtZ-3c-e0L">
                                             <rect key="frame" x="-1" y="-2" width="577" height="32"/>
                                             <buttonCell key="cell" type="push" title="Save Summarize" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B2O-FI-0y7">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -403,7 +403,7 @@
                             </tabViewItem>
                             <tabViewItem label="Tool" identifier="" id="e9B-O2-n6z">
                                 <view key="view" id="43g-po-NLa">
-                                    <rect key="frame" x="10" y="33" width="575" height="560"/>
+                                    <rect key="frame" x="10" y="33" width="725" height="560"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITQ-wl-zZE">
@@ -432,6 +432,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="exportToMarkdown:" target="-2" id="ISh-yt-bPi"/>
+                                            </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T1L-hs-Qzp">
                                             <rect key="frame" x="40" y="259" width="142" height="32"/>
