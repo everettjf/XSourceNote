@@ -235,6 +235,7 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
 - (XSNote *)_internalFetchLineNoteByUniqueID:(NSString *)uniqueID{
     XSNote *note = nil;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"XSNote"];
+    request.fetchLimit = 1;
     request.predicate = [NSPredicate predicateWithFormat:@"uniqueID == %@", uniqueID];
     
     NSError *error;

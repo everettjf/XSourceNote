@@ -78,8 +78,10 @@
 
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
     XSourceNoteTableCellView *cellView = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
-    XSourceNoteEntity *lineNote = [self.lineNotes objectAtIndex:row];
-    cellView.lineNote = lineNote;
+    if([tableColumn.identifier isEqualToString:@"LineColumn"]){
+        XSourceNoteEntity *lineNote = [self.lineNotes objectAtIndex:row];
+        cellView.lineNote = lineNote;
+    }
     return cellView;
 }
 
@@ -209,7 +211,8 @@
 - (IBAction)saveClicked:(id)sender {
     
     if(self.currentNoteUniqueID){
-        [[XSourceNoteStorage sharedStorage]updateLineNote:self.currentNoteUniqueID content:self.currentNoteView.string];
+        NSString *content = [self.currentNoteView.string copy];
+        [[XSourceNoteStorage sharedStorage]updateLineNote:self.currentNoteUniqueID content:content];
     }
 }
 
