@@ -109,7 +109,7 @@
     
     self.currentNoteView.editable = YES;
     
-    [self refreshNotes];
+//    [self refreshNotes];
 }
 
 
@@ -217,11 +217,18 @@
 }
 
 - (IBAction)reloadClicked:(id)sender {
+    
+    [self refreshNotes];
+//    [[XSourceNoteModel sharedModel]fetchAllNotes:^(NSArray *notes) {
+//        self.lineNotes = notes;
+//        [self.lineNoteTableView reloadData];
+//    }];
+}
+- (IBAction)saveClicked:(id)sender {
+    
     if(_currentNoteUniqueID){
         [[XSourceNoteStorage sharedStorage]updateLineNote:_currentNoteUniqueID content:self.currentNoteView.string];
     }
-    
-    [self refreshNotes];
 }
 
 @end

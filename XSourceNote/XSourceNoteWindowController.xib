@@ -259,6 +259,16 @@
                                                 <action selector="reloadClicked:" target="-2" id="v9a-CG-XcN"/>
                                             </connections>
                                         </button>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rg8-HV-4ON">
+                                            <rect key="frame" x="70" y="-2" width="70" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZCK-aH-XeT">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="saveClicked:" target="-2" id="MjK-8f-k0Y"/>
+                                            </connections>
+                                        </button>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="51" horizontalPageScroll="10" verticalLineScroll="51" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5l-1H-7gz">
                                             <rect key="frame" x="0.0" y="30" width="300" height="530"/>
                                             <clipView key="contentView" drawsBackground="NO" id="8c9-TX-g85">
@@ -353,8 +363,11 @@
                                         <constraint firstItem="9FS-xd-q1Y" firstAttribute="leading" secondItem="dnj-kc-1Ah" secondAttribute="trailing" constant="2" id="RNf-rH-hjs"/>
                                         <constraint firstItem="w5l-1H-7gz" firstAttribute="leading" secondItem="eXL-Uy-7xa" secondAttribute="leading" id="c02-7s-hro"/>
                                         <constraint firstAttribute="bottom" secondItem="9FS-xd-q1Y" secondAttribute="bottom" id="csd-vU-Gth"/>
+                                        <constraint firstItem="Rg8-HV-4ON" firstAttribute="top" secondItem="w5l-1H-7gz" secondAttribute="bottom" constant="4" id="f0P-N5-rZp"/>
                                         <constraint firstItem="w5l-1H-7gz" firstAttribute="top" secondItem="eXL-Uy-7xa" secondAttribute="top" id="jUc-vF-GjO"/>
+                                        <constraint firstAttribute="bottom" secondItem="Rg8-HV-4ON" secondAttribute="bottom" constant="5" id="jiO-MG-79X"/>
                                         <constraint firstAttribute="trailing" secondItem="9FS-xd-q1Y" secondAttribute="trailing" id="sqH-2o-ShK"/>
+                                        <constraint firstItem="Rg8-HV-4ON" firstAttribute="leading" secondItem="bur-3x-xID" secondAttribute="trailing" constant="6" id="tLe-kV-3ZD"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
