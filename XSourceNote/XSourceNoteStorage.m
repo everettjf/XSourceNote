@@ -80,7 +80,7 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     NSAssert(mom != nil, @"Error initializing Managed Object Model");
     
     NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [moc setPersistentStoreCoordinator:psc];
     [self setManagedObjectContext:moc];
     
@@ -269,10 +269,10 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     
     return results;
 }
-- (void)removeLineNote:(XSourceNoteIndex *)index{
+- (void)removeLineNote:(NSString *)uniqueID{
     [self.managedObjectContext performBlockAndWait:^{
-        XSNote *note = [self _internalFetchLineNoteByUniqueID:index.uniqueID];
-        
+        XSNote *note = [self _internalFetchLineNoteByUniqueID:uniqueID];
+        if(!note)return;
         [self.managedObjectContext deleteObject:note];
         
         [self _internalSave];
@@ -293,13 +293,6 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     }];
 }
 
-- (NSString*)readLineNote:(NSString *)uniqueID{
-    XSNote *note = [self _fetchLineNoteByUniqueID:uniqueID];
-    if(!note)return nil;
-    
-    NSLog(@"> read (%@) > content = %@",note.uniqueID, note.content);
-    return note.content;
-}
 
 
 @end

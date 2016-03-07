@@ -11,7 +11,6 @@
 #import "XSourceNoteUtil.h"
 #import "XSourceNotePreferencesWindowController.h"
 #import "XSourceNoteStorage.h"
-#import "XSNote.h"
 #import "XSourceNoteTableView.h"
 #import "XSourceNoteTableCellView.h"
 
@@ -79,7 +78,7 @@
 
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
     XSourceNoteTableCellView *cellView = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
-    XSNote *lineNote = [self.lineNotes objectAtIndex:row];
+    XSourceNoteEntity *lineNote = [self.lineNotes objectAtIndex:row];
     cellView.lineNote = lineNote;
     return cellView;
 }
@@ -96,7 +95,7 @@
     }];
 }
 - (IBAction)onTableViewClicked:(id)sender {
-    XSNote *note = [self _selectedNote];
+    XSourceNoteEntity *note = [self _selectedNote];
     if(!note)return;
     
     [self _showNewNote:note];
@@ -104,11 +103,11 @@
     self.currentNoteView.editable = YES;
     self.currentNoteUniqueID = note.uniqueID;
     
-    [XSourceNoteUtil openSourceFile:note.pathLocal highlightLineNumber:note.lineNumberBegin.unsignedIntegerValue];
+//    [XSourceNoteUtil openSourceFile:note.source highlightLineNumber:note.begin];
 }
 
 
--(XSNote*)_selectedNote{
+-(XSourceNoteEntity*)_selectedNote{
     NSInteger selectedRow = self.lineNoteTableView.selectedRow;
     if(selectedRow < 0 || selectedRow >= self.lineNotes.count){
         return nil;
@@ -172,7 +171,7 @@
 }
 
 - (void)onDeleteLineNote:(id)sender{
-    XSNote *note = [self _selectedNote];
+    XSourceNoteEntity *note = [self _selectedNote];
     if(!note)return;
     
     if(note.content && ![note.content isEqualToString:@""]){
@@ -186,14 +185,14 @@
         }
     }
     
-    [[XSourceNoteModel sharedModel]removeLineNote:[note noteIndex]];
+    [[XSourceNoteModel sharedModel]removeLineNote:note];
     
     [self refreshNotes];
     
 }
 
 
-- (void)_showNewNote:(XSNote*)note{
+- (void)_showNewNote:(XSourceNoteEntity*)note{
     self.window.title = [note title];
     
     // show new

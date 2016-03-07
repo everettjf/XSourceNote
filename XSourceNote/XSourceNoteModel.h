@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@interface XSourceNoteEntity : NSObject
+@property (copy) NSString *uniqueID;
+@property (copy) NSString *source;
+@property (assign) NSUInteger begin;
+@property (assign) NSUInteger end;
+@property (copy) NSString *content;
+
+-(NSString*) title;
+@end
+
 extern NSString * const XSourceNoteModelLineNotesChanged;
 
 @interface XSourceNoteIndex : NSObject
@@ -28,7 +38,7 @@ typedef void (^XSourceNoteModelFetchAllNotesBlock)(NSArray *notes);
 +(XSourceNoteModel *)sharedModel;
 
 - (void)addLineNote:(XSourceNoteIndex*)index;
-- (void)removeLineNote:(XSourceNoteIndex*)index;
+- (void)removeLineNote:(XSourceNoteEntity *)index;
 - (BOOL)hasLineMark:(NSString*)source line:(NSUInteger)line;
 - (void)fetchAllNotes:(XSourceNoteModelFetchAllNotesBlock)completion;
 - (void)ensureInit;

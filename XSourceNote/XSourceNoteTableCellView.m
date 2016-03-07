@@ -7,18 +7,18 @@
 //
 
 #import "XSourceNoteTableCellView.h"
-#import "XSNote.h"
+#import "XSourceNoteModel.h"
 
 @implementation XSourceNoteTableCellView
 
-- (void)setLineNote:(XSNote *)lineNote{
+- (void)setLineNote:(XSourceNoteEntity *)lineNote{
     _lineNote = lineNote;
     
     NSString *content = _lineNote.content;
     if(!content) content = @"";
     
-    _titleField.stringValue = _lineNote.title;
-    _contentField.stringValue = content;
+    _titleField.stringValue = [_lineNote title];
+    _contentField.stringValue = [content copy];
     
     _contentField.maximumNumberOfLines = 2;
     _contentField.editable = NO;

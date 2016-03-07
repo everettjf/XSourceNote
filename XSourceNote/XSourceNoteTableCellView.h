@@ -8,12 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class XSNote;
+@class XSourceNoteEntity;
 @interface XSourceNoteTableCellView : NSTableCellView
 @property (weak) IBOutlet NSTextField *titleField;
 @property (weak) IBOutlet NSTextField *contentField;
 
-@property (copy,nonatomic) XSNote *lineNote;
+@property (copy,nonatomic) XSourceNoteEntity *lineNote;
 
 @end
 

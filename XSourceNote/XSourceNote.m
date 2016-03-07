@@ -125,7 +125,6 @@
         
         self.windowController.window.title = [[XSourceNoteUtil currentWorkspaceDocument].displayName stringByDeletingLastPathComponent];
         [self.windowController.window makeKeyAndOrderFront:nil];
-        [self.windowController refreshNotes];
     }
 }
 

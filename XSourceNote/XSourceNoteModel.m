@@ -12,6 +12,19 @@
 
 NSString * const XSourceNoteModelLineNotesChanged = @"XSourceNoteModelLineNotesChanged";
 
+
+@implementation XSourceNoteEntity
+
+- (NSString *)title{
+    NSString *fileName = [self.source lastPathComponent];
+    
+    if(self.begin == self.end){
+        return [NSString stringWithFormat:@"%@ [%@]", fileName, @(self.begin)];
+    }
+    return [NSString stringWithFormat:@"%@ [%@,%@]", fileName, @(self.begin),@(self.end)];
+}
+@end
+
 static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     return [NSString stringWithFormat:@"%lu/%lu",line,[source hash]];
 }
@@ -27,7 +40,10 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
 }
 
 - (NSString *)uniqueID{
-    return [NSString stringWithFormat:@"%@/%@/%@",_source,@(_begin),@(_end)];
+    NSString *s = [NSString stringWithFormat:@"%@x%@x%@",_source,@(_begin),@(_end)];
+    s = [s stringByReplacingOccurrencesOfString:@"/" withString:@"x"];
+    s = [s stringByReplacingOccurrencesOfString:@"." withString:@"x"];
+    return s;
 }
 
 @end
@@ -84,8 +100,8 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     });
 }
 
-- (void)removeLineNote:(XSourceNoteIndex *)index{
-    [[XSourceNoteStorage sharedStorage]removeLineNote:index];
+- (void)removeLineNote:(XSourceNoteEntity *)index{
+    [[XSourceNoteStorage sharedStorage]removeLineNote:index.uniqueID];
     
     dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
         @synchronized(_markset) {
@@ -101,27 +117,36 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
 - (void)fetchAllNotes:(XSourceNoteModelFetchAllNotesBlock)completion{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSArray *notes = [[XSourceNoteStorage sharedStorage]fetchAllLineNotes];
+        NSMutableArray *entities = [NSMutableArray new];
+        for (XSNote* note in notes) {
+            XSourceNoteEntity *entity = [XSourceNoteEntity new];
+            entity.uniqueID = note.uniqueID;
+            entity.source = note.pathLocal;
+            entity.begin = note.lineNumberBegin.unsignedIntegerValue;
+            entity.end = note.lineNumberEnd.unsignedIntegerValue;
+            entity.content = [[NSString alloc]initWithString:note.content];
+            [entities addObject:entity];
+        }
         
-        [notes enumerateObjectsUsingBlock:^(XSNote *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [entities enumerateObjectsUsingBlock:^(XSourceNoteEntity *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSLog(@"Note %@:",@(idx));
             NSLog(@" - %@",obj.uniqueID);
             NSLog(@" - %@",obj.content);
-            NSLog(@" - %@",obj.updatedAt);
         }];
         
         // rehash the map
         @synchronized(_markset) {
-            for (XSNote *note in notes) {
-                for(NSUInteger idx = note.lineNumberBegin.unsignedIntegerValue;
-                    idx <= note.lineNumberEnd.unsignedIntegerValue;
+            for (XSourceNoteEntity *note in entities) {
+                for(NSUInteger idx = note.begin;
+                    idx <= note.end;
                     ++idx){
-                    [_markset addObject:XSourceNote_HashLine(note.pathLocal, idx)];
+                    [_markset addObject:XSourceNote_HashLine(note.source, idx)];
                 }
             }
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            !completion?:completion(notes);
+            !completion?:completion(entities);
         });
     });
 }
