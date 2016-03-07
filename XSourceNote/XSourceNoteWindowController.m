@@ -211,7 +211,7 @@
 - (IBAction)saveClicked:(id)sender {
     
     if(self.currentNoteUniqueID){
-        NSString *content = [self.currentNoteView.string copy];
+        NSString *content = self.currentNoteView.string;
         [[XSourceNoteStorage sharedStorage]updateLineNote:self.currentNoteUniqueID content:content];
     }
 }

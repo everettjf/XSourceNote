@@ -282,10 +282,10 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
 
 - (void)updateLineNote:(NSString *)uniqueID content:(NSString *)content{
     [self.managedObjectContext performBlockAndWait:^{
-        XSNote *note = [self _internalFetchLineNoteByUniqueID:uniqueID];
+        XSNote *note = [self _internalFetchLineNoteByUniqueID:[uniqueID copy]];
         if(!note)return;
         
-        note.content = content;
+        note.content = [content copy];;
         note.updatedAt = [NSDate date];
         
         NSLog(@"> update (%@) > content = %@ , updatedAt = %@",uniqueID, content , note.updatedAt);
