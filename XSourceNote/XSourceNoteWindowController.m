@@ -53,6 +53,8 @@
     self.lineNoteTableView.deleteKeyAction = @selector(onDeleteLineNote:);
     self.currentNoteView.delegate = self;
     
+    self.currentNoteView.font = [NSFont systemFontOfSize:24];
+    
     [self refreshTabFields];
     [self refreshNotes];
     
@@ -100,12 +102,16 @@
     XSourceNoteEntity *note = [self _selectedNote];
     if(!note)return;
     
+    [self _saveCurrent];
+    
     [self _showNewNote:note];
     
     self.currentNoteView.editable = YES;
     self.currentNoteUniqueID = note.uniqueID;
     
-//    [XSourceNoteUtil openSourceFile:note.source highlightLineNumber:note.begin];
+    [XSourceNoteUtil openSourceFile:note.source highlightLineNumber:note.begin];
+    
+    [self refreshNotes];
 }
 
 
@@ -204,16 +210,12 @@
     self.currentNoteView.string = content;
 }
 
-- (IBAction)reloadClicked:(id)sender {
-    
-    [self refreshNotes];
-}
-- (IBAction)saveClicked:(id)sender {
-    
+- (void)_saveCurrent{
     if(self.currentNoteUniqueID){
         NSString *content = self.currentNoteView.string;
         [[XSourceNoteStorage sharedStorage]updateLineNote:self.currentNoteUniqueID content:content];
     }
 }
+
 
 @end

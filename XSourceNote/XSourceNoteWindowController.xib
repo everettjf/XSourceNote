@@ -249,34 +249,14 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
-                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bur-3x-xID">
-                                            <rect key="frame" x="-6" y="-2" width="82" height="32"/>
-                                            <buttonCell key="cell" type="push" title="Reload" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9zA-IG-STQ">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="reloadClicked:" target="-2" id="v9a-CG-XcN"/>
-                                            </connections>
-                                        </button>
-                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rg8-HV-4ON">
-                                            <rect key="frame" x="70" y="-2" width="70" height="32"/>
-                                            <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZCK-aH-XeT">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="saveClicked:" target="-2" id="MjK-8f-k0Y"/>
-                                            </connections>
-                                        </button>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="51" horizontalPageScroll="10" verticalLineScroll="51" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5l-1H-7gz">
-                                            <rect key="frame" x="0.0" y="30" width="300" height="530"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="560"/>
                                             <clipView key="contentView" drawsBackground="NO" id="8c9-TX-g85">
-                                                <rect key="frame" x="1" y="1" width="298" height="528"/>
+                                                <rect key="frame" x="1" y="1" width="298" height="558"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="49" rowSizeStyle="automatic" viewBased="YES" id="dnj-kc-1Ah" customClass="XSourceNoteTableView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="298" height="528"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="298" height="0.0"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -356,18 +336,13 @@
                                         </scrollView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="bur-3x-xID" secondAttribute="bottom" constant="5" id="4O9-4L-lBL"/>
-                                        <constraint firstItem="bur-3x-xID" firstAttribute="leading" secondItem="eXL-Uy-7xa" secondAttribute="leading" id="Bx6-D5-vd1"/>
                                         <constraint firstItem="9FS-xd-q1Y" firstAttribute="top" secondItem="eXL-Uy-7xa" secondAttribute="top" id="D5I-q5-l0i"/>
-                                        <constraint firstItem="bur-3x-xID" firstAttribute="top" secondItem="w5l-1H-7gz" secondAttribute="bottom" constant="4" id="LAf-iP-UBJ"/>
                                         <constraint firstItem="9FS-xd-q1Y" firstAttribute="leading" secondItem="dnj-kc-1Ah" secondAttribute="trailing" constant="2" id="RNf-rH-hjs"/>
                                         <constraint firstItem="w5l-1H-7gz" firstAttribute="leading" secondItem="eXL-Uy-7xa" secondAttribute="leading" id="c02-7s-hro"/>
                                         <constraint firstAttribute="bottom" secondItem="9FS-xd-q1Y" secondAttribute="bottom" id="csd-vU-Gth"/>
-                                        <constraint firstItem="Rg8-HV-4ON" firstAttribute="top" secondItem="w5l-1H-7gz" secondAttribute="bottom" constant="4" id="f0P-N5-rZp"/>
                                         <constraint firstItem="w5l-1H-7gz" firstAttribute="top" secondItem="eXL-Uy-7xa" secondAttribute="top" id="jUc-vF-GjO"/>
-                                        <constraint firstAttribute="bottom" secondItem="Rg8-HV-4ON" secondAttribute="bottom" constant="5" id="jiO-MG-79X"/>
+                                        <constraint firstAttribute="bottom" secondItem="w5l-1H-7gz" secondAttribute="bottom" id="mXS-MQ-Yg8"/>
                                         <constraint firstAttribute="trailing" secondItem="9FS-xd-q1Y" secondAttribute="trailing" id="sqH-2o-ShK"/>
-                                        <constraint firstItem="Rg8-HV-4ON" firstAttribute="leading" secondItem="bur-3x-xID" secondAttribute="trailing" constant="6" id="tLe-kV-3ZD"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
