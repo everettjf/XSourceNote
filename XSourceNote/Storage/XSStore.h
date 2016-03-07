@@ -1,8 +1,8 @@
 //
-//  Note.h
+//  XSStore.h
 //  XSourceNote
 //
-//  Created by everettjf on 16/2/29.
+//  Created by everettjf on 16/3/7.
 //  Copyright © 2016年 everettjf. All rights reserved.
 //
 
@@ -11,15 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class XSourceNoteIndex;
-@interface Note : NSManagedObject
+@interface XSStore : NSManagedObject
 
--(XSourceNoteIndex*)noteIndex;
-
--(NSString*) title;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "Note+CoreDataProperties.h"
+#import "XSStore+CoreDataProperties.h"

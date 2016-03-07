@@ -11,7 +11,7 @@
 #import "XSourceNoteUtil.h"
 #import "XSourceNotePreferencesWindowController.h"
 #import "XSourceNoteStorage.h"
-#import "Note.h"
+#import "XSNote.h"
 #import "XSourceNoteTableView.h"
 #import "XSourceNoteTableCellView.h"
 
@@ -79,7 +79,7 @@
 
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
     XSourceNoteTableCellView *cellView = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
-    Note *lineNote = [self.lineNotes objectAtIndex:row];
+    XSNote *lineNote = [self.lineNotes objectAtIndex:row];
     cellView.lineNote = lineNote;
     return cellView;
 }
@@ -96,24 +96,19 @@
     }];
 }
 - (IBAction)onTableViewClicked:(id)sender {
-    NSInteger row = self.lineNoteTableView.clickedRow;
-    if(row < 0 || row >= self.lineNotes.count)
-        return;
-    
-    Note *note = [self _selectedNote];
+    XSNote *note = [self _selectedNote];
+    if(!note)return;
     
     [self _showNewNote:note];
     
-    // locate in editor
-    [XSourceNoteUtil openSourceFile:note.pathLocal highlightLineNumber:note.lineNumberBegin.unsignedIntegerValue];
-    
     self.currentNoteView.editable = YES;
+    self.currentNoteUniqueID = note.uniqueID;
     
-//    [self refreshNotes];
+    [XSourceNoteUtil openSourceFile:note.pathLocal highlightLineNumber:note.lineNumberBegin.unsignedIntegerValue];
 }
 
 
--(Note*)_selectedNote{
+-(XSNote*)_selectedNote{
     NSInteger selectedRow = self.lineNoteTableView.selectedRow;
     if(selectedRow < 0 || selectedRow >= self.lineNotes.count){
         return nil;
@@ -177,10 +172,10 @@
 }
 
 - (void)onDeleteLineNote:(id)sender{
-    Note *note = [self _selectedNote];
+    XSNote *note = [self _selectedNote];
     if(!note)return;
     
-    if(note.content){
+    if(note.content && ![note.content isEqualToString:@""]){
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"Confirm"];
         [alert addButtonWithTitle:@"Cancel"];
@@ -198,36 +193,24 @@
 }
 
 
-- (void)_showNewNote:(Note*)note{
+- (void)_showNewNote:(XSNote*)note{
     self.window.title = [note title];
     
-//    // save current
-//    if(_currentNoteUniqueID){
-//        [[XSourceNoteStorage sharedStorage]updateLineNote:_currentNoteUniqueID content:self.currentNoteView.string];
-//    }
-    
     // show new
-    NSString *content = [[XSourceNoteStorage sharedStorage]readLineNote:[note uniqueID]];
+    NSString *content = note.content;//[[XSourceNoteStorage sharedStorage]readLineNote:[note uniqueID]];
     if(!content) content = @"";
     
     self.currentNoteView.string = content;
-    
-    // set new current note
-    self.currentNoteUniqueID = note.uniqueID;
 }
 
 - (IBAction)reloadClicked:(id)sender {
     
     [self refreshNotes];
-//    [[XSourceNoteModel sharedModel]fetchAllNotes:^(NSArray *notes) {
-//        self.lineNotes = notes;
-//        [self.lineNoteTableView reloadData];
-//    }];
 }
 - (IBAction)saveClicked:(id)sender {
     
-    if(_currentNoteUniqueID){
-        [[XSourceNoteStorage sharedStorage]updateLineNote:_currentNoteUniqueID content:self.currentNoteView.string];
+    if(self.currentNoteUniqueID){
+        [[XSourceNoteStorage sharedStorage]updateLineNote:self.currentNoteUniqueID content:self.currentNoteView.string];
     }
 }
 

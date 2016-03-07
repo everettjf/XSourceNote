@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "XSourceNoteModel.h"
-#import "Note.h"
+#import "XSNote.h"
 
 @interface XSourceNoteStorage : NSObject
 @property (strong,readonly) NSURL *notePath;
@@ -25,7 +25,7 @@
 
 // line note
 - (void)addLineNote:(XSourceNoteIndex*)index;
-- (Note*)fetchLineNote:(XSourceNoteIndex*)index;
+- (XSNote*)fetchLineNote:(XSourceNoteIndex*)index;
 - (NSArray*)fetchAllLineNotes;
 - (void)removeLineNote:(XSourceNoteIndex*)index;
 

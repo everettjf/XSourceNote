@@ -1,14 +1,14 @@
 //
-//  Store.m
+//  XSStore.m
 //  XSourceNote
 //
-//  Created by everettjf on 16/3/1.
+//  Created by everettjf on 16/3/7.
 //  Copyright © 2016年 everettjf. All rights reserved.
 //
 
-#import "Store.h"
+#import "XSStore.h"
 
-@implementation Store
+@implementation XSStore
 
 // Insert code here to add functionality to your managed object subclass
 

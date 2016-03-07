@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
-    <entity name="Note" representedClassName="Note" syncable="YES">
+    <entity name="XSNote" representedClassName="XSNote" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="extension" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,12 +13,12 @@
         <attribute name="uniqueID" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
-    <entity name="Store" representedClassName="Store" syncable="YES">
+    <entity name="XSStore" representedClassName="XSStore" syncable="YES">
         <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="value" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-63" positionY="-18" width="128" height="210"/>
-        <element name="Store" positionX="-45" positionY="72" width="128" height="75"/>
+        <element name="XSNote" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="XSStore" positionX="-45" positionY="72" width="128" height="75"/>
     </elements>
 </model>

@@ -7,11 +7,11 @@
 //
 
 #import "XSourceNoteTableCellView.h"
-#import "Note.h"
+#import "XSNote.h"
 
 @implementation XSourceNoteTableCellView
 
-- (void)setLineNote:(Note *)lineNote{
+- (void)setLineNote:(XSNote *)lineNote{
     _lineNote = lineNote;
     
     NSString *content = _lineNote.content;
