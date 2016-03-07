@@ -128,12 +128,6 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
             [entities addObject:entity];
         }
         
-        [entities enumerateObjectsUsingBlock:^(XSourceNoteEntity *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(@"Note %@:",@(idx));
-            NSLog(@" - %@",obj.uniqueID);
-            NSLog(@" - %@",obj.content);
-        }];
-        
         // rehash the map
         @synchronized(_markset) {
             for (XSourceNoteEntity *note in entities) {

@@ -288,8 +288,6 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
         note.content = [content copy];;
         note.updatedAt = [NSDate date];
         
-        NSLog(@"> update (%@) > content = %@ , updatedAt = %@",uniqueID, content , note.updatedAt);
-        
         [self _internalSave];
     }];
 }
