@@ -25,6 +25,7 @@
 		D18CDBFE1C8DD535003651E8 /* XSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDBF81C8DD535003651E8 /* XSNote.m */; };
 		D18CDBFF1C8DD535003651E8 /* XSStore+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDBFA1C8DD535003651E8 /* XSStore+CoreDataProperties.m */; };
 		D18CDC001C8DD535003651E8 /* XSStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDBFC1C8DD535003651E8 /* XSStore.m */; };
+		D18CDC031C9058C2003651E8 /* XSourceNoteFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDC021C9058C2003651E8 /* XSourceNoteFormatter.m */; };
 		D1AA5D881C820788005DC6A7 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D871C820788005DC6A7 /* JRSwizzle.m */; };
 		D1AA5D9E1C820799005DC6A7 /* MASDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D8B1C820799005DC6A7 /* MASDictionaryTransformer.m */; };
 		D1AA5D9F1C820799005DC6A7 /* MASHotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D8D1C820799005DC6A7 /* MASHotKey.m */; };
@@ -98,6 +99,8 @@
 		D18CDBFA1C8DD535003651E8 /* XSStore+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XSStore+CoreDataProperties.m"; path = "Storage/XSStore+CoreDataProperties.m"; sourceTree = "<group>"; };
 		D18CDBFB1C8DD535003651E8 /* XSStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XSStore.h; path = Storage/XSStore.h; sourceTree = "<group>"; };
 		D18CDBFC1C8DD535003651E8 /* XSStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XSStore.m; path = Storage/XSStore.m; sourceTree = "<group>"; };
+		D18CDC011C9058C2003651E8 /* XSourceNoteFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSourceNoteFormatter.h; sourceTree = "<group>"; };
+		D18CDC021C9058C2003651E8 /* XSourceNoteFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSourceNoteFormatter.m; sourceTree = "<group>"; };
 		D1AA5D861C820788005DC6A7 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		D1AA5D871C820788005DC6A7 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		D1AA5D8A1C820799005DC6A7 /* MASDictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASDictionaryTransformer.h; sourceTree = "<group>"; };
@@ -340,6 +343,8 @@
 				D17825C71C8B31A4005F78FE /* XSourceNoteTableView.m */,
 				D1499C311C8BDFA30099AECE /* XSourceNoteTableCellView.h */,
 				D1499C321C8BDFA30099AECE /* XSourceNoteTableCellView.m */,
+				D18CDC011C9058C2003651E8 /* XSourceNoteFormatter.h */,
+				D18CDC021C9058C2003651E8 /* XSourceNoteFormatter.m */,
 			);
 			path = XSourceNote;
 			sourceTree = "<group>";
@@ -426,6 +431,7 @@
 				D1AA5DC01C8209D2005DC6A7 /* DVTTextSidebarView+XSourceNote.m in Sources */,
 				D1AA5DA01C820799005DC6A7 /* MASLocalization.m in Sources */,
 				D1AA5DA11C820799005DC6A7 /* MASShortcut.m in Sources */,
+				D18CDC031C9058C2003651E8 /* XSourceNoteFormatter.m in Sources */,
 				D1269DF91C83584200C6F728 /* README.md in Sources */,
 				D1AA5DC51C8209D2005DC6A7 /* XSourceNoteUtil.m in Sources */,
 				D1AA5DC61C8209D2005DC6A7 /* XSourceNoteWindowController.m in Sources */,

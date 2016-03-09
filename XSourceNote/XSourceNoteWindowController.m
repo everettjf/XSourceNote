@@ -13,6 +13,7 @@
 #import "XSourceNoteStorage.h"
 #import "XSourceNoteTableView.h"
 #import "XSourceNoteTableCellView.h"
+#import "XSourceNoteFormatter.h"
 
 
 @interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource, NSTextViewDelegate>
@@ -60,18 +61,22 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notificationLineNotesChange:) name:XSourceNoteModelLineNotesChanged object:nil];
     
-//    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
-//    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC, 1 * NSEC_PER_SEC);
-//    dispatch_source_set_event_handler(timer, ^{
-//        [self _saveCurrentNote];
-//    });
-//    dispatch_resume(timer);
+    [self startSaveTimer];
     
     self.currentNoteView.editable = NO;
 }
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+- (void)startSaveTimer{
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self _saveCurrent];
+        
+        [self startSaveTimer];
+    });
 }
 
 -(void) notificationLineNotesChange:(NSNotification*)obj{
@@ -152,10 +157,10 @@
 - (IBAction)saveInformationClicked:(id)sender {
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     
-    st.projectUniqueAddress = self.uniqueVersionAddressTextField.stringValue;
-    st.projectName = self.projectNameTextField.stringValue;
-    st.projectSite = self.officialSiteTextField.stringValue;
-    st.projectDescription = self.descriptionTextView.string;
+    st.projectUniqueAddress = [self.uniqueVersionAddressTextField.stringValue copy];
+    st.projectName = [self.projectNameTextField.stringValue copy];
+    st.projectSite = [self.officialSiteTextField.stringValue copy];
+    st.projectDescription = [self.descriptionTextView.string copy];
 }
 
 - (void)refreshTabFields{
@@ -217,6 +222,35 @@
     }
 }
 - (IBAction)exportToMarkdown:(id)sender {
+    XSourceNoteStorage *store = [XSourceNoteStorage sharedStorage];
+    
+    NSSavePanel *save = [NSSavePanel savePanel];
+    save.nameFieldStringValue = [NSString stringWithFormat:@"%@",store.projectName];
+    save.message = @"Save to ?";
+    save.allowsOtherFileTypes = YES;
+    save.allowedFileTypes = @[@"md",@"markdown"];
+    save.extensionHidden = YES;
+    save.canCreateDirectories = YES;
+    
+    [save beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if(result != NSFileHandlingPanelOKButton)
+            return;
+        NSString *filePath = [[save URL]path];
+        
+        if([[XSourceNoteFormatter sharedFormatter]saveTo:filePath]){
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            alert.messageText = @"Succeed";
+            [alert setAlertStyle:NSInformationalAlertStyle];
+            [alert runModal];
+        }else{
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            alert.messageText = @"Failed";
+            [alert setAlertStyle:NSCriticalAlertStyle];
+            [alert runModal];
+        }
+    }];
     
 }
 

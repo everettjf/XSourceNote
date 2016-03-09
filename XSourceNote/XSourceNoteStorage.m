@@ -102,6 +102,7 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
         
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"XSStore"];
         request.fetchLimit = 1;
+        request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
         NSError *error = nil;
         NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
         if(error)
@@ -125,6 +126,7 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
 - (NSString *)_readValueForKey:(NSString *)key{
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"XSStore"];
     request.fetchLimit = 1;
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
     NSError *error = nil;
     NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
     if(error)
@@ -133,7 +135,7 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     XSStore *store = results.firstObject;
     if(!store.value)
         return @"";
-    return store.value;
+    return [store.value copy];
 }
 
 - (void)setProjectUniqueAddress:(NSString *)projectUniqueAddress{
