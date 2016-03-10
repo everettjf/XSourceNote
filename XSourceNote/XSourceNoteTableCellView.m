@@ -11,13 +11,20 @@
 
 @implementation XSourceNoteTableCellView
 
-- (void)setLineNote:(XSourceNoteEntity *)lineNote{
-    _lineNote = lineNote;
+-(void)setNote:(XSourceNoteEntityObject *)note{
+    _note = note;
     
-    NSString *content = _lineNote.content;
+    _titleField.stringValue = [note title];
+    _contentField.stringValue = @"";
+    
+    if(_note.type == XSourceNoteEntityTypeLineNote){
+        [self setLineNote:(id)note];
+    }
+}
+- (void)setLineNote:(XSourceNoteLineEntity *)lineNote{
+    NSString *content = lineNote.content;
     if(!content) content = @"";
     
-    _titleField.stringValue = [_lineNote title];
     _contentField.stringValue = [content copy];
     
     _contentField.maximumNumberOfLines = 2;

@@ -17,6 +17,7 @@
 
 
 @interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource, NSTextViewDelegate>
+@property (weak) IBOutlet NSTabView *tabView;
 
 @property (nonatomic,strong) XSourceNotePreferencesWindowController *preferencesWindowController;
 
@@ -36,8 +37,9 @@
 @property (weak) IBOutlet XSourceNoteTableView *lineNoteTableView;
 
 @property (unsafe_unretained) IBOutlet NSTextView *currentNoteView;
+@property (unsafe_unretained) IBOutlet NSTextView *currentSourceView;
 
-@property (strong) NSArray *lineNotes;
+@property (strong) NSArray *notes;
 @property (copy) NSString *currentNoteUniqueID;
 
 @end
@@ -49,7 +51,7 @@
     
     self.window.level = NSFloatingWindowLevel;
     self.window.hidesOnDeactivate = YES;
-    self.lineNotes = @[];
+    self.notes = @[];
     
     self.lineNoteTableView.deleteKeyAction = @selector(onDeleteLineNote:);
     self.currentNoteView.delegate = self;
@@ -64,6 +66,7 @@
     [self startSaveTimer];
     
     self.currentNoteView.editable = NO;
+    self.currentSourceView.editable = NO;
 }
 
 - (void)dealloc{
@@ -86,46 +89,80 @@
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
     XSourceNoteTableCellView *cellView = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
     if([tableColumn.identifier isEqualToString:@"LineColumn"]){
-        XSourceNoteEntity *lineNote = [self.lineNotes objectAtIndex:row];
-        cellView.lineNote = lineNote;
+        XSourceNoteEntityObject *note = [self.notes objectAtIndex:row];
+        cellView.note = note;
     }
     return cellView;
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{
-    return self.lineNotes.count;
+    return self.notes.count;
 }
 
 
 -(void)refreshNotes{
     [[XSourceNoteModel sharedModel]fetchAllNotes:^(NSArray *notes) {
-        self.lineNotes = notes;
+        NSMutableArray *dataset = [NSMutableArray new];
+        [dataset addObject:[XSourceNoteBasicInformationEntity new]];
+        [dataset addObject:[XSourceNoteProjectNoteEntity new]];
+        [dataset addObject:[XSourceNoteProjectSummarizeEntity new]];
+        [dataset addObject:[XSourceNoteProjectToolEntity new]];
+        
+        for (XSourceNoteEntityObject *note in notes) {
+            [dataset addObject:note];
+        }
+        self.notes = dataset;
+        
         [self.lineNoteTableView reloadData];
     }];
 }
 - (IBAction)onTableViewClicked:(id)sender {
-    XSourceNoteEntity *note = [self _selectedNote];
+    XSourceNoteEntityObject *note = [self _selectedNote];
     if(!note)return;
     
-    [self _saveCurrent];
+    switch (note.type) {
+        case XSourceNoteEntityTypeBasicInformation:
+            [self.tabView selectTabViewItemAtIndex:0];
+            break;
+        case XSourceNoteEntityTypeProjectNote:
+            [self.tabView selectTabViewItemAtIndex:1];
+            break;
+        case XSourceNoteEntityTypeSummarize:
+            [self.tabView selectTabViewItemAtIndex:3];
+            break;
+        case XSourceNoteEntityTypeTool:
+            [self.tabView selectTabViewItemAtIndex:4];
+            break;
+        case XSourceNoteEntityTypeLineNote:{
+            [self.tabView selectTabViewItemAtIndex:2];
+            
+            [self _saveCurrent];
+            XSourceNoteLineEntity *lineNote = (id)note;
+            
+            [self _showNewNote:lineNote];
+            
+            self.currentNoteView.editable = YES;
+            self.currentNoteUniqueID = lineNote.uniqueID;
+            
+            [XSourceNoteUtil openSourceFile:lineNote.source highlightLineNumber:lineNote.begin];
+            
+            [self refreshNotes];
+            
+            break;
+        }
+        default:
+            break;
+    }
     
-    [self _showNewNote:note];
-    
-    self.currentNoteView.editable = YES;
-    self.currentNoteUniqueID = note.uniqueID;
-    
-    [XSourceNoteUtil openSourceFile:note.source highlightLineNumber:note.begin];
-    
-    [self refreshNotes];
 }
 
 
--(XSourceNoteEntity*)_selectedNote{
+-(XSourceNoteEntityObject*)_selectedNote{
     NSInteger selectedRow = self.lineNoteTableView.selectedRow;
-    if(selectedRow < 0 || selectedRow >= self.lineNotes.count){
+    if(selectedRow < 0 || selectedRow >= self.notes.count){
         return nil;
     }
-    return [self.lineNotes objectAtIndex:selectedRow];
+    return [self.notes objectAtIndex:selectedRow];
 }
 
 - (IBAction)helpClicked:(id)sender {
@@ -184,8 +221,10 @@
 }
 
 - (void)onDeleteLineNote:(id)sender{
-    XSourceNoteEntity *note = [self _selectedNote];
-    if(!note)return;
+    XSourceNoteEntityObject *obj = [self _selectedNote];
+    if(!obj)return;
+    if(obj.type != XSourceNoteEntityTypeLineNote)return;
+    XSourceNoteLineEntity *note = (id)obj;
     
     if(note.content && ![note.content isEqualToString:@""]){
         NSAlert *alert = [[NSAlert alloc] init];
@@ -205,14 +244,18 @@
 }
 
 
-- (void)_showNewNote:(XSourceNoteEntity*)note{
+- (void)_showNewNote:(XSourceNoteLineEntity*)note{
     self.window.title = [note title];
     
     // show new
     NSString *content = note.content;//[[XSourceNoteStorage sharedStorage]readLineNote:[note uniqueID]];
     if(!content) content = @"";
     
+    NSString *code = note.code;
+    if(!code)code = @"";
+    
     self.currentNoteView.string = content;
+    self.currentSourceView.string = code;
 }
 
 - (void)_saveCurrent{

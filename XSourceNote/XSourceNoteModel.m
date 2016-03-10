@@ -13,17 +13,6 @@
 NSString * const XSourceNoteModelLineNotesChanged = @"XSourceNoteModelLineNotesChanged";
 
 
-@implementation XSourceNoteEntity
-
-- (NSString *)title{
-    NSString *fileName = [self.source lastPathComponent];
-    
-    if(self.begin == self.end){
-        return [NSString stringWithFormat:@"%@ [%@]", fileName, @(self.begin)];
-    }
-    return [NSString stringWithFormat:@"%@ [%@,%@]", fileName, @(self.begin),@(self.end)];
-}
-@end
 
 static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     return [NSString stringWithFormat:@"%lu/%lu",line,[source hash]];
@@ -100,7 +89,7 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     });
 }
 
-- (void)removeLineNote:(XSourceNoteEntity *)index{
+- (void)removeLineNote:(XSourceNoteLineEntity *)index{
     [[XSourceNoteStorage sharedStorage]removeLineNote:index.uniqueID];
     
     dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
@@ -119,7 +108,7 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
         NSArray *notes = [[XSourceNoteStorage sharedStorage]fetchAllLineNotes];
         NSMutableArray *entities = [NSMutableArray new];
         for (XSNote* note in notes) {
-            XSourceNoteEntity *entity = [XSourceNoteEntity new];
+            XSourceNoteLineEntity *entity = [XSourceNoteLineEntity new];
             entity.uniqueID = note.uniqueID;
             entity.source = note.pathLocal;
             entity.begin = note.lineNumberBegin.unsignedIntegerValue;
@@ -131,7 +120,7 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
         
         // rehash the map
         @synchronized(_markset) {
-            for (XSourceNoteEntity *note in entities) {
+            for (XSourceNoteLineEntity *note in entities) {
                 for(NSUInteger idx = note.begin;
                     idx <= note.end;
                     ++idx){

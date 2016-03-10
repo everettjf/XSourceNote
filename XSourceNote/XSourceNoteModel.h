@@ -7,17 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XSourceNoteDataset.h"
 
-@interface XSourceNoteEntity : NSObject
-@property (copy) NSString *uniqueID;
-@property (copy) NSString *source;
-@property (assign) NSUInteger begin;
-@property (assign) NSUInteger end;
-@property (copy) NSString *content;
-@property (copy) NSString *code;
-
--(NSString*) title;
-@end
 
 extern NSString * const XSourceNoteModelLineNotesChanged;
 
@@ -39,7 +30,7 @@ typedef void (^XSourceNoteModelFetchAllNotesBlock)(NSArray *notes);
 +(XSourceNoteModel *)sharedModel;
 
 - (void)addLineNote:(XSourceNoteIndex*)index code:(NSString*)code;
-- (void)removeLineNote:(XSourceNoteEntity *)index;
+- (void)removeLineNote:(XSourceNoteLineEntity *)index;
 - (BOOL)hasLineMark:(NSString*)source line:(NSUInteger)line;
 - (void)fetchAllNotes:(XSourceNoteModelFetchAllNotesBlock)completion;
 - (void)ensureInit;

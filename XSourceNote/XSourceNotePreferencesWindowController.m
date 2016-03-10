@@ -45,6 +45,7 @@
         config.currentShortcutShow = sender.shortcutValue;
         [config synchronize];
     };
+    
 }
 
 -(void)windowWillClose:(NSNotification *)notification{
