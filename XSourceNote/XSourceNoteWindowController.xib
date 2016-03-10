@@ -362,10 +362,10 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="minSize" width="713" height="522"/>
-                                                        <size key="maxSize" width="713" height="10000000"/>
+                                                        <size key="maxSize" width="715" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="minSize" width="713" height="522"/>
-                                                        <size key="maxSize" width="713" height="10000000"/>
+                                                        <size key="maxSize" width="715" height="10000000"/>
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -20,12 +20,14 @@
 		D1499C2F1C8B0B680099AECE /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1499C231C8B0B680099AECE /* View+MASAdditions.m */; };
 		D1499C301C8B0B680099AECE /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1499C261C8B0B680099AECE /* ViewController+MASAdditions.m */; };
 		D1499C331C8BDFA30099AECE /* XSourceNoteTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1499C321C8BDFA30099AECE /* XSourceNoteTableCellView.m */; };
+		D158AB0D1C91CDFB0009DBE6 /* XSourceNoteDataset.m in Sources */ = {isa = PBXBuildFile; fileRef = D158AB0C1C91CDFB0009DBE6 /* XSourceNoteDataset.m */; };
 		D17825C81C8B31A4005F78FE /* XSourceNoteTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D17825C71C8B31A4005F78FE /* XSourceNoteTableView.m */; };
 		D18CDBFD1C8DD535003651E8 /* XSNote+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDBF61C8DD535003651E8 /* XSNote+CoreDataProperties.m */; };
 		D18CDBFE1C8DD535003651E8 /* XSNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDBF81C8DD535003651E8 /* XSNote.m */; };
 		D18CDBFF1C8DD535003651E8 /* XSStore+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDBFA1C8DD535003651E8 /* XSStore+CoreDataProperties.m */; };
 		D18CDC001C8DD535003651E8 /* XSStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDBFC1C8DD535003651E8 /* XSStore.m */; };
 		D18CDC031C9058C2003651E8 /* XSourceNoteFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDC021C9058C2003651E8 /* XSourceNoteFormatter.m */; };
+		D18CDC0C1C91C5F8003651E8 /* XSourceNoteTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D18CDC0B1C91C5F8003651E8 /* XSourceNoteTextView.m */; };
 		D1AA5D881C820788005DC6A7 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D871C820788005DC6A7 /* JRSwizzle.m */; };
 		D1AA5D9E1C820799005DC6A7 /* MASDictionaryTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D8B1C820799005DC6A7 /* MASDictionaryTransformer.m */; };
 		D1AA5D9F1C820799005DC6A7 /* MASHotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AA5D8D1C820799005DC6A7 /* MASHotKey.m */; };
@@ -89,6 +91,8 @@
 		D1499C261C8B0B680099AECE /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		D1499C311C8BDFA30099AECE /* XSourceNoteTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSourceNoteTableCellView.h; sourceTree = "<group>"; };
 		D1499C321C8BDFA30099AECE /* XSourceNoteTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSourceNoteTableCellView.m; sourceTree = "<group>"; };
+		D158AB0B1C91CDFB0009DBE6 /* XSourceNoteDataset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSourceNoteDataset.h; sourceTree = "<group>"; };
+		D158AB0C1C91CDFB0009DBE6 /* XSourceNoteDataset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSourceNoteDataset.m; sourceTree = "<group>"; };
 		D17825C61C8B31A4005F78FE /* XSourceNoteTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSourceNoteTableView.h; sourceTree = "<group>"; };
 		D17825C71C8B31A4005F78FE /* XSourceNoteTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSourceNoteTableView.m; sourceTree = "<group>"; };
 		D18CDBF51C8DD535003651E8 /* XSNote+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XSNote+CoreDataProperties.h"; path = "Storage/XSNote+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 		D18CDBFC1C8DD535003651E8 /* XSStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XSStore.m; path = Storage/XSStore.m; sourceTree = "<group>"; };
 		D18CDC011C9058C2003651E8 /* XSourceNoteFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSourceNoteFormatter.h; sourceTree = "<group>"; };
 		D18CDC021C9058C2003651E8 /* XSourceNoteFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSourceNoteFormatter.m; sourceTree = "<group>"; };
+		D18CDC0A1C91C5F8003651E8 /* XSourceNoteTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSourceNoteTextView.h; sourceTree = "<group>"; };
+		D18CDC0B1C91C5F8003651E8 /* XSourceNoteTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSourceNoteTextView.m; sourceTree = "<group>"; };
 		D1AA5D861C820788005DC6A7 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		D1AA5D871C820788005DC6A7 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		D1AA5D8A1C820799005DC6A7 /* MASDictionaryTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASDictionaryTransformer.h; sourceTree = "<group>"; };
@@ -212,6 +218,62 @@
 			path = Masonry;
 			sourceTree = "<group>";
 		};
+		D18CDC0D1C91C60F003651E8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D1AA5DBD1C8209D2005DC6A7 /* XSourceNoteWindowController.h */,
+				D1AA5DBE1C8209D2005DC6A7 /* XSourceNoteWindowController.m */,
+				D1AA5DBF1C8209D2005DC6A7 /* XSourceNoteWindowController.xib */,
+				D1AA5DB81C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.h */,
+				D1AA5DB91C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.m */,
+				D1AA5DBA1C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.xib */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		D18CDC0E1C91C624003651E8 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				D1AF1FC31C664BD100CECB8B /* XSourceNote.h */,
+				D1AF1FC41C664BD100CECB8B /* XSourceNote.m */,
+				D1AF1FC61C664BD100CECB8B /* NSObject_Extension.h */,
+				D1AF1FC71C664BD100CECB8B /* NSObject_Extension.m */,
+				D1AA5DB21C8209D2005DC6A7 /* DVTTextSidebarView+XSourceNote.h */,
+				D1AA5DB31C8209D2005DC6A7 /* DVTTextSidebarView+XSourceNote.m */,
+			);
+			name = Plugin;
+			sourceTree = "<group>";
+		};
+		D18CDC0F1C91C660003651E8 /* Dataset */ = {
+			isa = PBXGroup;
+			children = (
+				D158AB0B1C91CDFB0009DBE6 /* XSourceNoteDataset.h */,
+				D158AB0C1C91CDFB0009DBE6 /* XSourceNoteDataset.m */,
+				D1AA5DB41C8209D2005DC6A7 /* XSourceNoteDefaults.h */,
+				D1AA5DB51C8209D2005DC6A7 /* XSourceNoteDefaults.m */,
+				D1AA5DB61C8209D2005DC6A7 /* XSourceNoteModel.h */,
+				D1AA5DB71C8209D2005DC6A7 /* XSourceNoteModel.m */,
+				D1AA5DBB1C8209D2005DC6A7 /* XSourceNoteUtil.h */,
+				D1AA5DBC1C8209D2005DC6A7 /* XSourceNoteUtil.m */,
+				D18CDC011C9058C2003651E8 /* XSourceNoteFormatter.h */,
+				D18CDC021C9058C2003651E8 /* XSourceNoteFormatter.m */,
+			);
+			name = Dataset;
+			sourceTree = "<group>";
+		};
+		D18CDC101C91C67D003651E8 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				D17825C61C8B31A4005F78FE /* XSourceNoteTableView.h */,
+				D17825C71C8B31A4005F78FE /* XSourceNoteTableView.m */,
+				D1499C311C8BDFA30099AECE /* XSourceNoteTableCellView.h */,
+				D1499C321C8BDFA30099AECE /* XSourceNoteTableCellView.m */,
+				D18CDC0A1C91C5F8003651E8 /* XSourceNoteTextView.h */,
+				D18CDC0B1C91C5F8003651E8 /* XSourceNoteTextView.m */,
+			);
+			name = SubViews;
+			sourceTree = "<group>";
+		};
 		D1AA5D851C820788005DC6A7 /* JRSwizzle */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,32 +381,12 @@
 				D1AA5DA71C8207A4005DC6A7 /* XcodeHeaders */,
 				D1AA5D891C820799005DC6A7 /* MASShortcut */,
 				D1AA5D851C820788005DC6A7 /* JRSwizzle */,
-				D1AF1FC31C664BD100CECB8B /* XSourceNote.h */,
-				D1AF1FC41C664BD100CECB8B /* XSourceNote.m */,
-				D1AF1FC61C664BD100CECB8B /* NSObject_Extension.h */,
-				D1AF1FC71C664BD100CECB8B /* NSObject_Extension.m */,
-				D1AA5DB21C8209D2005DC6A7 /* DVTTextSidebarView+XSourceNote.h */,
-				D1AA5DB31C8209D2005DC6A7 /* DVTTextSidebarView+XSourceNote.m */,
-				D1AA5DB41C8209D2005DC6A7 /* XSourceNoteDefaults.h */,
-				D1AA5DB51C8209D2005DC6A7 /* XSourceNoteDefaults.m */,
-				D1AA5DB61C8209D2005DC6A7 /* XSourceNoteModel.h */,
-				D1AA5DB71C8209D2005DC6A7 /* XSourceNoteModel.m */,
-				D1AA5DB81C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.h */,
-				D1AA5DB91C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.m */,
-				D1AA5DBA1C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.xib */,
-				D1AA5DBB1C8209D2005DC6A7 /* XSourceNoteUtil.h */,
-				D1AA5DBC1C8209D2005DC6A7 /* XSourceNoteUtil.m */,
-				D1AA5DBD1C8209D2005DC6A7 /* XSourceNoteWindowController.h */,
-				D1AA5DBE1C8209D2005DC6A7 /* XSourceNoteWindowController.m */,
-				D1AA5DBF1C8209D2005DC6A7 /* XSourceNoteWindowController.xib */,
+				D18CDC0E1C91C624003651E8 /* Plugin */,
+				D18CDC0F1C91C660003651E8 /* Dataset */,
+				D18CDC0D1C91C60F003651E8 /* ViewController */,
 				D1AF1FC91C664BD100CECB8B /* Info.plist */,
 				D1AF1FC01C664BD100CECB8B /* Supporting Files */,
-				D17825C61C8B31A4005F78FE /* XSourceNoteTableView.h */,
-				D17825C71C8B31A4005F78FE /* XSourceNoteTableView.m */,
-				D1499C311C8BDFA30099AECE /* XSourceNoteTableCellView.h */,
-				D1499C321C8BDFA30099AECE /* XSourceNoteTableCellView.m */,
-				D18CDC011C9058C2003651E8 /* XSourceNoteFormatter.h */,
-				D18CDC021C9058C2003651E8 /* XSourceNoteFormatter.m */,
+				D18CDC101C91C67D003651E8 /* SubViews */,
 			);
 			path = XSourceNote;
 			sourceTree = "<group>";
@@ -447,6 +489,7 @@
 				D1499C291C8B0B680099AECE /* MASConstraintMaker.m in Sources */,
 				D18CDC001C8DD535003651E8 /* XSStore.m in Sources */,
 				D17825C81C8B31A4005F78FE /* XSourceNoteTableView.m in Sources */,
+				D158AB0D1C91CDFB0009DBE6 /* XSourceNoteDataset.m in Sources */,
 				D1AA5D881C820788005DC6A7 /* JRSwizzle.m in Sources */,
 				D1499C2D1C8B0B680099AECE /* NSArray+MASAdditions.m in Sources */,
 				D1499C2F1C8B0B680099AECE /* View+MASAdditions.m in Sources */,
@@ -464,6 +507,7 @@
 				D1499C2A1C8B0B680099AECE /* MASLayoutConstraint.m in Sources */,
 				D1AA5D9F1C820799005DC6A7 /* MASHotKey.m in Sources */,
 				D1AA5D9E1C820799005DC6A7 /* MASDictionaryTransformer.m in Sources */,
+				D18CDC0C1C91C5F8003651E8 /* XSourceNoteTextView.m in Sources */,
 				D1AA5DA21C820799005DC6A7 /* MASShortcutBinder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,7 +24,7 @@
 @property (strong) NSString *projectSummarize;
 
 // line note
-- (void)addLineNote:(XSourceNoteIndex*)index;
+- (void)addLineNote:(XSourceNoteIndex*)index code:(NSString*)code;
 - (XSNote*)fetchLineNote:(XSourceNoteIndex*)index;
 - (NSArray*)fetchAllLineNotes;
 - (void)removeLineNote:(NSString *)uniqueID;

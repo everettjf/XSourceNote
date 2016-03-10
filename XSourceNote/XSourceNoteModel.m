@@ -83,11 +83,11 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     return has;
 }
 
-- (void)addLineNote:(XSourceNoteIndex *)index{
+- (void)addLineNote:(XSourceNoteIndex *)index code:(NSString *)code{
     if(index.begin > index.end)
         return;
 
-    [[XSourceNoteStorage sharedStorage]addLineNote:index];
+    [[XSourceNoteStorage sharedStorage]addLineNote:index code:code];
     
     dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
         @synchronized(_markset) {
@@ -125,6 +125,7 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
             entity.begin = note.lineNumberBegin.unsignedIntegerValue;
             entity.end = note.lineNumberEnd.unsignedIntegerValue;
             entity.content = [[NSString alloc]initWithString:note.content];
+            entity.code = note.code;
             [entities addObject:entity];
         }
         

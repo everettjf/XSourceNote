@@ -195,7 +195,7 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
     }
 }
 
-- (void)addLineNote:(XSourceNoteIndex *)index{
+- (void)addLineNote:(XSourceNoteIndex *)index code:(NSString *)code{
     [self.managedObjectContext performBlockAndWait:^{
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"XSNote"];
         request.fetchLimit = 1;
@@ -221,6 +221,7 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
         note.lineNumberBegin = @(index.begin);
         note.lineNumberEnd = @(index.end);
         note.updatedAt = [NSDate date];
+        note.code = code;
         
         [self _internalSave];
     }];

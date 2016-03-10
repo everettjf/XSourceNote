@@ -14,6 +14,7 @@
 @property (assign) NSUInteger begin;
 @property (assign) NSUInteger end;
 @property (copy) NSString *content;
+@property (copy) NSString *code;
 
 -(NSString*) title;
 @end
@@ -21,7 +22,7 @@
 extern NSString * const XSourceNoteModelLineNotesChanged;
 
 @interface XSourceNoteIndex : NSObject
-@property (strong) NSString *source;
+@property (copy) NSString *source;
 @property (assign) NSUInteger begin;
 @property (assign) NSUInteger end;
 
@@ -37,7 +38,7 @@ typedef void (^XSourceNoteModelFetchAllNotesBlock)(NSArray *notes);
 
 +(XSourceNoteModel *)sharedModel;
 
-- (void)addLineNote:(XSourceNoteIndex*)index;
+- (void)addLineNote:(XSourceNoteIndex*)index code:(NSString*)code;
 - (void)removeLineNote:(XSourceNoteEntity *)index;
 - (BOOL)hasLineMark:(NSString*)source line:(NSUInteger)line;
 - (void)fetchAllNotes:(XSourceNoteModelFetchAllNotesBlock)completion;

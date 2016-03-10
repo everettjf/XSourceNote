@@ -98,13 +98,18 @@
     if(range.length > 0){
         endLineNumber = [[[textView string]substringToIndex:range.location + range.length]componentsSeparatedByString:@"\n"].count;
     }
-    NSLog(@"range = (%@,%@) , startLine = %@, endLine = %@",
-          @(range.location), @(range.length), @(startLineNumber),@(endLineNumber));
+//    NSLog(@"range = (%@,%@) , startLine = %@, endLine = %@",
+//          @(range.location), @(range.length), @(startLineNumber),@(endLineNumber));
+    
+    NSRange lineRange = [[textView string]lineRangeForRange:range];
+//    NSLog(@"line range = (%@,%@)", @(range.location),@(range.length));
+    NSString *codeOfLines = [[textView string]substringWithRange:lineRange];
+//    NSLog(@"code below = \n%@", codeOfLines);
     
     // length of "file://" is 7
     NSString *sourcePath = [[editor.sourceCodeDocument.fileURL absoluteString] substringFromIndex:7];
     
-    [[XSourceNoteModel sharedModel]addLineNote:[XSourceNoteIndex index:sourcePath begin:startLineNumber end:endLineNumber]];
+    [[XSourceNoteModel sharedModel]addLineNote:[XSourceNoteIndex index:sourcePath begin:startLineNumber end:endLineNumber] code:codeOfLines];
     
     NSView *sidebar = [editor valueForKey:@"_sidebarView"];
     if(sidebar)[sidebar setNeedsDisplay:YES];
