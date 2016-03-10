@@ -191,14 +191,6 @@
     self.preferencesWindowController = [[XSourceNotePreferencesWindowController alloc]init];
     [self.preferencesWindowController.window makeKeyAndOrderFront:sender];
 }
-- (IBAction)saveInformationClicked:(id)sender {
-    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
-    
-    st.projectUniqueAddress = [self.uniqueVersionAddressTextField.stringValue copy];
-    st.projectName = [self.projectNameTextField.stringValue copy];
-    st.projectSite = [self.officialSiteTextField.stringValue copy];
-    st.projectDescription = [self.descriptionTextView.string copy];
-}
 
 - (void)refreshTabFields{
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
@@ -210,14 +202,6 @@
     
     self.projectNoteTextView.string = st.projectNote;
     self.summarizeTextView.string = st.projectSummarize;
-}
-- (IBAction)saveProjectNote:(id)sender {
-    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
-    st.projectNote = self.projectNoteTextView.string;
-}
-- (IBAction)saveSummarize:(id)sender {
-    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
-    st.projectSummarize = self.summarizeTextView.string;
 }
 
 - (void)onDeleteLineNote:(id)sender{
@@ -263,6 +247,16 @@
         NSString *content = self.currentNoteView.string;
         [[XSourceNoteStorage sharedStorage]updateLineNote:self.currentNoteUniqueID content:content];
     }
+    
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
+    
+    st.projectUniqueAddress = [self.uniqueVersionAddressTextField.stringValue copy];
+    st.projectName = [self.projectNameTextField.stringValue copy];
+    st.projectSite = [self.officialSiteTextField.stringValue copy];
+    st.projectDescription = [self.descriptionTextView.string copy];
+    
+    st.projectNote = self.projectNoteTextView.string;
+    st.projectSummarize = self.summarizeTextView.string;
 }
 - (IBAction)exportToMarkdown:(id)sender {
     XSourceNoteStorage *store = [XSourceNoteStorage sharedStorage];
