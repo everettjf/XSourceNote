@@ -63,8 +63,6 @@
     self.lineNoteTableView.deleteKeyAction = @selector(onDeleteLineNote:);
     self.currentNoteView.delegate = self;
     
-    self.currentNoteView.font = [NSFont systemFontOfSize:24];
-    
     [self refreshTabFields];
     [self refreshNotes];
     
@@ -308,7 +306,20 @@
 }
 
 - (IBAction)selectRootPathClicked:(id)sender {
+    NSOpenPanel *open = [NSOpenPanel openPanel];
+    open.canChooseFiles = NO;
+    open.canChooseDirectories = YES;
+    open.allowsMultipleSelection = NO;
+    if([open runModal] != NSModalResponseOK){
+        return;
+    }
     
+    NSString *path = [open.URL path];
+    
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
+    st.rootPath = path;
+    
+    self.rootPathTextField.stringValue = st.rootPath;
 }
 
 @end
