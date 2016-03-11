@@ -26,10 +26,11 @@
     NSMutableString *content = [[NSMutableString alloc]init];
     
     [content appendString:@"\n\n"];
-    [content appendFormat:@"# Source Infor\n"];
+    [content appendFormat:@"# Basic Information\n"];
     [content appendFormat:@" - Name : %@\n", st.projectName];
-    [content appendFormat:@" - Unique Address : %@\n", st.projectUniqueAddress];
     [content appendFormat:@" - Site : %@\n", st.projectSite];
+    [content appendFormat:@" - Repo : %@\n", st.projectRepo];
+    [content appendFormat:@" - Revision : %@\n", st.projectRevision];
     [content appendFormat:@" - Description : \n"];
     [content appendString: st.projectDescription];
     [content appendString:@"\n"];
@@ -48,13 +49,15 @@
         [content appendFormat:@" - Note : \n"];
         
         // Code block
-        [content appendString:@"\n"];
-        [content appendString:@"```\n"];
-        [content appendString:n.code];
-        [content appendString:@"```\n"];
-        [content appendString:@"\n"];
+        if(n.code){
+            [content appendString:@"\n"];
+            [content appendString:@"```\n"];
+            [content appendString:n.code];
+            [content appendString:@"```\n"];
+            [content appendString:@"\n"];
+        }
         
-        [content appendFormat:@" %@\n",n.content];
+        [content appendFormat:@"\n%@\n",n.content];
         [content appendString:@"\n"];
     }];
     

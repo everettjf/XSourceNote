@@ -10,12 +10,17 @@
 #import "XSourceNoteUtil.h"
 #import "XSStore.h"
 
-static NSString * const kStoreKeyProjectUniqueAddress = @"ProjectUniqueAddress";
+static NSString * const kStoreKeyRootPath = @"RootPath";
+
 static NSString * const kStoreKeyProjectName = @"ProjectName";
 static NSString * const kStoreKeyProjectSite = @"ProjectSite";
+static NSString * const kStoreKeyProjectRepo = @"ProjectRepo";
+static NSString * const kStoreKeyProjectRevision = @"ProjectRevision";
 static NSString * const kStoreKeyProjectDescription = @"ProjectDescription";
+
 static NSString * const kStoreKeyProjectNote = @"ProjectNote";
 static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
+
 static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
 
 @interface XSourceNoteStorage ()
@@ -139,11 +144,26 @@ static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
     return [store.value copy];
 }
 
-- (void)setProjectUniqueAddress:(NSString *)projectUniqueAddress{
-    [self _saveValue:projectUniqueAddress forKey:kStoreKeyProjectUniqueAddress];
+- (void)setRootPath:(NSString *)rootPath{
+    [self _saveValue:rootPath forKey:kStoreKeyRootPath];
 }
-- (NSString *)projectUniqueAddress{
-    return [self _readValueForKey:kStoreKeyProjectUniqueAddress];
+
+- (NSString *)rootPath{
+    return [self _readValueForKey:kStoreKeyRootPath];
+}
+
+- (void)setProjectRepo:(NSString *)projectRepo{
+    [self _saveValue:projectRepo forKey:kStoreKeyProjectRepo];
+}
+- (NSString *)projectRepo{
+    return [self _readValueForKey:kStoreKeyProjectRepo];
+}
+
+- (void)setProjectRevision:(NSString *)projectRevision{
+    [self _saveValue:projectRevision forKey:kStoreKeyProjectRevision];
+}
+- (NSString *)projectRevision{
+    return [self _readValueForKey:kStoreKeyProjectRevision];
 }
 
 - (void)setProjectName:(NSString *)projectName{

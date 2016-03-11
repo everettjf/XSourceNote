@@ -16,12 +16,17 @@
 + (XSourceNoteStorage*)sharedStorage;
 - (BOOL)ensureDB;
 
-@property (strong) NSString *projectUniqueAddress;
+@property (strong) NSString *rootPath;
+
 @property (strong) NSString *projectName;
 @property (strong) NSString *projectSite;
+@property (strong) NSString *projectRepo;
+@property (strong) NSString *projectRevision;
 @property (strong) NSString *projectDescription;
+
 @property (strong) NSString *projectNote;
 @property (strong) NSString *projectSummarize;
+
 @property (strong) NSString *filePrefix;
 
 // line note

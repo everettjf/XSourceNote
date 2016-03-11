@@ -22,7 +22,10 @@
 @property (nonatomic,strong) XSourceNotePreferencesWindowController *preferencesWindowController;
 
 // Information
-@property (weak) IBOutlet NSTextField *uniqueVersionAddressTextField;
+@property (weak) IBOutlet NSTextField *rootPathTextField;
+@property (weak) IBOutlet NSTextField *repoTextField;
+@property (weak) IBOutlet NSTextField *revisionTextField;
+
 @property (weak) IBOutlet NSTextField *projectNameTextField;
 @property (weak) IBOutlet NSTextField *officialSiteTextField;
 @property (unsafe_unretained) IBOutlet NSTextView *descriptionTextView;
@@ -36,10 +39,12 @@
 // Lines Note
 @property (weak) IBOutlet XSourceNoteTableView *lineNoteTableView;
 
+// Tool
+@property (unsafe_unretained) IBOutlet NSTextView *filePrefixTextView;
+
 @property (unsafe_unretained) IBOutlet NSTextView *currentNoteView;
 @property (unsafe_unretained) IBOutlet NSTextView *currentSourceView;
 
-@property (unsafe_unretained) IBOutlet NSTextView *filePrefixTextView;
 
 @property (strong) NSArray *notes;
 @property (copy) NSString *currentNoteUniqueID;
@@ -196,10 +201,12 @@
 
 - (void)refreshTabFields{
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
+    self.rootPathTextField.stringValue = st.rootPath;
     
-    self.uniqueVersionAddressTextField.stringValue = st.projectUniqueAddress;
     self.projectNameTextField.stringValue = st.projectName;
     self.officialSiteTextField.stringValue = st.projectSite;
+    self.repoTextField.stringValue = st.projectRepo;
+    self.revisionTextField.stringValue = st.projectRevision;
     self.descriptionTextView.string = st.projectDescription;
     
     self.projectNoteTextView.string = st.projectNote;
@@ -254,9 +261,12 @@
     
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     
-    st.projectUniqueAddress = [self.uniqueVersionAddressTextField.stringValue copy];
+    st.rootPath = [self.rootPathTextField.stringValue copy];
+    
     st.projectName = [self.projectNameTextField.stringValue copy];
     st.projectSite = [self.officialSiteTextField.stringValue copy];
+    st.projectRepo = [self.repoTextField.stringValue copy];
+    st.projectRevision = [self.revisionTextField.stringValue copy];
     st.projectDescription = [self.descriptionTextView.string copy];
     
     st.projectNote = [self.projectNoteTextView.string copy];
@@ -297,5 +307,8 @@
     
 }
 
+- (IBAction)selectRootPathClicked:(id)sender {
+    
+}
 
 @end
