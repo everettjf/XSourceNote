@@ -22,6 +22,8 @@
 @property (nonatomic,strong) NSMenuItem *toggleMenuItem;
 @property (nonatomic,strong) NSMenuItem *showMenuItem;
 
+@property (nonatomic,assign) NSNumber *codeStyle; // 0 ``` , 1 {% highlight ....
+
 -(void)enableAllMenuShortcuts:(BOOL)enable;
 
 -(void)synchronize;

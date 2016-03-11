@@ -8,6 +8,7 @@
 
 #import "XSourceNoteFormatter.h"
 #import "XSourceNoteStorage.h"
+#import "XSourceNoteDefaults.h"
 
 @implementation XSourceNoteFormatter
 
@@ -21,6 +22,7 @@
 }
 
 - (BOOL)saveTo:(NSString *)filePath{
+    XSourceNoteDefaults *def = [XSourceNoteDefaults sharedDefaults];
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     
     NSMutableString *content = [[NSMutableString alloc]init];
@@ -51,9 +53,15 @@
         // Code block
         if(n.code){
             [content appendString:@"\n"];
-            [content appendString:@"```\n"];
-            [content appendString:n.code];
-            [content appendString:@"```\n"];
+            if([def.codeStyle isEqual:@0]){
+                [content appendString:@"```\n"];
+                [content appendString:n.code];
+                [content appendString:@"```\n"];
+            }else{
+                [content appendString:@"{% highlight c %}\n"];
+                [content appendString:n.code];
+                [content appendString:@"{% endhighlight %}\n"];
+            }
             [content appendString:@"\n"];
         }
         

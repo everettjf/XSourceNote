@@ -10,9 +10,8 @@
 #import "XSourceNoteUtil.h"
 
 static NSString * const kXSourceNoteDefaultsShortcutToggle = @"XSourceNoteDefaultsShortcutToggle";
-static NSString * const kXSourceNoteDefaultsShortcutNext = @"XSourceNoteDefaultsShortcutNext";
-static NSString * const kXSourceNoteDefaultsShortcutPrev = @"XSourceNoteDefaultsShortcutPrev";
 static NSString * const kXSourceNoteDefaultsShortcutShow = @"XSourceNoteDefaultsShortcutShow";
+static NSString * const kXSourceNoteDefaultsCodeStyle = @"XSourceNoteDefaultsCodeStyle";
 
 @implementation XSourceNoteDefaults
 
@@ -45,6 +44,7 @@ static NSString * const kXSourceNoteDefaultsShortcutShow = @"XSourceNoteDefaults
     if (self) {
         self.currentShortcutToggle = [XSourceNoteDefaults defaultShortcutToggle];
         self.currentShortcutShow = [XSourceNoteDefaults defaultShortcutShow];
+        self.codeStyle = @0;
     }
     return self;
 }
@@ -58,12 +58,14 @@ static NSString * const kXSourceNoteDefaultsShortcutShow = @"XSourceNoteDefaults
     if(self){
         self.currentShortcutToggle = [aDecoder decodeObjectForKey:kXSourceNoteDefaultsShortcutToggle];
         self.currentShortcutShow = [aDecoder decodeObjectForKey:kXSourceNoteDefaultsShortcutShow];
+        self.codeStyle = [aDecoder decodeObjectForKey:kXSourceNoteDefaultsCodeStyle];
     }
     return self;
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.currentShortcutToggle forKey:kXSourceNoteDefaultsShortcutToggle];
     [aCoder encodeObject:self.currentShortcutShow forKey:kXSourceNoteDefaultsShortcutShow];
+    [aCoder encodeObject:self.codeStyle forKey:kXSourceNoteDefaultsCodeStyle];
 }
 
 -(void)enableAllMenuShortcuts:(BOOL)enable{

@@ -13,10 +13,10 @@
 
 @interface XSourceNotePreferencesWindowController ()<NSWindowDelegate>
 @property (weak) IBOutlet MASShortcutView *toggleShortcutView;
-@property (weak) IBOutlet MASShortcutView *nextShortcutView;
-@property (weak) IBOutlet MASShortcutView *prevShortcutView;
 @property (weak) IBOutlet MASShortcutView *showShortcutView;
+@property (weak) IBOutlet NSPopUpButton *codeStyle;
 
+@property (strong) NSArray *styles;
 @end
 
 @implementation XSourceNotePreferencesWindowController
@@ -46,10 +46,38 @@
         [config synchronize];
     };
     
+    self.styles =@[
+                 @"",
+                 @"``` Code ``` Style",
+                 @"{%highlight c%} Code {%endhighlight %} Style"
+                 ];
+    [self.codeStyle removeAllItems];
+    [self.codeStyle addItemsWithTitles:self.styles];
+    
+    if([config.codeStyle isEqual:@0]){
+        [self.codeStyle selectItemAtIndex:1];
+    }else{
+        [self.codeStyle selectItemAtIndex:2];
+    }
+    self.codeStyle.title = self.styles[self.codeStyle.indexOfSelectedItem];
 }
 
 -(void)windowWillClose:(NSNotification *)notification{
     [[XSourceNoteDefaults sharedDefaults] enableAllMenuShortcuts:YES];
+}
+- (IBAction)codeStyleSelect:(id)sender {
+    
+    XSourceNoteDefaults *config = [XSourceNoteDefaults sharedDefaults];
+    
+    self.codeStyle.title = self.styles[self.codeStyle.indexOfSelectedItem];
+    if(self.codeStyle.indexOfSelectedItem == 1){
+        [self.codeStyle selectItemAtIndex:0];
+        config.codeStyle = @0;
+    }else{
+        [self.codeStyle selectItemAtIndex:1];
+        config.codeStyle = @1;
+    }
+    [config synchronize];
 }
 
 

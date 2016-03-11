@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="XSourceNotePreferencesWindowController">
             <connections>
+                <outlet property="codeStyle" destination="Nev-e7-0Ho" id="Djt-lS-TDR"/>
                 <outlet property="showShortcutView" destination="WRl-eW-fu8" id="XrU-J9-24M"/>
                 <outlet property="toggleShortcutView" destination="3nr-4B-3wP" id="4ij-uU-xce"/>
             </connections>
@@ -15,16 +16,16 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="XSourceNote Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="sa8-k5-Urz" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" documentModal="YES"/>
-            <rect key="contentRect" x="139" y="81" width="337" height="213"/>
+            <rect key="contentRect" x="139" y="81" width="321" height="181"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="321" height="106"/>
             <value key="maxSize" type="size" width="321" height="134"/>
             <view key="contentView" id="G0R-Db-BV7">
-                <rect key="frame" x="0.0" y="0.0" width="337" height="213"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <rect key="frame" x="0.0" y="0.0" width="321" height="181"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w11-1Y-won">
-                        <rect key="frame" x="21" y="176" width="120" height="17"/>
+                        <rect key="frame" x="21" y="144" width="120" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Toggle Note :" id="JKd-I7-C9i">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -32,22 +33,41 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XGX-xn-pgD">
-                        <rect key="frame" x="21" y="138" width="125" height="17"/>
+                        <rect key="frame" x="21" y="106" width="125" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Show Notes :" id="2O6-Nx-9cl">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9Z-lS-DTr">
+                        <rect key="frame" x="21" y="63" width="155" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Export Code Block Style:" id="U4e-hh-akS">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3nr-4B-3wP" customClass="MASShortcutView">
-                        <rect key="frame" x="165" y="174" width="136" height="19"/>
+                        <rect key="frame" x="165" y="142" width="136" height="19"/>
                     </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WRl-eW-fu8" customClass="MASShortcutView">
-                        <rect key="frame" x="165" y="136" width="136" height="19"/>
+                        <rect key="frame" x="165" y="104" width="136" height="19"/>
                     </customView>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nev-e7-0Ho">
+                        <rect key="frame" x="62" y="31" width="242" height="26"/>
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="sG7-Lr-sYg">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="iJy-jV-rT2"/>
+                        </popUpButtonCell>
+                        <connections>
+                            <action selector="codeStyleSelect:" target="-2" id="DSF-4H-0E3"/>
+                        </connections>
+                    </popUpButton>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="149.5" y="213.5"/>
+            <point key="canvasLocation" x="141.5" y="197.5"/>
         </window>
     </objects>
 </document>
