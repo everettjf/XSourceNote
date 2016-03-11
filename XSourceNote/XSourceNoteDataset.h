@@ -27,6 +27,7 @@ typedef NS_OPTIONS(NSUInteger, XSourceNoteEntityType) {
 @interface XSourceNoteLineEntity : XSourceNoteEntityObject
 @property (copy) NSString *uniqueID;
 @property (copy) NSString *source;
+@property (copy) NSString *localPath;
 @property (assign) NSUInteger begin;
 @property (assign) NSUInteger end;
 @property (copy) NSString *content;

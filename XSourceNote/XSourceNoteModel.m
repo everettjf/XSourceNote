@@ -12,30 +12,9 @@
 
 NSString * const XSourceNoteModelLineNotesChanged = @"XSourceNoteModelLineNotesChanged";
 
-
-
 static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     return [NSString stringWithFormat:@"%lu/%lu",line,[source hash]];
 }
-
-@implementation XSourceNoteIndex
-
-+ (XSourceNoteIndex *)index:(NSString *)source begin:(NSUInteger)begin end:(NSUInteger)end{
-    XSourceNoteIndex *obj = [[XSourceNoteIndex alloc]init];
-    obj.source = source;
-    obj.begin = begin;
-    obj.end = end;
-    return obj;
-}
-
-- (NSString *)uniqueID{
-    NSString *s = [NSString stringWithFormat:@"%@x%@x%@",_source,@(_begin),@(_end)];
-    s = [s stringByReplacingOccurrencesOfString:@"/" withString:@"x"];
-    s = [s stringByReplacingOccurrencesOfString:@"." withString:@"x"];
-    return s;
-}
-
-@end
 
 @interface XSourceNoteModel ()
 
@@ -72,16 +51,15 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     return has;
 }
 
-- (void)addLineNote:(XSourceNoteIndex *)index code:(NSString *)code{
-    if(index.begin > index.end)
-        return;
-
-    [[XSourceNoteStorage sharedStorage]addLineNote:index code:code];
+- (void)addLineNote:(XSourceNoteLineEntity *)note{
+    
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
+    [st addLineNote:note];
     
     dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
         @synchronized(_markset) {
-            for(NSUInteger idx = index.begin; idx <= index.end; ++idx){
-                [_markset addObject:XSourceNote_HashLine(index.source, idx)];
+            for(NSUInteger idx = note.begin; idx <= note.end; ++idx){
+                [_markset addObject:XSourceNote_HashLine(note.source, idx)];
             }
         }
         
@@ -89,13 +67,13 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
     });
 }
 
-- (void)removeLineNote:(XSourceNoteLineEntity *)index{
-    [[XSourceNoteStorage sharedStorage]removeLineNote:index.uniqueID];
+- (void)removeLineNote:(XSourceNoteLineEntity *)note{
+    [[XSourceNoteStorage sharedStorage]removeLineNote:note.uniqueID];
     
     dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
         @synchronized(_markset) {
-            for(NSUInteger idx = index.begin; idx <= index.end; ++idx){
-                [_markset removeObject:XSourceNote_HashLine(index.source, idx)];
+            for(NSUInteger idx = note.begin; idx <= note.end; ++idx){
+                [_markset removeObject:XSourceNote_HashLine(note.source, idx)];
             }
         }
         
@@ -110,9 +88,9 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
         for (XSNote* note in notes) {
             XSourceNoteLineEntity *entity = [XSourceNoteLineEntity new];
             entity.uniqueID = note.uniqueID;
-            entity.source = note.pathLocal;
-            entity.begin = note.lineNumberBegin.unsignedIntegerValue;
-            entity.end = note.lineNumberEnd.unsignedIntegerValue;
+            entity.source = note.source;
+            entity.begin = note.begin.unsignedIntegerValue;
+            entity.end = note.end.unsignedIntegerValue;
             entity.content = [[NSString alloc]initWithString:note.content];
             entity.code = note.code;
             [entities addObject:entity];

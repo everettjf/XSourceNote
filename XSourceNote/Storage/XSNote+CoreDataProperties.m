@@ -2,7 +2,7 @@
 //  XSNote+CoreDataProperties.m
 //  XSourceNote
 //
-//  Created by everettjf on 16/3/10.
+//  Created by everettjf on 16/3/12.
 //  Copyright © 2016年 everettjf. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,17 +13,17 @@
 
 @implementation XSNote (CoreDataProperties)
 
+@dynamic code;
 @dynamic content;
 @dynamic createdAt;
 @dynamic extension;
-@dynamic lineNumberBegin;
-@dynamic lineNumberEnd;
+@dynamic begin;
+@dynamic end;
 @dynamic order;
-@dynamic pathLocal;
-@dynamic pathRelative;
+@dynamic localPath;
+@dynamic source;
 @dynamic tag;
 @dynamic uniqueID;
 @dynamic updatedAt;
-@dynamic code;
 
 @end

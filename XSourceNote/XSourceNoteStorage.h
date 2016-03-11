@@ -30,8 +30,8 @@
 @property (strong) NSString *filePrefix;
 
 // line note
-- (void)addLineNote:(XSourceNoteIndex*)index code:(NSString*)code;
-- (XSNote*)fetchLineNote:(XSourceNoteIndex*)index;
+- (void)addLineNote:(XSourceNoteLineEntity*)note;
+- (XSNote*)fetchLineNote:(NSString*)uniqueID;
 - (NSArray*)fetchAllLineNotes;
 - (void)removeLineNote:(NSString *)uniqueID;
 

@@ -27,6 +27,7 @@ static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
 {
     NSURL *_notePath;
     BOOL _dbReady;
+    NSString *_rootPath;
 }
 
 @property (strong) NSManagedObjectContext *managedObjectContext;
@@ -136,7 +137,7 @@ static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
     NSError *error = nil;
     NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
     if(error)
-        return nil;
+        return @"";
     
     XSStore *store = results.firstObject;
     if(!store.value)
@@ -145,11 +146,15 @@ static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
 }
 
 - (void)setRootPath:(NSString *)rootPath{
+    _rootPath = [rootPath copy];
     [self _saveValue:rootPath forKey:kStoreKeyRootPath];
 }
 
 - (NSString *)rootPath{
-    return [self _readValueForKey:kStoreKeyRootPath];
+    if(!_rootPath || [_rootPath isEqualToString:@""]){
+        _rootPath = [self _readValueForKey:kStoreKeyRootPath];
+    }
+    return _rootPath;
 }
 
 - (void)setProjectRepo:(NSString *)projectRepo{
@@ -224,33 +229,34 @@ static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
     }
 }
 
-- (void)addLineNote:(XSourceNoteIndex *)index code:(NSString *)code{
+- (void)addLineNote:(XSourceNoteLineEntity *)note{
     [self.managedObjectContext performBlockAndWait:^{
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"XSNote"];
         request.fetchLimit = 1;
-        request.predicate = [NSPredicate predicateWithFormat:@"uniqueID == %@", index.uniqueID];
+        request.predicate = [NSPredicate predicateWithFormat:@"uniqueID == %@", note.uniqueID];
         
         NSError *error;
         NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
         if(error) return;
         
-        XSNote *note;
+        XSNote *obj;
         if(results.count == 0){
             // Create
-            note = [NSEntityDescription insertNewObjectForEntityForName:@"XSNote" inManagedObjectContext:self.managedObjectContext];
-            note.uniqueID = index.uniqueID;
-            note.createdAt = [NSDate date];
-            note.order = @10000;
-            note.content = @"";
+            obj = [NSEntityDescription insertNewObjectForEntityForName:@"XSNote" inManagedObjectContext:self.managedObjectContext];
+            obj.uniqueID = note.uniqueID;
+            obj.createdAt = [NSDate date];
+            obj.order = @10000;
+            obj.content = @"";
         }else{
-            note = results.firstObject;
+            obj = results.firstObject;
         }
         
-        note.pathLocal = index.source;
-        note.lineNumberBegin = @(index.begin);
-        note.lineNumberEnd = @(index.end);
-        note.updatedAt = [NSDate date];
-        note.code = code;
+        obj.source = note.source;
+        obj.begin = @(note.begin);
+        obj.end = @(note.end);
+        obj.updatedAt = [NSDate date];
+        obj.code = note.code;
+        obj.localPath = note.localPath;
         
         [self _internalSave];
     }];
@@ -281,8 +287,8 @@ static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
 }
 
 
-- (XSNote *)fetchLineNote:(XSourceNoteIndex *)index{
-    return [self _fetchLineNoteByUniqueID:index.uniqueID];
+- (XSNote *)fetchLineNote:(NSString *)uniqueID{
+    return [self _fetchLineNoteByUniqueID:uniqueID];
 }
 
 - (NSArray *)fetchAllLineNotes{

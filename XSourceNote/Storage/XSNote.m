@@ -11,12 +11,5 @@
 
 @implementation XSNote
 
-// Insert code here to add functionality to your managed object subclass
-- (XSourceNoteIndex *)noteIndex{
-    return [XSourceNoteIndex index:self.pathLocal
-                             begin:self.lineNumberBegin.unsignedIntegerValue
-                               end:self.lineNumberEnd.unsignedIntegerValue];
-}
-
 
 @end

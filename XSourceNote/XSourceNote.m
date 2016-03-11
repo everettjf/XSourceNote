@@ -109,7 +109,36 @@
     // length of "file://" is 7
     NSString *sourcePath = [[editor.sourceCodeDocument.fileURL absoluteString] substringFromIndex:7];
     
-    [[XSourceNoteModel sharedModel]addLineNote:[XSourceNoteIndex index:sourcePath begin:startLineNumber end:endLineNumber] code:codeOfLines];
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
+    if([st.rootPath isEqualToString:@""]){
+        NSAlert *alert = [[NSAlert alloc]init];
+        [alert addButtonWithTitle:@"OK"];
+        [alert setInformativeText:@"Please select the project root path first."];
+        [alert runModal];
+        return;
+    }
+    
+    
+    NSRange relativeRange = [sourcePath rangeOfString:st.rootPath];
+    if(relativeRange.location != 0){
+        NSAlert *alert = [[NSAlert alloc]init];
+        [alert addButtonWithTitle:@"OK"];
+        [alert setInformativeText:@"Current source is not under your root path, or your root path is incorrect."];
+        [alert runModal];
+        return;
+    }
+    
+    NSString *relativePath = [sourcePath stringByReplacingOccurrencesOfString:st.rootPath withString:@""];
+    
+    XSourceNoteLineEntity *lineNote = [XSourceNoteLineEntity new];
+    lineNote.source = relativePath;
+    lineNote.begin = startLineNumber;
+    lineNote.end = endLineNumber;
+    lineNote.uniqueID = [NSString stringWithFormat:@"%@_%@_%@",lineNote.source,@(lineNote.begin),@(lineNote.end)];
+    lineNote.code = codeOfLines;
+    lineNote.localPath = sourcePath;
+    
+    [[XSourceNoteModel sharedModel]addLineNote:lineNote];
     
     NSView *sidebar = [editor valueForKey:@"_sidebarView"];
     if(sidebar)[sidebar setNeedsDisplay:YES];
