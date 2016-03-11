@@ -13,7 +13,7 @@
 - (instancetype)initWithCoder:(NSCoder *)coder{
     self = [super initWithCoder:coder];
     if(self){
-        self.font = [NSFont systemFontOfSize:18];
+        self.font = [NSFont systemFontOfSize:17];
     }
     return self;
 }
