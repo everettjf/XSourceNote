@@ -22,6 +22,7 @@
 @property (strong) NSString *projectDescription;
 @property (strong) NSString *projectNote;
 @property (strong) NSString *projectSummarize;
+@property (strong) NSString *filePrefix;
 
 // line note
 - (void)addLineNote:(XSourceNoteIndex*)index code:(NSString*)code;

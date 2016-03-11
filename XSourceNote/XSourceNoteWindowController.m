@@ -39,6 +39,8 @@
 @property (unsafe_unretained) IBOutlet NSTextView *currentNoteView;
 @property (unsafe_unretained) IBOutlet NSTextView *currentSourceView;
 
+@property (unsafe_unretained) IBOutlet NSTextView *filePrefixTextView;
+
 @property (strong) NSArray *notes;
 @property (copy) NSString *currentNoteUniqueID;
 
@@ -202,6 +204,8 @@
     
     self.projectNoteTextView.string = st.projectNote;
     self.summarizeTextView.string = st.projectSummarize;
+    
+    self.filePrefixTextView.string = st.filePrefix;
 }
 
 - (void)onDeleteLineNote:(id)sender{
@@ -255,8 +259,10 @@
     st.projectSite = [self.officialSiteTextField.stringValue copy];
     st.projectDescription = [self.descriptionTextView.string copy];
     
-    st.projectNote = self.projectNoteTextView.string;
-    st.projectSummarize = self.summarizeTextView.string;
+    st.projectNote = [self.projectNoteTextView.string copy];
+    st.projectSummarize = [self.summarizeTextView.string copy];
+    
+    st.filePrefix = [self.filePrefixTextView.string copy];
 }
 - (IBAction)exportToMarkdown:(id)sender {
     XSourceNoteStorage *store = [XSourceNoteStorage sharedStorage];

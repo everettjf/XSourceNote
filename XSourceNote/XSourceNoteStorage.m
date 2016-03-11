@@ -16,6 +16,7 @@ static NSString * const kStoreKeyProjectSite = @"ProjectSite";
 static NSString * const kStoreKeyProjectDescription = @"ProjectDescription";
 static NSString * const kStoreKeyProjectNote = @"ProjectNote";
 static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
+static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
 
 @interface XSourceNoteStorage ()
 {
@@ -181,6 +182,14 @@ static NSString * const kStoreKeyProjectSummarize = @"ProjectSummarize";
 }
 - (NSString *)projectSummarize{
     return [self _readValueForKey:kStoreKeyProjectSummarize];
+}
+
+- (void)setFilePrefix:(NSString *)filePrefix{
+    [self _saveValue:filePrefix forKey:kStoreKeyFilePrefix];
+}
+
+- (NSString *)filePrefix{
+    return [self _readValueForKey:kStoreKeyFilePrefix];
 }
 
 - (void)_internalSave{

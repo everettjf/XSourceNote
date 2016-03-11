@@ -46,6 +46,14 @@
         [content appendFormat:@"%@. %@\n",@(idx), n.pathLocal];
         [content appendFormat:@" - Line : %@ - %@\n", n.lineNumberBegin, n.lineNumberEnd];
         [content appendFormat:@" - Note : \n"];
+        
+        // Code block
+        [content appendString:@"\n"];
+        [content appendString:@"```\n"];
+        [content appendString:n.code];
+        [content appendString:@"```\n"];
+        [content appendString:@"\n"];
+        
         [content appendFormat:@" %@\n",n.content];
         [content appendString:@"\n"];
     }];
