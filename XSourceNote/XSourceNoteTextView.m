@@ -10,6 +10,14 @@
 
 @implementation XSourceNoteTextView
 
+- (instancetype)initWithCoder:(NSCoder *)coder{
+    self = [super initWithCoder:coder];
+    if(self){
+        self.font = [NSFont systemFontOfSize:18];
+    }
+    return self;
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     

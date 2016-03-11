@@ -44,6 +44,7 @@
 
 @property (unsafe_unretained) IBOutlet NSTextView *currentNoteView;
 @property (unsafe_unretained) IBOutlet NSTextView *currentSourceView;
+@property (weak) IBOutlet NSTextField *currentSourceTextField;
 
 
 @property (strong) NSArray *notes;
@@ -249,6 +250,7 @@
     
     self.currentNoteView.string = content;
     self.currentSourceView.string = code;
+    self.currentSourceTextField.stringValue = note.source;
 }
 
 - (void)_saveCurrent{

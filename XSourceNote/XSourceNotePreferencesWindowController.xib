@@ -15,16 +15,16 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="XSourceNote Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="sa8-k5-Urz" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" documentModal="YES"/>
-            <rect key="contentRect" x="139" y="81" width="337" height="117"/>
+            <rect key="contentRect" x="139" y="81" width="337" height="213"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="321" height="106"/>
             <value key="maxSize" type="size" width="321" height="134"/>
             <view key="contentView" id="G0R-Db-BV7">
-                <rect key="frame" x="0.0" y="0.0" width="337" height="117"/>
+                <rect key="frame" x="0.0" y="0.0" width="337" height="213"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w11-1Y-won">
-                        <rect key="frame" x="21" y="80" width="120" height="17"/>
+                        <rect key="frame" x="21" y="176" width="120" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Toggle Note :" id="JKd-I7-C9i">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -32,7 +32,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XGX-xn-pgD">
-                        <rect key="frame" x="21" y="42" width="125" height="17"/>
+                        <rect key="frame" x="21" y="138" width="125" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Show Notes :" id="2O6-Nx-9cl">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -40,14 +40,14 @@
                         </textFieldCell>
                     </textField>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3nr-4B-3wP" customClass="MASShortcutView">
-                        <rect key="frame" x="165" y="78" width="136" height="19"/>
+                        <rect key="frame" x="165" y="174" width="136" height="19"/>
                     </customView>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WRl-eW-fu8" customClass="MASShortcutView">
-                        <rect key="frame" x="165" y="40" width="136" height="19"/>
+                        <rect key="frame" x="165" y="136" width="136" height="19"/>
                     </customView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="149.5" y="165.5"/>
+            <point key="canvasLocation" x="149.5" y="213.5"/>
         </window>
     </objects>
 </document>

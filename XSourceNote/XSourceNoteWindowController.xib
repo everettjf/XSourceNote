@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="XSourceNoteWindowController">
             <connections>
                 <outlet property="currentNoteView" destination="4le-HJ-EeC" id="0g6-gG-hb5"/>
+                <outlet property="currentSourceTextField" destination="nK0-mo-hJh" id="Jty-6j-eqI"/>
                 <outlet property="currentSourceView" destination="xp7-37-0sO" id="S2A-Wn-9gw"/>
                 <outlet property="descriptionTextView" destination="5Ab-qV-vwe" id="kUF-1f-uBN"/>
                 <outlet property="filePrefixTextView" destination="g3S-oZ-tWP" id="8py-iw-htM"/>
@@ -341,7 +342,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4U-0g-2bh">
-                                            <rect key="frame" x="1" y="396" width="569" height="245"/>
+                                            <rect key="frame" x="1" y="376" width="569" height="245"/>
                                             <clipView key="contentView" id="2Rm-dG-rHX">
                                                 <rect key="frame" x="1" y="1" width="567" height="243"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -372,19 +373,19 @@
                                             </scroller>
                                         </scrollView>
                                         <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FS-xd-q1Y">
-                                            <rect key="frame" x="1" y="0.0" width="569" height="395"/>
+                                            <rect key="frame" x="1" y="0.0" width="569" height="375"/>
                                             <clipView key="contentView" id="FXR-Cs-vgb">
-                                                <rect key="frame" x="1" y="1" width="567" height="393"/>
+                                                <rect key="frame" x="1" y="1" width="567" height="373"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textView importsGraphics="NO" richText="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="4le-HJ-EeC" customClass="XSourceNoteTextView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="567" height="393"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="567" height="373"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="567" height="393"/>
+                                                        <size key="minSize" width="567" height="373"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="567" height="393"/>
+                                                        <size key="minSize" width="567" height="373"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -395,19 +396,30 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="TQF-5n-pSE">
-                                                <rect key="frame" x="552" y="1" width="16" height="393"/>
+                                                <rect key="frame" x="552" y="1" width="16" height="373"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nK0-mo-hJh">
+                                            <rect key="frame" x="0.0" y="619" width="570" height="22"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="33r-A7-We6">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="a4U-0g-2bh" firstAttribute="top" secondItem="eXL-Uy-7xa" secondAttribute="top" id="6xZ-by-Nri"/>
                                         <constraint firstAttribute="trailing" secondItem="a4U-0g-2bh" secondAttribute="trailing" id="QDr-tr-GT1"/>
                                         <constraint firstItem="9FS-xd-q1Y" firstAttribute="top" secondItem="a4U-0g-2bh" secondAttribute="bottom" constant="1" id="SMg-pd-SCo"/>
                                         <constraint firstAttribute="bottom" secondItem="9FS-xd-q1Y" secondAttribute="bottom" id="SWC-cC-y8c"/>
+                                        <constraint firstAttribute="trailing" secondItem="nK0-mo-hJh" secondAttribute="trailing" id="X7Q-R8-8cY"/>
                                         <constraint firstAttribute="trailing" secondItem="9FS-xd-q1Y" secondAttribute="trailing" id="Zcf-rc-LUI"/>
                                         <constraint firstItem="9FS-xd-q1Y" firstAttribute="leading" secondItem="eXL-Uy-7xa" secondAttribute="leading" constant="1" id="dwE-Db-vh2"/>
+                                        <constraint firstItem="a4U-0g-2bh" firstAttribute="top" secondItem="nK0-mo-hJh" secondAttribute="bottom" constant="-2" id="g9e-NX-19m"/>
                                         <constraint firstItem="a4U-0g-2bh" firstAttribute="leading" secondItem="eXL-Uy-7xa" secondAttribute="leading" constant="1" id="pdi-bt-aiF"/>
+                                        <constraint firstItem="nK0-mo-hJh" firstAttribute="leading" secondItem="eXL-Uy-7xa" secondAttribute="leading" id="qC3-rO-780"/>
+                                        <constraint firstItem="nK0-mo-hJh" firstAttribute="top" secondItem="eXL-Uy-7xa" secondAttribute="top" id="xcT-P8-ddI"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
