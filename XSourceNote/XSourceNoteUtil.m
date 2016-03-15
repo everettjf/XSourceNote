@@ -145,6 +145,7 @@
 }
 
 +(BOOL)openSourceFile:(NSString *)sourceFilePath highlightLineNumber:(NSUInteger)lineNumber{
+    if(!sourceFilePath) return NO;
     IDESourceCodeDocument *document = [XSourceNoteUtil currentSourceCodeDocument];
     if(!document.fileURL)return NO;
     

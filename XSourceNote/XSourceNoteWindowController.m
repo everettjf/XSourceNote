@@ -50,6 +50,7 @@
 @property (strong) NSArray *notes;
 @property (copy) NSString *currentNoteUniqueID;
 
+@property (assign) NSInteger currentNoteIndex;
 @end
 
 @implementation XSourceNoteWindowController
@@ -123,6 +124,8 @@
     }];
 }
 - (IBAction)onTableViewClicked:(id)sender {
+    _currentNoteIndex = self.lineNoteTableView.selectedRow;
+    
     XSourceNoteEntityObject *note = [self _selectedNote];
     if(!note)return;
     
@@ -150,7 +153,7 @@
             self.currentNoteView.editable = YES;
             self.currentNoteUniqueID = lineNote.uniqueID;
             
-            [XSourceNoteUtil openSourceFile:lineNote.source highlightLineNumber:lineNote.begin];
+            [XSourceNoteUtil openSourceFile:lineNote.localPath highlightLineNumber:lineNote.begin];
             
             [self refreshNotes];
             
@@ -164,7 +167,7 @@
 
 
 -(XSourceNoteEntityObject*)_selectedNote{
-    NSInteger selectedRow = self.lineNoteTableView.selectedRow;
+    NSInteger selectedRow = _currentNoteIndex;
     if(selectedRow < 0 || selectedRow >= self.notes.count){
         return nil;
     }
