@@ -11,13 +11,13 @@
 
 @interface XSourceNoteDefaults : NSObject <NSCoding>
 
-+(MASShortcut*)defaultShortcutToggle;
-+(MASShortcut*)defaultShortcutShow;
++(XSN_MAXShortcut*)defaultShortcutToggle;
++(XSN_MAXShortcut*)defaultShortcutShow;
 
 +(XSourceNoteDefaults*)sharedDefaults;
 
-@property (nonatomic,strong) MASShortcut* currentShortcutToggle;
-@property (nonatomic,strong) MASShortcut* currentShortcutShow;
+@property (nonatomic,strong) XSN_MAXShortcut* currentShortcutToggle;
+@property (nonatomic,strong) XSN_MAXShortcut* currentShortcutShow;
 
 @property (nonatomic,strong) NSMenuItem *toggleMenuItem;
 @property (nonatomic,strong) NSMenuItem *showMenuItem;

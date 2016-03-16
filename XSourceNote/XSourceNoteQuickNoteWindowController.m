@@ -29,11 +29,7 @@
 }
 
 - (void)refresh{
-    if(!self.line)return;
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
-    
-    // save current
-    [self _saveCurrentContent];
     
     // load new
     self.titleField.stringValue = [self.line title];
@@ -42,11 +38,15 @@
         NSString *newContent = newNote.content;
         if(newContent){
             self.noteView.string = newContent;
+        }else{
+            self.noteView.string = @"";
         }
+    }else{
+        self.noteView.string = @"";
     }
 }
 
-- (void)_saveCurrentContent{
+- (void)saveCurrentContent{
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     NSString *currentContent = [self.noteView.string copy];
     if(![currentContent isEqualToString:@""]){
@@ -55,7 +55,7 @@
 }
 
 - (void)windowWillClose:(NSNotification *)notification{
-    [self _saveCurrentContent];
+    [self saveCurrentContent];
 }
 
 

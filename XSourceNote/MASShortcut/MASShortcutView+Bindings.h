@@ -15,7 +15,7 @@
 
  Set `associatedUserDefaultsKey` to `nil` to disconnect the binding.
 */
-@interface MASShortcutView (Bindings)
+@interface XSN_MAXShortcutView (Bindings)
 
 @property(copy) NSString *associatedUserDefaultsKey;
 

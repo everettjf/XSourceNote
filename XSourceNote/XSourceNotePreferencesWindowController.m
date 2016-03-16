@@ -12,8 +12,8 @@
 #import "XSourceNoteUtil.h"
 
 @interface XSourceNotePreferencesWindowController ()<NSWindowDelegate>
-@property (weak) IBOutlet MASShortcutView *toggleShortcutView;
-@property (weak) IBOutlet MASShortcutView *showShortcutView;
+@property (weak) IBOutlet XSN_MAXShortcutView *toggleShortcutView;
+@property (weak) IBOutlet XSN_MAXShortcutView *showShortcutView;
 @property (weak) IBOutlet NSPopUpButton *codeStyle;
 
 @property (strong) NSArray *styles;
@@ -35,13 +35,13 @@
     XSourceNoteDefaults *config = [XSourceNoteDefaults sharedDefaults];
     
     self.toggleShortcutView.shortcutValue = config.currentShortcutToggle;
-    self.toggleShortcutView.shortcutValueChange = ^(MASShortcutView *sender){
+    self.toggleShortcutView.shortcutValueChange = ^(XSN_MAXShortcutView *sender){
         config.currentShortcutToggle = sender.shortcutValue;
         [config synchronize];
     };
     
     self.showShortcutView.shortcutValue = config.currentShortcutShow;
-    self.showShortcutView.shortcutValueChange = ^(MASShortcutView *sender){
+    self.showShortcutView.shortcutValueChange = ^(XSN_MAXShortcutView *sender){
         config.currentShortcutShow = sender.shortcutValue;
         [config synchronize];
     };

@@ -1,22 +1,22 @@
-@class MASShortcut, MASShortcutValidator;
+@class XSN_MAXShortcut, XSN_MAXShortcutValidator;
 
-extern NSString *const MASShortcutBinding;
+extern NSString *const XSN_MAXShortcutBinding;
 
 typedef enum {
-    MASShortcutViewStyleDefault = 0,  // Height = 19 px
-    MASShortcutViewStyleTexturedRect, // Height = 25 px
-    MASShortcutViewStyleRounded,      // Height = 43 px
-    MASShortcutViewStyleFlat
-} MASShortcutViewStyle;
+    XSN_MAXShortcutViewStyleDefault = 0,  // Height = 19 px
+    XSN_MAXShortcutViewStyleTexturedRect, // Height = 25 px
+    XSN_MAXShortcutViewStyleRounded,      // Height = 43 px
+    XSN_MAXShortcutViewStyleFlat
+} XSN_MAXShortcutViewStyle;
 
-@interface MASShortcutView : NSView
+@interface XSN_MAXShortcutView : NSView
 
-@property (nonatomic, strong) MASShortcut *shortcutValue;
-@property (nonatomic, strong) MASShortcutValidator *shortcutValidator;
+@property (nonatomic, strong) XSN_MAXShortcut *shortcutValue;
+@property (nonatomic, strong) XSN_MAXShortcutValidator *shortcutValidator;
 @property (nonatomic, getter = isRecording) BOOL recording;
 @property (nonatomic, getter = isEnabled) BOOL enabled;
-@property (nonatomic, copy) void (^shortcutValueChange)(MASShortcutView *sender);
-@property (nonatomic, assign) MASShortcutViewStyle style;
+@property (nonatomic, copy) void (^shortcutValueChange)(XSN_MAXShortcutView *sender);
+@property (nonatomic, assign) XSN_MAXShortcutViewStyle style;
 
 /// Returns custom class for drawing control.
 + (Class)shortcutCellClass;

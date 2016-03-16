@@ -1,12 +1,12 @@
 #import "MASDictionaryTransformer.h"
 #import "MASShortcut.h"
 
-NSString *const MASDictionaryTransformerName = @"MASDictionaryTransformer";
+NSString *const XSN_MAXDictionaryTransformerName = @"MASDictionaryTransformer";
 
-static NSString *const MASKeyCodeKey = @"keyCode";
-static NSString *const MASModifierFlagsKey = @"modifierFlags";
+static NSString *const XSN_MAXKeyCodeKey = @"keyCode";
+static NSString *const XSN_MAXModifierFlagsKey = @"modifierFlags";
 
-@implementation MASDictionaryTransformer
+@implementation XSN_MAXDictionaryTransformer
 
 + (BOOL) allowsReverseTransformation
 {
@@ -16,34 +16,34 @@ static NSString *const MASModifierFlagsKey = @"modifierFlags";
 // Storing nil values as an empty dictionary lets us differ between
 // “not available, use default value” and “explicitly set to none”.
 // See http://stackoverflow.com/questions/5540760 for details.
-- (NSDictionary*) reverseTransformedValue: (MASShortcut*) shortcut
+- (NSDictionary*) reverseTransformedValue: (XSN_MAXShortcut*) shortcut
 {
     if (shortcut == nil) {
         return [NSDictionary dictionary];
     } else {
         return @{
-            MASKeyCodeKey: @([shortcut keyCode]),
-            MASModifierFlagsKey: @([shortcut modifierFlags])
+            XSN_MAXKeyCodeKey: @([shortcut keyCode]),
+            XSN_MAXModifierFlagsKey: @([shortcut modifierFlags])
         };
     }
 }
 
-- (MASShortcut*) transformedValue: (NSDictionary*) dictionary
+- (XSN_MAXShortcut*) transformedValue: (NSDictionary*) dictionary
 {
     // We have to be defensive here as the value may come from user defaults.
     if (![dictionary isKindOfClass:[NSDictionary class]]) {
         return nil;
     }
 
-    id keyCodeBox = [dictionary objectForKey:MASKeyCodeKey];
-    id modifierFlagsBox = [dictionary objectForKey:MASModifierFlagsKey];
+    id keyCodeBox = [dictionary objectForKey:XSN_MAXKeyCodeKey];
+    id modifierFlagsBox = [dictionary objectForKey:XSN_MAXModifierFlagsKey];
 
     SEL integerValue = @selector(integerValue);
     if (![keyCodeBox respondsToSelector:integerValue] || ![modifierFlagsBox respondsToSelector:integerValue]) {
         return nil;
     }
 
-    return [MASShortcut
+    return [XSN_MAXShortcut
         shortcutWithKeyCode:[keyCodeBox integerValue]
         modifierFlags:[modifierFlagsBox integerValue]];
 }

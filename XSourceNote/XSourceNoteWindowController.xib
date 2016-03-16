@@ -65,16 +65,16 @@
                                                     <rect key="frame" x="1" y="1" width="280" height="49"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dFf-EZ-RUh">
-                                                            <rect key="frame" x="3" y="27" width="289" height="17"/>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dFf-EZ-RUh">
+                                                            <rect key="frame" x="3" y="27" width="274" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="FileName.m (10 - 15)" id="T9Y-dP-978">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nbi-Kf-crx">
-                                                            <rect key="frame" x="3" y="5" width="289" height="17"/>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nbi-Kf-crx">
+                                                            <rect key="frame" x="3" y="5" width="274" height="17"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="8oR-lU-pza">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -129,7 +129,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="572" height="642"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vS8-Tt-vXw">
+                                        <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vS8-Tt-vXw">
                                             <rect key="frame" x="5" y="0.0" width="557" height="352"/>
                                             <clipView key="contentView" id="rq1-jj-pWO">
                                                 <rect key="frame" x="1" y="1" width="555" height="350"/>
@@ -139,10 +139,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="555" height="350"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="540" height="350"/>
+                                                        <size key="minSize" width="555" height="350"/>
                                                         <size key="maxSize" width="719" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="540" height="350"/>
+                                                        <size key="minSize" width="555" height="350"/>
                                                         <size key="maxSize" width="719" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -153,11 +153,11 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="8KY-wH-C9Q">
-                                                <rect key="frame" x="541" y="1" width="15" height="350"/>
+                                                <rect key="frame" x="540" y="1" width="16" height="350"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
-                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KmA-FW-EdU">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KmA-FW-EdU">
                                             <rect key="frame" x="6" y="594" width="481" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="/Users/myname/code/XSourceNote" drawsBackground="YES" id="z6Z-WR-wEV">
                                                 <font key="font" metaFont="system"/>
@@ -165,7 +165,7 @@
                                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="939-mA-be8">
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="939-mA-be8">
                                             <rect key="frame" x="489" y="588" width="79" height="32"/>
                                             <buttonCell key="cell" type="push" title="Select" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7QJ-3m-6rP">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -175,7 +175,7 @@
                                                 <action selector="selectRootPathClicked:" target="-2" id="0pX-oH-2mv"/>
                                             </connections>
                                         </button>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EvJ-xm-NmM">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EvJ-xm-NmM">
                                             <rect key="frame" x="4" y="360" width="78" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description:" id="bEY-Qf-ITS">
                                                 <font key="font" metaFont="system"/>
@@ -183,7 +183,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dIf-Dr-Jot">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dIf-Dr-Jot">
                                             <rect key="frame" x="4" y="569" width="86" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ProjectName:" id="9Qp-s4-20G">
                                                 <font key="font" metaFont="system"/>
@@ -191,7 +191,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88u-ip-otP">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="88u-ip-otP">
                                             <rect key="frame" x="4" y="465" width="39" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Repo:" id="6pU-Me-KCA">
                                                 <font key="font" metaFont="system"/>
@@ -199,7 +199,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wwl-RM-a8N">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wwl-RM-a8N">
                                             <rect key="frame" x="4" y="409" width="59" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Revision:" id="ILr-JG-QAS">
                                                 <font key="font" metaFont="system"/>
@@ -207,7 +207,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G3E-96-dQB">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G3E-96-dQB">
                                             <rect key="frame" x="6" y="434" width="557" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="https://github.com/everettjf/XSourceNote.git" drawsBackground="YES" id="2O8-qM-Qlj">
                                                 <font key="font" metaFont="system"/>
@@ -215,7 +215,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aCr-uH-JUX">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aCr-uH-JUX">
                                             <rect key="frame" x="6" y="539" width="557" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="XSourceNote" drawsBackground="YES" id="Mqg-L5-Mbe">
                                                 <font key="font" metaFont="system"/>
@@ -223,7 +223,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DsO-on-9xT">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DsO-on-9xT">
                                             <rect key="frame" x="6" y="490" width="557" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="https://github.com/everettjf/XSourceNote" drawsBackground="YES" id="xuR-Lj-T8k">
                                                 <font key="font" metaFont="system"/>
@@ -231,7 +231,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ahe-Kd-Ee5">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ahe-Kd-Ee5">
                                             <rect key="frame" x="4" y="518" width="78" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Official Site:" id="dW4-Xk-B0z">
                                                 <font key="font" metaFont="system"/>
@@ -239,7 +239,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pQ8-pk-WOS">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pQ8-pk-WOS">
                                             <rect key="frame" x="4" y="624" width="67" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Root Path:" id="NMN-1O-owx">
                                                 <font key="font" metaFont="system"/>
@@ -247,7 +247,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uk8-bf-wlp">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uk8-bf-wlp">
                                             <rect key="frame" x="6" y="379" width="556" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="49c7a1db9c153dc13ed37cb209d568177d30bda3" drawsBackground="YES" id="5e3-KE-TXa">
                                                 <font key="font" metaFont="system"/>
@@ -308,10 +308,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="568" height="639"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="553" height="639"/>
+                                                        <size key="minSize" width="568" height="639"/>
                                                         <size key="maxSize" width="717" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="553" height="639"/>
+                                                        <size key="minSize" width="568" height="639"/>
                                                         <size key="maxSize" width="717" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -322,7 +322,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="eEH-Wn-0v0">
-                                                <rect key="frame" x="554" y="1" width="15" height="639"/>
+                                                <rect key="frame" x="553" y="1" width="16" height="639"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -350,10 +350,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="567" height="243"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <size key="minSize" width="552" height="243"/>
+                                                        <size key="minSize" width="567" height="243"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="552" height="243"/>
+                                                        <size key="minSize" width="567" height="243"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -367,7 +367,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="a4c-Q7-5zv">
-                                                <rect key="frame" x="553" y="1" width="15" height="243"/>
+                                                <rect key="frame" x="552" y="1" width="16" height="243"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -381,10 +381,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="567" height="373"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="552" height="373"/>
+                                                        <size key="minSize" width="567" height="373"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="552" height="373"/>
+                                                        <size key="minSize" width="567" height="373"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -395,7 +395,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="TQF-5n-pSE">
-                                                <rect key="frame" x="553" y="1" width="15" height="373"/>
+                                                <rect key="frame" x="552" y="1" width="16" height="373"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -437,10 +437,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="568" height="639"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="553" height="639"/>
+                                                        <size key="minSize" width="568" height="639"/>
                                                         <size key="maxSize" width="717" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="553" height="639"/>
+                                                        <size key="minSize" width="568" height="639"/>
                                                         <size key="maxSize" width="717" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -451,7 +451,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="rkC-7i-F2C">
-                                                <rect key="frame" x="554" y="1" width="15" height="639"/>
+                                                <rect key="frame" x="553" y="1" width="16" height="639"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -499,10 +499,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="528" height="554"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="513" height="554"/>
+                                                        <size key="minSize" width="528" height="554"/>
                                                         <size key="maxSize" width="540" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="513" height="554"/>
+                                                        <size key="minSize" width="528" height="554"/>
                                                         <size key="maxSize" width="540" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -513,7 +513,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="1WS-JM-Ro7">
-                                                <rect key="frame" x="514" y="1" width="15" height="554"/>
+                                                <rect key="frame" x="513" y="1" width="16" height="554"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>

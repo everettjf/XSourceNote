@@ -8,7 +8,7 @@
  the input system for the shortcut appearance, nor it does access user
  defaults.
 */
-@interface MASShortcut : NSObject <NSSecureCoding, NSCopying>
+@interface XSN_MAXShortcut : NSObject <NSSecureCoding, NSCopying>
 
 /**
  The virtual key code for the keyboard key.

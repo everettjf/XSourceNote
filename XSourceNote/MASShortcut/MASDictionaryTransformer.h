@@ -1,4 +1,4 @@
-extern NSString *const MASDictionaryTransformerName;
+extern NSString *const XSN_MAXDictionaryTransformerName;
 
 /**
  Converts shortcuts for storage in user defaults.
@@ -15,5 +15,5 @@ extern NSString *const MASDictionaryTransformerName;
  format is compatible with an older sortcut library called Shortcut
  Recorder.
 */
-@interface MASDictionaryTransformer : NSValueTransformer
+@interface XSN_MAXDictionaryTransformer : NSValueTransformer
 @end

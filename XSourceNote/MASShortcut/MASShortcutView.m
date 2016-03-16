@@ -2,14 +2,14 @@
 #import "MASShortcutValidator.h"
 #import "MASLocalization.h"
 
-NSString *const MASShortcutBinding = @"shortcutValue";
+NSString *const XSN_MAXShortcutBinding = @"shortcutValue";
 
-static const CGFloat MASHintButtonWidth = 23;
-static const CGFloat MASButtonFontSize = 11;
+static const CGFloat XSN_MAXHintButtonWidth = 23;
+static const CGFloat XSN_MAXButtonFontSize = 11;
 
 #pragma mark -
 
-@interface MASShortcutView () // Private accessors
+@interface XSN_MAXShortcutView () // Private accessors
 
 @property (nonatomic, getter = isHinting) BOOL hinting;
 @property (nonatomic, copy) NSString *shortcutPlaceholder;
@@ -19,7 +19,7 @@ static const CGFloat MASButtonFontSize = 11;
 
 #pragma mark -
 
-@implementation MASShortcutView {
+@implementation XSN_MAXShortcutView {
     NSButtonCell *_shortcutCell;
     NSInteger _shortcutToolTipTag;
     NSInteger _hintToolTipTag;
@@ -56,8 +56,8 @@ static const CGFloat MASButtonFontSize = 11;
 {
     _shortcutCell = [[[self.class shortcutCellClass] alloc] init];
     _shortcutCell.buttonType = NSPushOnPushOffButton;
-    _shortcutCell.font = [[NSFontManager sharedFontManager] convertFont:_shortcutCell.font toSize:MASButtonFontSize];
-    _shortcutValidator = [MASShortcutValidator sharedValidator];
+    _shortcutCell.font = [[NSFontManager sharedFontManager] convertFont:_shortcutCell.font toSize:XSN_MAXButtonFontSize];
+    _shortcutValidator = [XSN_MAXShortcutValidator sharedValidator];
     _enabled = YES;
     _showsDeleteButton = YES;
 	_acceptsFirstResponder = NO;
@@ -82,7 +82,7 @@ static const CGFloat MASButtonFontSize = 11;
     }
 }
 
-- (void)setStyle:(MASShortcutViewStyle)newStyle
+- (void)setStyle:(XSN_MAXShortcutViewStyle)newStyle
 {
     if (_style != newStyle) {
         _style = newStyle;
@@ -94,19 +94,19 @@ static const CGFloat MASButtonFontSize = 11;
 - (void)resetShortcutCellStyle
 {
     switch (_style) {
-        case MASShortcutViewStyleDefault: {
+        case XSN_MAXShortcutViewStyleDefault: {
             _shortcutCell.bezelStyle = NSRoundRectBezelStyle;
             break;
         }
-        case MASShortcutViewStyleTexturedRect: {
+        case XSN_MAXShortcutViewStyleTexturedRect: {
             _shortcutCell.bezelStyle = NSTexturedRoundedBezelStyle;
             break;
         }
-        case MASShortcutViewStyleRounded: {
+        case XSN_MAXShortcutViewStyleRounded: {
             _shortcutCell.bezelStyle = NSRoundedBezelStyle;
             break;
         }
-        case MASShortcutViewStyleFlat: {
+        case XSN_MAXShortcutViewStyleFlat: {
             self.wantsLayer = YES;
             _shortcutCell.backgroundColor = [NSColor clearColor];
             _shortcutCell.bordered = NO;
@@ -118,7 +118,7 @@ static const CGFloat MASButtonFontSize = 11;
 - (void)setRecording:(BOOL)flag
 {
     // Only one recorder can be active at the moment
-    static MASShortcutView *currentRecorder = nil;
+    static XSN_MAXShortcutView *currentRecorder = nil;
     if (flag && (currentRecorder != self)) {
         currentRecorder.recording = NO;
         currentRecorder = flag ? self : nil;
@@ -146,8 +146,8 @@ static const CGFloat MASButtonFontSize = 11;
     #pragma clang diagnostic ignored "-Wtautological-compare"
     if (_recording == NO && (&NSAccessibilityPriorityKey != NULL)) {
         NSString* msg = _shortcutValue ?
-                         MASLocalizedString(@"Shortcut set", @"VoiceOver: Shortcut set") :
-                         MASLocalizedString(@"Shortcut cleared", @"VoiceOver: Shortcut cleared");
+                         XSN_MAXLocalizedString(@"Shortcut set", @"VoiceOver: Shortcut set") :
+                         XSN_MAXLocalizedString(@"Shortcut cleared", @"VoiceOver: Shortcut cleared");
         NSDictionary *announcementInfo = @{
             NSAccessibilityAnnouncementKey : msg,
             NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
@@ -157,12 +157,12 @@ static const CGFloat MASButtonFontSize = 11;
     #pragma clang diagnostic pop
 }
 
-- (void)setShortcutValue:(MASShortcut *)shortcutValue
+- (void)setShortcutValue:(XSN_MAXShortcut *)shortcutValue
 {
     _shortcutValue = shortcutValue;
     [self resetToolTips];
     [self setNeedsDisplay:YES];
-    [self propagateValue:shortcutValue forBinding:MASShortcutBinding];
+    [self propagateValue:shortcutValue forBinding:XSN_MAXShortcutBinding];
 
     if (self.shortcutValueChange) {
         self.shortcutValueChange(self);
@@ -190,19 +190,19 @@ static const CGFloat MASButtonFontSize = 11;
     _shortcutCell.enabled = self.enabled;
 
     switch (_style) {
-        case MASShortcutViewStyleDefault: {
+        case XSN_MAXShortcutViewStyleDefault: {
             [_shortcutCell drawWithFrame:frame inView:self];
             break;
         }
-        case MASShortcutViewStyleTexturedRect: {
+        case XSN_MAXShortcutViewStyleTexturedRect: {
             [_shortcutCell drawWithFrame:CGRectOffset(frame, 0.0, 1.0) inView:self];
             break;
         }
-        case MASShortcutViewStyleRounded: {
+        case XSN_MAXShortcutViewStyleRounded: {
             [_shortcutCell drawWithFrame:CGRectOffset(frame, 0.0, 1.0) inView:self];
             break;
         }
-        case MASShortcutViewStyleFlat: {
+        case XSN_MAXShortcutViewStyleFlat: {
             [_shortcutCell drawWithFrame:frame inView:self];
             break;
         }
@@ -225,10 +225,10 @@ static const CGFloat MASButtonFontSize = 11;
         [self getShortcutRect:&shortcutRect hintRect:NULL];
         NSString *title = (self.recording
                            ? (_hinting
-                              ? MASLocalizedString(@"Use Old Shortcut", @"Cancel action button for non-empty shortcut in recording state")
+                              ? XSN_MAXLocalizedString(@"Use Old Shortcut", @"Cancel action button for non-empty shortcut in recording state")
                               : (self.shortcutPlaceholder.length > 0
                                  ? self.shortcutPlaceholder
-                                 : MASLocalizedString(@"Type New Shortcut", @"Non-empty shortcut button in recording state")))
+                                 : XSN_MAXLocalizedString(@"Type New Shortcut", @"Non-empty shortcut button in recording state")))
                            : _shortcutValue ? _shortcutValue.description : @"");
         [self drawInRect:shortcutRect withTitle:title alignment:NSCenterTextAlignment state:self.isRecording ? NSOnState : NSOffState];
     }
@@ -240,15 +240,15 @@ static const CGFloat MASButtonFontSize = 11;
             CGRect shortcutRect;
             [self getShortcutRect:&shortcutRect hintRect:NULL];
             NSString *title = (_hinting
-                               ? MASLocalizedString(@"Cancel", @"Cancel action button in recording state")
+                               ? XSN_MAXLocalizedString(@"Cancel", @"Cancel action button in recording state")
                                : (self.shortcutPlaceholder.length > 0
                                   ? self.shortcutPlaceholder
-                                  : MASLocalizedString(@"Type Shortcut", @"Empty shortcut button in recording state")));
+                                  : XSN_MAXLocalizedString(@"Type Shortcut", @"Empty shortcut button in recording state")));
             [self drawInRect:shortcutRect withTitle:title alignment:NSCenterTextAlignment state:NSOnState];
         }
         else
         {
-            [self drawInRect:self.bounds withTitle:MASLocalizedString(@"Record Shortcut", @"Empty shortcut button in normal state")
+            [self drawInRect:self.bounds withTitle:XSN_MAXLocalizedString(@"Record Shortcut", @"Empty shortcut button in normal state")
                    alignment:NSCenterTextAlignment state:NSOffState];
         }
     }
@@ -259,11 +259,11 @@ static const CGFloat MASButtonFontSize = 11;
 - (void)getShortcutRect:(CGRect *)shortcutRectRef hintRect:(CGRect *)hintRectRef
 {
     CGRect shortcutRect, hintRect;
-    CGFloat hintButtonWidth = MASHintButtonWidth;
+    CGFloat hintButtonWidth = XSN_MAXHintButtonWidth;
     switch (self.style) {
-        case MASShortcutViewStyleTexturedRect: hintButtonWidth += 2.0; break;
-        case MASShortcutViewStyleRounded: hintButtonWidth += 3.0; break;
-        case MASShortcutViewStyleFlat: hintButtonWidth -= 8.0 - (_shortcutCell.font.pointSize - MASButtonFontSize); break;
+        case XSN_MAXShortcutViewStyleTexturedRect: hintButtonWidth += 2.0; break;
+        case XSN_MAXShortcutViewStyleRounded: hintButtonWidth += 3.0; break;
+        case XSN_MAXShortcutViewStyleFlat: hintButtonWidth -= 8.0 - (_shortcutCell.font.pointSize - XSN_MAXButtonFontSize); break;
         default: break;
     }
     CGRectDivide(self.bounds, &hintRect, &shortcutRect, hintButtonWidth, CGRectMaxXEdge);
@@ -381,10 +381,10 @@ void *kUserDataHint = &kUserDataHint;
 - (NSString *)view:(NSView *)view stringForToolTip:(NSToolTipTag)tag point:(CGPoint)point userData:(void *)data
 {
     if (data == kUserDataShortcut) {
-        return MASLocalizedString(@"Click to record new shortcut", @"Tooltip for non-empty shortcut button");
+        return XSN_MAXLocalizedString(@"Click to record new shortcut", @"Tooltip for non-empty shortcut button");
     }
     else if (data == kUserDataHint) {
-        return MASLocalizedString(@"Delete shortcut", @"Tooltip for hint button near the non-empty shortcut");
+        return XSN_MAXLocalizedString(@"Delete shortcut", @"Tooltip for hint button near the non-empty shortcut");
     }
     return nil;
 }
@@ -399,12 +399,12 @@ void *kUserDataHint = &kUserDataHint;
     
     static id eventMonitor = nil;
     if (shouldActivate) {
-        __unsafe_unretained MASShortcutView *weakSelf = self;
+        __unsafe_unretained XSN_MAXShortcutView *weakSelf = self;
         NSEventMask eventMask = (NSKeyDownMask | NSFlagsChangedMask);
         eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:eventMask handler:^(NSEvent *event) {
 
             // Create a shortcut from the event
-            MASShortcut *shortcut = [MASShortcut shortcutWithEvent:event];
+            XSN_MAXShortcut *shortcut = [XSN_MAXShortcut shortcutWithEvent:event];
 
             // Tab key must pass through.
             if (shortcut.keyCode == kVK_Tab){
@@ -439,13 +439,13 @@ void *kUserDataHint = &kUserDataHint;
                             // Prevent cancel of recording when Alert window is key
                             [weakSelf activateResignObserver:NO];
                             [weakSelf activateEventMonitoring:NO];
-                            NSString *format = MASLocalizedString(@"The key combination %@ cannot be used",
+                            NSString *format = XSN_MAXLocalizedString(@"The key combination %@ cannot be used",
                                                                  @"Title for alert when shortcut is already used");
                             NSAlert* alert = [[NSAlert alloc]init];
                             alert.alertStyle = NSCriticalAlertStyle;
                             alert.informativeText = explanation;
                             alert.messageText = [NSString stringWithFormat:format, shortcut];
-                            [alert addButtonWithTitle:MASLocalizedString(@"OK", @"Alert button when shortcut is already used")];
+                            [alert addButtonWithTitle:XSN_MAXLocalizedString(@"OK", @"Alert button when shortcut is already used")];
 
                             [alert runModal];
                             weakSelf.shortcutPlaceholder = nil;
@@ -485,7 +485,7 @@ void *kUserDataHint = &kUserDataHint;
     static id observer = nil;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     if (shouldActivate) {
-        __unsafe_unretained MASShortcutView *weakSelf = self;
+        __unsafe_unretained XSN_MAXShortcutView *weakSelf = self;
         observer = [notificationCenter addObserverForName:NSWindowDidResignKeyNotification object:self.window
                                                 queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
                                                     weakSelf.recording = NO;
@@ -552,7 +552,7 @@ void *kUserDataHint = &kUserDataHint;
 
 - (NSString *)accessibilityHelp
 {
-    return MASLocalizedString(@"To record a new shortcut, click this button, and then type the"
+    return XSN_MAXLocalizedString(@"To record a new shortcut, click this button, and then type the"
                              @" new shortcut, or press delete to clear an existing shortcut.",
                              @"VoiceOver shortcut help");
 }
@@ -560,7 +560,7 @@ void *kUserDataHint = &kUserDataHint;
 - (NSString *)accessibilityLabel
 {
     NSString* title = _shortcutValue.description ?: @"Empty";
-    title = [title stringByAppendingFormat:@" %@", MASLocalizedString(@"keyboard shortcut", @"VoiceOver title")];
+    title = [title stringByAppendingFormat:@" %@", XSN_MAXLocalizedString(@"keyboard shortcut", @"VoiceOver title")];
     return title;
 }
 

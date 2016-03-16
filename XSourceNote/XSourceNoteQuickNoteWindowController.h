@@ -13,6 +13,7 @@
 
 @property (strong) XSourceNoteLineEntity *line;
 
+- (void)saveCurrentContent;
 - (void)refresh;
 
 @end

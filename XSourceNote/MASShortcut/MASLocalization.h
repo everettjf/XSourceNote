@@ -10,4 +10,4 @@
  NSLocalizedString throughout the framework, it wouldn’t work
  properly.
 */
-NSString *MASLocalizedString(NSString *key, NSString *comment);
+NSString *XSN_MAXLocalizedString(NSString *key, NSString *comment);

@@ -1,10 +1,10 @@
 #import "MASShortcutView+Bindings.h"
 
-@implementation MASShortcutView (Bindings)
+@implementation XSN_MAXShortcutView (Bindings)
 
 - (NSString*) associatedUserDefaultsKey
 {
-    NSDictionary* bindingInfo = [self infoForBinding:MASShortcutBinding];
+    NSDictionary* bindingInfo = [self infoForBinding:XSN_MAXShortcutBinding];
     if (bindingInfo != nil) {
         NSString *keyPath = [bindingInfo objectForKey:NSObservedKeyPathKey];
         NSString *key = [keyPath stringByReplacingOccurrencesOfString:@"values." withString:@""];
@@ -31,7 +31,7 @@
         @{NSValueTransformerBindingOption:transformer} :
         nil;
 
-    [self bind:MASShortcutBinding
+    [self bind:XSN_MAXShortcutBinding
         toObject:[NSUserDefaultsController sharedUserDefaultsController]
         withKeyPath:[@"values." stringByAppendingString:newKey]
         options:options];

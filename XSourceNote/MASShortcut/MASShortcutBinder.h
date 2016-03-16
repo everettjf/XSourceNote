@@ -13,7 +13,7 @@
  watches the changes in user defaults and updates the shortcut monitor
  accordingly with the new shortcuts.
 */
-@interface MASShortcutBinder : NSObject
+@interface XSN_MAXShortcutBinder : NSObject
 
 /**
  A convenience shared instance.
@@ -26,7 +26,7 @@
 /**
  The underlying shortcut monitor.
 */
-@property(strong) MASShortcutMonitor *shortcutMonitor;
+@property(strong) XSN_MAXShortcutMonitor *shortcutMonitor;
 
 /**
  Binding options customizing the access to user defaults.

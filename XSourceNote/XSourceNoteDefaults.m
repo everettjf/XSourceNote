@@ -15,11 +15,11 @@ static NSString * const kXSourceNoteDefaultsCodeStyle = @"XSourceNoteDefaultsCod
 
 @implementation XSourceNoteDefaults
 
-+(MASShortcut *)defaultShortcutToggle{
-    return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSCommandKeyMask];
++(XSN_MAXShortcut *)defaultShortcutToggle{
+    return [XSN_MAXShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSCommandKeyMask];
 }
-+(MASShortcut *)defaultShortcutShow{
-    return [MASShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSShiftKeyMask];
++(XSN_MAXShortcut *)defaultShortcutShow{
+    return [XSN_MAXShortcut shortcutWithKeyCode:kVK_F4 modifierFlags:NSShiftKeyMask];
 }
 
 +(XSourceNoteDefaults *)sharedDefaults{

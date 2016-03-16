@@ -1,19 +1,19 @@
 #import "MASShortcutValidator.h"
 #import "MASLocalization.h"
 
-@implementation MASShortcutValidator
+@implementation XSN_MAXShortcutValidator
 
 + (instancetype) sharedValidator
 {
     static dispatch_once_t once;
-    static MASShortcutValidator *sharedInstance;
+    static XSN_MAXShortcutValidator *sharedInstance;
     dispatch_once(&once, ^{
         sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
 }
 
-- (BOOL) isShortcutValid: (MASShortcut*) shortcut
+- (BOOL) isShortcutValid: (XSN_MAXShortcut*) shortcut
 {
     NSUInteger keyCode = [shortcut keyCode];
     NSUInteger modifiers = [shortcut modifierFlags];
@@ -50,7 +50,7 @@
     return NO;
 }
 
-- (BOOL) isShortcut: (MASShortcut*) shortcut alreadyTakenInMenu: (NSMenu*) menu explanation: (NSString**) explanation
+- (BOOL) isShortcut: (XSN_MAXShortcut*) shortcut alreadyTakenInMenu: (NSMenu*) menu explanation: (NSString**) explanation
 {
     NSString *keyEquivalent = [shortcut keyCodeStringForKeyEquivalent];
     NSUInteger flags = [shortcut modifierFlags];
@@ -58,18 +58,18 @@
     for (NSMenuItem *menuItem in menu.itemArray) {
         if (menuItem.hasSubmenu && [self isShortcut:shortcut alreadyTakenInMenu:[menuItem submenu] explanation:explanation]) return YES;
         
-        BOOL equalFlags = (MASPickCocoaModifiers(menuItem.keyEquivalentModifierMask) == flags);
+        BOOL equalFlags = (XSN_MAXPickCocoaModifiers(menuItem.keyEquivalentModifierMask) == flags);
         BOOL equalHotkeyLowercase = [menuItem.keyEquivalent.lowercaseString isEqualToString:keyEquivalent];
         
         // Check if the cases are different, we know ours is lower and that shift is included in our modifiers
         // If theirs is capitol, we need to add shift to their modifiers
         if (equalHotkeyLowercase && ![menuItem.keyEquivalent isEqualToString:keyEquivalent]) {
-            equalFlags = (MASPickCocoaModifiers(menuItem.keyEquivalentModifierMask | NSShiftKeyMask) == flags);
+            equalFlags = (XSN_MAXPickCocoaModifiers(menuItem.keyEquivalentModifierMask | NSShiftKeyMask) == flags);
         }
         
         if (equalFlags && equalHotkeyLowercase) {
             if (explanation) {
-                *explanation = MASLocalizedString(@"This shortcut cannot be used because it is already used by the menu item ‘%@’.",
+                *explanation = XSN_MAXLocalizedString(@"This shortcut cannot be used because it is already used by the menu item ‘%@’.",
                                                      @"Message for alert when shortcut is already used");
                 *explanation = [NSString stringWithFormat:*explanation, menuItem.title];
             }
@@ -79,7 +79,7 @@
     return NO;
 }
 
-- (BOOL) isShortcutAlreadyTakenBySystem: (MASShortcut*) shortcut explanation: (NSString**) explanation
+- (BOOL) isShortcutAlreadyTakenBySystem: (XSN_MAXShortcut*) shortcut explanation: (NSString**) explanation
 {
     CFArrayRef globalHotKeys;
     if (CopySymbolicHotKeys(&globalHotKeys) == noErr) {
@@ -96,7 +96,7 @@
                 ([(__bridge NSNumber *)enabled boolValue])) {
 
                 if (explanation) {
-                    *explanation = MASLocalizedString(@"This combination cannot be used because it is already used by a system-wide "
+                    *explanation = XSN_MAXLocalizedString(@"This combination cannot be used because it is already used by a system-wide "
                                                      @"keyboard shortcut.\nIf you really want to use this key combination, most shortcuts "
                                                      @"can be changed in the Keyboard & Mouse panel in System Preferences.",
                                                      @"Message for alert when shortcut is already used by the system");

@@ -1,10 +1,10 @@
 #import "MASShortcut.h"
 #import "MASLocalization.h"
 
-static NSString *const MASShortcutKeyCode = @"KeyCode";
-static NSString *const MASShortcutModifierFlags = @"ModifierFlags";
+static NSString *const XSN_MAXShortcutKeyCode = @"KeyCode";
+static NSString *const XSN_MAXShortcutModifierFlags = @"ModifierFlags";
 
-@implementation MASShortcut
+@implementation XSN_MAXShortcut
 
 #pragma mark Initialization
 
@@ -13,7 +13,7 @@ static NSString *const MASShortcutModifierFlags = @"ModifierFlags";
     self = [super init];
     if (self) {
         _keyCode = code;
-        _modifierFlags = MASPickCocoaModifiers(flags);
+        _modifierFlags = XSN_MAXPickCocoaModifiers(flags);
     }
     return self;
 }
@@ -37,7 +37,7 @@ static NSString *const MASShortcutModifierFlags = @"ModifierFlags";
 
 - (UInt32)carbonFlags
 {
-    return MASCarbonModifiersFromCocoaModifiers(self.modifierFlags);
+    return XSN_MAXCarbonModifiersFromCocoaModifiers(self.modifierFlags);
 }
 
 - (NSString *)description
@@ -101,7 +101,7 @@ static NSString *const MASShortcutModifierFlags = @"ModifierFlags";
         case kVK_F17: return @"F17";
         case kVK_F18: return @"F18";
         case kVK_F19: return @"F19";
-        case kVK_Space: return MASLocalizedString(@"Space", @"Shortcut glyph name for SPACE key");
+        case kVK_Space: return XSN_MAXLocalizedString(@"Space", @"Shortcut glyph name for SPACE key");
         case kVK_Escape: return NSStringFromMASKeyCode(kMASShortcutGlyphEscape);
         case kVK_Delete: return NSStringFromMASKeyCode(kMASShortcutGlyphDeleteLeft);
         case kVK_ForwardDelete: return NSStringFromMASKeyCode(kMASShortcutGlyphDeleteRight);
@@ -194,7 +194,7 @@ static NSString *const MASShortcutModifierFlags = @"ModifierFlags";
 
 #pragma mark NSObject
 
-- (BOOL) isEqual: (MASShortcut*) object
+- (BOOL) isEqual: (XSN_MAXShortcut*) object
 {
     return [object isKindOfClass:[self class]]
         && (object.keyCode == self.keyCode)
@@ -210,17 +210,17 @@ static NSString *const MASShortcutModifierFlags = @"ModifierFlags";
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeInteger:(self.keyCode != NSNotFound ? (NSInteger)self.keyCode : - 1) forKey:MASShortcutKeyCode];
-    [coder encodeInteger:(NSInteger)self.modifierFlags forKey:MASShortcutModifierFlags];
+    [coder encodeInteger:(self.keyCode != NSNotFound ? (NSInteger)self.keyCode : - 1) forKey:XSN_MAXShortcutKeyCode];
+    [coder encodeInteger:(NSInteger)self.modifierFlags forKey:XSN_MAXShortcutModifierFlags];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];
     if (self) {
-        NSInteger code = [decoder decodeIntegerForKey:MASShortcutKeyCode];
+        NSInteger code = [decoder decodeIntegerForKey:XSN_MAXShortcutKeyCode];
         _keyCode = (code < 0 ? NSNotFound : (NSUInteger)code);
-        _modifierFlags = [decoder decodeIntegerForKey:MASShortcutModifierFlags];
+        _modifierFlags = [decoder decodeIntegerForKey:XSN_MAXShortcutModifierFlags];
     }
     return self;
 }

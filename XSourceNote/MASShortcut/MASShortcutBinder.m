@@ -1,12 +1,12 @@
 #import "MASShortcutBinder.h"
 #import "MASShortcut.h"
 
-@interface MASShortcutBinder ()
+@interface XSN_MAXShortcutBinder ()
 @property(strong) NSMutableDictionary *actions;
 @property(strong) NSMutableDictionary *shortcuts;
 @end
 
-@implementation MASShortcutBinder
+@implementation XSN_MAXShortcutBinder
 
 #pragma mark Initialization
 
@@ -15,7 +15,7 @@
     self = [super init];
     [self setActions:[NSMutableDictionary dictionary]];
     [self setShortcuts:[NSMutableDictionary dictionary]];
-    [self setShortcutMonitor:[MASShortcutMonitor sharedMonitor]];
+    [self setShortcutMonitor:[XSN_MAXShortcutMonitor sharedMonitor]];
     [self setBindingOptions:@{NSValueTransformerNameBindingOption: NSKeyedUnarchiveFromDataTransformerName}];
     return self;
 }
@@ -30,7 +30,7 @@
 + (instancetype) sharedBinder
 {
     static dispatch_once_t once;
-    static MASShortcutBinder *sharedInstance;
+    static XSN_MAXShortcutBinder *sharedInstance;
     dispatch_once(&once, ^{
         sharedInstance = [[self alloc] init];
     });
@@ -72,7 +72,7 @@
 
     NSAssert(transformer != nil, @"Can’t register default shortcuts without a transformer.");
 
-    [defaultShortcuts enumerateKeysAndObjectsUsingBlock:^(NSString *defaultsKey, MASShortcut *shortcut, BOOL *stop) {
+    [defaultShortcuts enumerateKeysAndObjectsUsingBlock:^(NSString *defaultsKey, XSN_MAXShortcut *shortcut, BOOL *stop) {
         id value = [transformer reverseTransformedValue:shortcut];
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{defaultsKey:value}];
     }];
@@ -99,8 +99,8 @@
         return;
     }
 
-    MASShortcut *newShortcut = value;
-    MASShortcut *currentShortcut = [_shortcuts objectForKey:key];
+    XSN_MAXShortcut *newShortcut = value;
+    XSN_MAXShortcut *currentShortcut = [_shortcuts objectForKey:key];
 
     // Unbind previous shortcut if any
     if (currentShortcut != nil) {

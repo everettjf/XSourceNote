@@ -1,22 +1,22 @@
 #import "MASHotKey.h"
 
-FourCharCode const MASHotKeySignature = 'MASS';
+FourCharCode const XSN_MAXHotKeySignature = 'MASS';
 
-@interface MASHotKey ()
+@interface XSN_MAXHotKey ()
 @property(assign) EventHotKeyRef hotKeyRef;
 @property(assign) UInt32 carbonID;
 @end
 
-@implementation MASHotKey
+@implementation XSN_MAXHotKey
 
-- (instancetype) initWithShortcut: (MASShortcut*) shortcut
+- (instancetype) initWithShortcut: (XSN_MAXShortcut*) shortcut
 {
     self = [super init];
 
     static UInt32 CarbonHotKeyID = 0;
 
     _carbonID = ++CarbonHotKeyID;
-    EventHotKeyID hotKeyID = { .signature = MASHotKeySignature, .id = _carbonID };
+    EventHotKeyID hotKeyID = { .signature = XSN_MAXHotKeySignature, .id = _carbonID };
 
     OSStatus status = RegisterEventHotKey([shortcut carbonKeyCode], [shortcut carbonFlags],
         hotKeyID, GetEventDispatcherTarget(), 0, &_hotKeyRef);
@@ -28,7 +28,7 @@ FourCharCode const MASHotKeySignature = 'MASS';
     return self;
 }
 
-+ (instancetype) registeredHotKeyWithShortcut: (MASShortcut*) shortcut
++ (instancetype) registeredHotKeyWithShortcut: (XSN_MAXShortcut*) shortcut
 {
     return [[self alloc] initWithShortcut:shortcut];
 }

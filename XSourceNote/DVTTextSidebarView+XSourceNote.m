@@ -45,12 +45,6 @@
     [self XSourceNote_drawLineNumbersInSidebarRect:rect foldedIndexes:indexes count:indexCount linesToInvert:invert linesToReplace:replace getParaRectBlock:rectBlock];
 }
 
-static inline NSPoint NSPointRelativeTo(NSPoint point,NSPoint origin){
-    return NSMakePoint(origin.x + point.x, origin.y + point.y);
-}
-static inline NSPoint NSPointRelativeToXY(CGFloat x, CGFloat y,NSPoint origin){
-    return NSPointRelativeTo(NSMakePoint(x, y),origin);
-}
 static inline NSRect NSRectRelativeTo(NSRect rect,NSPoint origin){
     return NSMakeRect(origin.x + rect.origin.x, origin.y + rect.origin.y,rect.size.width,rect.size.height);
 }

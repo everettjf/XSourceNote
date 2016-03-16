@@ -56,7 +56,7 @@
         mainMenu.submenu = submenu;
         
         {
-            MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutToggle;
+            XSN_MAXShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutToggle;
             NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Toggle Note" action:@selector(toggleNote)
                                                              keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
             [actionMenuItem setKeyEquivalentModifierMask:shortcut.modifierFlags];
@@ -66,7 +66,7 @@
             [XSourceNoteDefaults sharedDefaults].toggleMenuItem = actionMenuItem;
         }
         {
-            MASShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutShow;
+            XSN_MAXShortcut *shortcut = [XSourceNoteDefaults sharedDefaults].currentShortcutShow;
             NSMenuItem *actionMenuItem = [[NSMenuItem alloc] initWithTitle:@"Show Notes" action:@selector(showNotes)
                                                              keyEquivalent:shortcut.keyCodeStringForKeyEquivalent];
             [actionMenuItem setKeyEquivalentModifierMask:shortcut.modifierFlags];
@@ -151,6 +151,8 @@
         [self.quickNote.window makeKeyAndOrderFront:nil];
         [self.quickNote refresh];
     }else{
+        [self.quickNote saveCurrentContent];
+        
         self.quickNote.line = lineNote;
         [self.quickNote refresh];
         [self.quickNote.window orderFront:nil];

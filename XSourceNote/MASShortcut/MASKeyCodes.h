@@ -28,12 +28,12 @@ NS_INLINE NSString* NSStringFromMASKeyCode(unsigned short ch)
     return [NSString stringWithFormat:@"%C", ch];
 }
 
-NS_INLINE NSUInteger MASPickCocoaModifiers(NSUInteger flags)
+NS_INLINE NSUInteger XSN_MAXPickCocoaModifiers(NSUInteger flags)
 {
     return (flags & (NSControlKeyMask | NSShiftKeyMask | NSAlternateKeyMask | NSCommandKeyMask));
 }
 
-NS_INLINE UInt32 MASCarbonModifiersFromCocoaModifiers(NSUInteger cocoaFlags)
+NS_INLINE UInt32 XSN_MAXCarbonModifiersFromCocoaModifiers(NSUInteger cocoaFlags)
 {
     return
           (cocoaFlags & NSCommandKeyMask ? cmdKey : 0)
