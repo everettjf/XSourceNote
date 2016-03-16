@@ -10,7 +10,7 @@
 #import "XSourceNoteDataset.h"
 #import "XSourceNoteStorage.h"
 
-@interface XSourceNoteQuickNoteWindowController ()
+@interface XSourceNoteQuickNoteWindowController ()<NSWindowDelegate>
 @property (weak) IBOutlet NSTextField *titleField;
 @property (unsafe_unretained) IBOutlet NSTextView *noteView;
 
@@ -33,10 +33,7 @@
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     
     // save current
-    NSString *currentContent = [self.noteView.string copy];
-    if(![currentContent isEqualToString:@""]){
-        [st updateLineNote:self.line.uniqueID content:currentContent];
-    }
+    [self _saveCurrentContent];
     
     // load new
     self.titleField.stringValue = [self.line title];
@@ -47,7 +44,19 @@
             self.noteView.string = newContent;
         }
     }
-    
 }
+
+- (void)_saveCurrentContent{
+    XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
+    NSString *currentContent = [self.noteView.string copy];
+    if(![currentContent isEqualToString:@""]){
+        [st updateLineNote:self.line.uniqueID content:currentContent];
+    }
+}
+
+- (void)windowWillClose:(NSNotification *)notification{
+    [self _saveCurrentContent];
+}
+
 
 @end

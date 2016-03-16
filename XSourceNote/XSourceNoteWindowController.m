@@ -16,7 +16,7 @@
 #import "XSourceNoteFormatter.h"
 
 
-@interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource, NSTextViewDelegate>
+@interface XSourceNoteWindowController () <NSTableViewDelegate,NSTableViewDataSource, NSTextViewDelegate, NSWindowDelegate>
 @property (weak) IBOutlet NSTabView *tabView;
 
 @property (nonatomic,strong) XSourceNotePreferencesWindowController *preferencesWindowController;
@@ -153,6 +153,7 @@
             self.currentNoteView.editable = YES;
             self.currentNoteUniqueID = lineNote.uniqueID;
             
+            NSLog(@"locate file : %@ , %@", lineNote.localPath, @(lineNote.begin));
             [XSourceNoteUtil openSourceFile:lineNote.localPath highlightLineNumber:lineNote.begin];
             
             [self refreshNotes];
@@ -245,7 +246,8 @@
     self.window.title = [note title];
     
     // show new
-    NSString *content = note.content;//[[XSourceNoteStorage sharedStorage]readLineNote:[note uniqueID]];
+    XSNote * fetchedNote = [[XSourceNoteStorage sharedStorage]fetchLineNote:note.uniqueID];
+    NSString *content = fetchedNote.content;
     if(!content) content = @"";
     
     NSString *code = note.code;
@@ -325,6 +327,11 @@
     st.rootPath = path;
     
     self.rootPathTextField.stringValue = st.rootPath;
+}
+
+- (void)windowWillClose:(NSNotification *)notification{
+    [self _saveCurrent];
+    
 }
 
 @end

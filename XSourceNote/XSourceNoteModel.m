@@ -91,11 +91,16 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
             entity.source = note.source;
             entity.begin = note.begin.unsignedIntegerValue;
             entity.end = note.end.unsignedIntegerValue;
-            if(note.content)
+            if(note.content){
                 entity.content = [[NSString alloc]initWithString:note.content];
-            else
+                if(entity.content.length > 30){
+                    entity.content = [entity.content substringToIndex:30];
+                }
+            }else{
                 entity.content = @"";
+            }
             entity.code = note.code;
+            entity.localPath = note.localPath;
             [entities addObject:entity];
         }
         

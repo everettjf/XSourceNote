@@ -10,6 +10,7 @@
 #import "JRSwizzle.h"
 #import "IDEKit.h"
 #import "XSourceNoteModel.h"
+#import "XSourceNoteStorage.h"
 
 @implementation DVTTextSidebarView (XSourceNote)
 
@@ -27,12 +28,17 @@
                                  linesToInvert:(id)invert
                                 linesToReplace:(id)replace
                               getParaRectBlock:(id)rectBlock{
-    NSString *fileName = self.window.representedFilename;
     
-    for(NSUInteger idx = 0; idx < indexCount; ++idx){
-        NSUInteger line = indexes[idx];
-        if([[XSourceNoteModel sharedModel]hasLineMark:fileName line:line]){
-            [self XSourceNote_drawNoteAtLine:line];
+    NSString *rootPath = [XSourceNoteStorage sharedStorage].rootPath;
+    if(rootPath && ![rootPath isEqualToString:@""]){
+        NSString *fileName = self.window.representedFilename;
+        NSString *relativePath = [fileName stringByReplacingOccurrencesOfString:rootPath withString:@""];
+        
+        for(NSUInteger idx = 0; idx < indexCount; ++idx){
+            NSUInteger line = indexes[idx];
+            if([[XSourceNoteModel sharedModel]hasLineMark:relativePath line:line]){
+                [self XSourceNote_drawNoteAtLine:line];
+            }
         }
     }
     

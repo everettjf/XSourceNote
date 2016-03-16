@@ -21,7 +21,6 @@
                 <outlet property="rootPathTextField" destination="KmA-FW-EdU" id="CSB-ue-1UT"/>
                 <outlet property="summarizeTextView" destination="5yf-eX-EdL" id="qvo-g2-rzl"/>
                 <outlet property="tabView" destination="Ss6-13-jab" id="MOV-yO-JyE"/>
-                <outlet property="uniqueVersionAddressTextField" destination="G3E-96-dQB" id="ik1-Vr-Vs4"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -140,10 +139,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="555" height="350"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="555" height="350"/>
+                                                        <size key="minSize" width="540" height="350"/>
                                                         <size key="maxSize" width="719" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="555" height="350"/>
+                                                        <size key="minSize" width="540" height="350"/>
                                                         <size key="maxSize" width="719" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -154,7 +153,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="8KY-wH-C9Q">
-                                                <rect key="frame" x="540" y="1" width="16" height="350"/>
+                                                <rect key="frame" x="541" y="1" width="15" height="350"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -309,10 +308,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="568" height="639"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="568" height="639"/>
+                                                        <size key="minSize" width="553" height="639"/>
                                                         <size key="maxSize" width="717" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="568" height="639"/>
+                                                        <size key="minSize" width="553" height="639"/>
                                                         <size key="maxSize" width="717" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -323,7 +322,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="eEH-Wn-0v0">
-                                                <rect key="frame" x="553" y="1" width="16" height="639"/>
+                                                <rect key="frame" x="554" y="1" width="15" height="639"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -351,10 +350,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="567" height="243"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <size key="minSize" width="567" height="243"/>
+                                                        <size key="minSize" width="552" height="243"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="567" height="243"/>
+                                                        <size key="minSize" width="552" height="243"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -368,7 +367,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="a4c-Q7-5zv">
-                                                <rect key="frame" x="552" y="1" width="16" height="243"/>
+                                                <rect key="frame" x="553" y="1" width="15" height="243"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -382,10 +381,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="567" height="373"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="567" height="373"/>
+                                                        <size key="minSize" width="552" height="373"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="567" height="373"/>
+                                                        <size key="minSize" width="552" height="373"/>
                                                         <size key="maxSize" width="569" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -396,7 +395,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="TQF-5n-pSE">
-                                                <rect key="frame" x="552" y="1" width="16" height="373"/>
+                                                <rect key="frame" x="553" y="1" width="15" height="373"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -438,10 +437,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="568" height="639"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="568" height="639"/>
+                                                        <size key="minSize" width="553" height="639"/>
                                                         <size key="maxSize" width="717" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="568" height="639"/>
+                                                        <size key="minSize" width="553" height="639"/>
                                                         <size key="maxSize" width="717" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -452,7 +451,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="rkC-7i-F2C">
-                                                <rect key="frame" x="553" y="1" width="16" height="639"/>
+                                                <rect key="frame" x="554" y="1" width="15" height="639"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -500,10 +499,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="528" height="554"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="528" height="554"/>
+                                                        <size key="minSize" width="513" height="554"/>
                                                         <size key="maxSize" width="540" height="10000000"/>
                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <size key="minSize" width="528" height="554"/>
+                                                        <size key="minSize" width="513" height="554"/>
                                                         <size key="maxSize" width="540" height="10000000"/>
                                                     </textView>
                                                 </subviews>
@@ -514,7 +513,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="1WS-JM-Ro7">
-                                                <rect key="frame" x="513" y="1" width="16" height="554"/>
+                                                <rect key="frame" x="514" y="1" width="15" height="554"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
