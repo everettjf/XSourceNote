@@ -27,7 +27,12 @@
     
     NSMutableString *content = [[NSMutableString alloc]init];
     
-    [content appendString:@"\n\n"];
+    NSString *filePrefix = st.filePrefix;
+    if(filePrefix && ![filePrefix isEqualToString:@""]){
+        [content appendString:st.filePrefix];
+        [content appendString:@"\n\n\n"];
+    }
+    
     [content appendFormat:@"# Basic Information\n"];
     [content appendFormat:@" - Name : %@\n", st.projectName];
     [content appendFormat:@" - Site : %@\n", st.projectSite];
