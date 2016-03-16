@@ -10,6 +10,7 @@
 #import "XSourceNoteUtil.h"
 #import "XSourceNoteModel.h"
 #import "XSourceNoteWindowController.h"
+#import "XSourceNoteQuickNoteWindowController.h"
 #import "XSourceNoteDefaults.h"
 #import "XSourceNoteStorage.h"
 
@@ -17,6 +18,7 @@
 
 @property (nonatomic, strong, readwrite) NSBundle *bundle;
 @property (nonatomic, strong) XSourceNoteWindowController *windowController;
+@property (nonatomic, strong) XSourceNoteQuickNoteWindowController *quickNote;
 @end
 
 @implementation XSourceNote
@@ -142,6 +144,17 @@
     
     NSView *sidebar = [editor valueForKey:@"_sidebarView"];
     if(sidebar)[sidebar setNeedsDisplay:YES];
+    
+    if(!self.quickNote){
+        self.quickNote = [[XSourceNoteQuickNoteWindowController alloc]init];
+        self.quickNote.line = lineNote;
+        [self.quickNote.window makeKeyAndOrderFront:nil];
+        [self.quickNote refresh];
+    }else{
+        self.quickNote.line = lineNote;
+        [self.quickNote refresh];
+        [self.quickNote.window orderFront:nil];
+    }
 }
 
 - (void)showNotes{

@@ -49,6 +49,8 @@
 		D1AF1FC21C664BD100CECB8B /* XSourceNote.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = D1AF1FC11C664BD100CECB8B /* XSourceNote.xcscheme */; };
 		D1AF1FC51C664BD100CECB8B /* XSourceNote.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AF1FC41C664BD100CECB8B /* XSourceNote.m */; };
 		D1AF1FC81C664BD100CECB8B /* NSObject_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AF1FC71C664BD100CECB8B /* NSObject_Extension.m */; };
+		D1E51DCD1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E51DCB1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.m */; };
+		D1E51DCE1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E51DCC1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +135,9 @@
 		D1AF1FC61C664BD100CECB8B /* NSObject_Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObject_Extension.h; sourceTree = "<group>"; };
 		D1AF1FC71C664BD100CECB8B /* NSObject_Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSObject_Extension.m; sourceTree = "<group>"; };
 		D1AF1FC91C664BD100CECB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1E51DCA1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSourceNoteQuickNoteWindowController.h; sourceTree = "<group>"; };
+		D1E51DCB1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XSourceNoteQuickNoteWindowController.m; sourceTree = "<group>"; };
+		D1E51DCC1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XSourceNoteQuickNoteWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +168,9 @@
 				D1AA5DB81C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.h */,
 				D1AA5DB91C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.m */,
 				D1AA5DBA1C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.xib */,
+				D1E51DCA1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.h */,
+				D1E51DCB1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.m */,
+				D1E51DCC1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -396,6 +404,7 @@
 				D1AF1FC21C664BD100CECB8B /* XSourceNote.xcscheme in Resources */,
 				D1AA5DC41C8209D2005DC6A7 /* XSourceNotePreferencesWindowController.xib in Resources */,
 				D1AA5DC71C8209D2005DC6A7 /* XSourceNoteWindowController.xib in Resources */,
+				D1E51DCE1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +430,7 @@
 				D1AF1FC51C664BD100CECB8B /* XSourceNote.m in Sources */,
 				D18CDC001C8DD535003651E8 /* XSStore.m in Sources */,
 				D17825C81C8B31A4005F78FE /* XSourceNoteTableView.m in Sources */,
+				D1E51DCD1C98489F00539DC2 /* XSourceNoteQuickNoteWindowController.m in Sources */,
 				D158AB0D1C91CDFB0009DBE6 /* XSourceNoteDataset.m in Sources */,
 				D1AA5D881C820788005DC6A7 /* JRSwizzle.m in Sources */,
 				D1269E021C84ACBB00C6F728 /* XSourceNoteStorage.m in Sources */,

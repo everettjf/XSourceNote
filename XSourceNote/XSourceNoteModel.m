@@ -91,7 +91,10 @@ static inline NSString* XSourceNote_HashLine(NSString *source,NSUInteger line){
             entity.source = note.source;
             entity.begin = note.begin.unsignedIntegerValue;
             entity.end = note.end.unsignedIntegerValue;
-            entity.content = [[NSString alloc]initWithString:note.content];
+            if(note.content)
+                entity.content = [[NSString alloc]initWithString:note.content];
+            else
+                entity.content = @"";
             entity.code = note.code;
             [entities addObject:entity];
         }
