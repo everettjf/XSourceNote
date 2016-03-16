@@ -14,6 +14,7 @@
     self = [super initWithCoder:coder];
     if(self){
         self.font = [NSFont systemFontOfSize:17];
+        self.richText = NO;
     }
     return self;
 }
