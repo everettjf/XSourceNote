@@ -127,7 +127,7 @@
         [alert addButtonWithTitle:@"OK"];
         [alert setInformativeText:@"Current source is not under your root path, or your root path is incorrect."];
         [alert runModal];
-        return;
+//        return;
     }
     
     NSString *relativePath = [sourcePath stringByReplacingOccurrencesOfString:st.rootPath withString:@""];

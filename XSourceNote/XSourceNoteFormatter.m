@@ -51,7 +51,8 @@
     [content appendString:@"# File Notes\n"];
     NSArray *notes = [st fetchAllLineNotes];
     [notes enumerateObjectsUsingBlock:^(XSNote *  _Nonnull n, NSUInteger idx, BOOL * _Nonnull stop) {
-        [content appendFormat:@"\n## %@. %@\n\n",@(idx), n.source];
+        [content appendFormat:@"\n## %@. %@\n\n",@(idx), [n.source lastPathComponent]];
+        [content appendFormat:@" - Path : %@\n",n.source];
         [content appendFormat:@" - Line : %@ - %@\n", n.begin, n.end];
         [content appendFormat:@" - Note : \n"];
         
