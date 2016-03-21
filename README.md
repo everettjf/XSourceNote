@@ -1,14 +1,22 @@
 # XSourceNote
-- It is an Xcode plugin.
-- It is used for writing notes when reading a source code in Xcode.
-- It can generating a markdown article.
+- An Xcode plugin.
+- Used for writing notes when browsing source code.
+- Generate a markdown article.
 
-# Todo
 
-- [X] Get the current line
-- [ ] Get the range of selected lines
-- [X] Note icon in the sidebar
-- [ ] CoreData model design , and saving
-- [ ] Relative file path (root as nearest .git directory)
-- [ ] Testing
-- [ ] 0.1 Version
+
+![XSourceNote](http://everettjf.github.io/stuff/xsourcenote/project_whole.png)
+
+
+# Install
+
+Search `XSourceNote` in [Alcatraz](http://alcatraz.io) , click install ,and restart Xcode.
+
+# Shortcut
+
+- Command+F4 : Add a note
+- Shift+F4 : Show list of notes.
+
+
+
+
