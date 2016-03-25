@@ -49,7 +49,7 @@
     
     NSMenuItem *menuItem = [[NSApp mainMenu] itemWithTitle:@"Edit"];
     if (menuItem) {
-//        [[menuItem submenu] addItem:[NSMenuItem separatorItem]];
+        [[menuItem submenu] addItem:[NSMenuItem separatorItem]];
         
         NSMenuItem *mainMenu = [[menuItem submenu]addItemWithTitle:@"XSourceNote" action:nil keyEquivalent:@""];
         NSMenu *submenu = [[NSMenu alloc]init];
