@@ -75,10 +75,14 @@ static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
     return _notePath;
 }
 
+- (BOOL)isValid{
+    return self.notePath != nil;
+}
+
 - (BOOL)ensureDB{
     if(_dbReady)return YES;
     
-    if(!self.notePath)return NO;
+    if(![self isValid])return NO;
     
     NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
     

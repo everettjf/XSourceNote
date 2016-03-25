@@ -83,9 +83,20 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)alertWorkspaceInvalid{
+    NSAlert *alert = [[NSAlert alloc]init];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setInformativeText:@"Please open a workspace."];
+    [alert runModal];
+}
+
 - (void)toggleNote
 {
     [[XSourceNoteModel sharedModel]ensureInit];
+    if(![[XSourceNoteStorage sharedStorage]isValid]){
+        [self alertWorkspaceInvalid];
+        return;
+    }
     
     IDESourceCodeEditor* editor = [XSourceNoteUtil currentEditor];
     if(!editor)return;
@@ -161,6 +172,10 @@
 
 - (void)showNotes{
     [[XSourceNoteModel sharedModel]ensureInit];
+    if(![[XSourceNoteStorage sharedStorage]isValid]){
+        [self alertWorkspaceInvalid];
+        return;
+    }
     
     if(self.windowController.window.isVisible){
         [self.windowController.window close];

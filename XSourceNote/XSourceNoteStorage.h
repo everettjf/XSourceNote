@@ -15,6 +15,7 @@
 
 + (XSourceNoteStorage*)sharedStorage;
 - (BOOL)ensureDB;
+- (BOOL)isValid;
 
 @property (strong) NSString *rootPath;
 
