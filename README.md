@@ -22,6 +22,13 @@ Search `XSourceNote` in [Alcatraz](http://alcatraz.io) , click install ,and rest
 
 # Usage
 
+## 0. Menu
+
+`Xcode->Edit->XSourceNote`
+
+or press the shortcut for each menu item.
+(Menu shortcut is configurable in the `Tool` cell below)
+
 ## 1. Config
 e.g.
 
