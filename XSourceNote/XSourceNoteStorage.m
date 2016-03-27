@@ -64,9 +64,8 @@ static NSString * const kStoreKeyFilePrefix = @"FilePrefix";
     NSString *projectName = [workspaceFilePath lastPathComponent];
     projectName = [projectName stringByDeletingPathExtension];
     
-    NSString *settingFileName = [NSString stringWithFormat:@"%@_%lu.db",
-                                 projectName,
-                                 [workspaceFilePath hash] % 1000
+    NSString *settingFileName = [NSString stringWithFormat:@"%@.db",
+                                 projectName
                                  ];
     
     NSString *noteUrlString =[[XSourceNoteUtil notesDirectory] stringByAppendingPathComponent:settingFileName];
