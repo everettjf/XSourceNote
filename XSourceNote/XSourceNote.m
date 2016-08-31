@@ -120,7 +120,7 @@
 //    NSLog(@"code below = \n%@", codeOfLines);
     
     // length of "file://" is 7
-    NSString *sourcePath = [[editor.sourceCodeDocument.fileURL absoluteString] substringFromIndex:7];
+    NSString *sourcePath = [[[editor.sourceCodeDocument.fileURL absoluteString] substringFromIndex:7] stringByRemovingPercentEncoding];
     
     XSourceNoteStorage *st = [XSourceNoteStorage sharedStorage];
     if([st.rootPath isEqualToString:@""]){
