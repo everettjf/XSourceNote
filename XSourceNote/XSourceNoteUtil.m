@@ -90,7 +90,7 @@
     if(nil == document)
         return nil;
     DVTFilePath *workspacefilePath = document.workspace.representingFilePath;
-    return [workspacefilePath.fileURL absoluteString];
+    return [[workspacefilePath.fileURL absoluteString] stringByRemovingPercentEncoding];
 }
 
 + (void)highlightLine:(NSUInteger)lineNumber inTextView:(NSTextView*)textView
